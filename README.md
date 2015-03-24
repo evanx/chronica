@@ -11,7 +11,7 @@ It's a design/work in progress, as a side-project, to build a microservice-based
 
 The intial problem that prompted Chronic, was a sysadmin receiving many overnight custom cronjob emails. 
 
-Chronic is a monitoring server whereby client machines can pipe post output e.g. from shell scripts, to this server. This text is diff'ed to the previous posting e.g from the previous day, and then emailed only when the content has changed.
+Chronic was a monitoring server whereby client machines can pipe post output e.g. from shell scripts, to this server. This text is diff'ed to the previous posting e.g from the previous day, and then emailed only when the content has changed.
 
 We wanted to use `curl` to HTTPS POST text to the server. An extensible client bash script was developed, which included various standard checks. More importantly, it enabled custom checks using shell commands.
 
