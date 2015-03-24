@@ -1,7 +1,7 @@
 
 # chronica - microservice-based monitoring
 
-Chronica is envisaged as a minimal, secure monitoring solution using Node.js and Redis.
+Chronica is envisaged as a simple secure monitoring solution using Node.js and Redis.
 
 This is a Node redesign of my abandoned Java <a href="https://github.com/evanx/chronic">Chronic</a> project.
 
