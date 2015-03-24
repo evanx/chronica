@@ -12,9 +12,9 @@ It's a design/work in progress, as a side-project.
 
 The intial problem that prompted Chronic, was my receiving many overnight cronjob emails, from custom backup scripts etc. And wanting to use cron scripts for monitoring security-related information.
 
-Chronic was a Java monitoring server whereby client machines can post output e.g. from shell scripts, to this server. This text is diff'ed to the previous posting e.g from the previous day, and then sending a notification when the content has changed. This enabled any custom monitoring scripts to be run via cron, e.g. every minute, or every day.
+Chronic was a Java monitoring server whereby client machines can post output e.g. from shell scripts, to this server. This text is diff'ed to the previous posting e.g from the previous day, and then sending a notification when the content has changed. This enabled custom monitoring scripts to be run via the cron, e.g. every minute, or every day.
 
-An extensible client bash script was developed, which included various standard checks. More importantly, it enabled custom checks. It piped the output of "checks" into `curl` in order to HTTPS POST information to the server via secure SSL. Email notifications would include HTTPS links to view the text securely via browser, with Mozilla Persona authentication.
+An extensible client bash script was developed, which included various standard checks. More importantly, it enabled custom checks. It piped the output of "checks" into `curl` in order to POST information to the server via HTTPS. Email notifications would include HTTPS links to view the information via the browser, with Mozilla Persona authentication. This seemed like a simple secure solution to the problem of custom monitoring of security and operations.
 
 Anyway, the Chronic server was a terribly monolithic Java/SQL application, with an Angular front-end. Anyway, I abandoned that project within a few months, about a year ago.
 
