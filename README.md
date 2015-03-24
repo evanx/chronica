@@ -25,7 +25,7 @@ But monitoring is fun. So Chronica will re-imagine that solution, and implement 
 Also I hope that by building an easy free service for security monitoring, based on this opensource project, might have a positive effect on internet security for many.
 
 
-### Chronica services
+### Chronica overview
 
 * example "agent" script (Node)
 * admin console (ReactJS)
@@ -35,7 +35,7 @@ Also I hope that by building an easy free service for security monitoring, based
 * cert service 
 
 
-### Related services
+### Chronica services
 
 #### cert service 
 
