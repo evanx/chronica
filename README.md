@@ -20,17 +20,20 @@ This seemed like a simple secure solution for custom monitoring of some security
 
 But the Chronic server was a terribly monolithic Java/SQL application, with an Angular front-end. I enjoyed learning Angular for that. Anyway, I abandoned that project within a few months, about a year ago.
 
-But monitoring software is fun to develop, and generally quite useful. So Chronica will re-imagine that solution, and implement it using Node microservices, Redis and ReactJS.
+But monitoring software is fun to develop, and generally quite useful. So Chronica will re-imagine that solution, and implement it using Node microservices, ReactJS, Redis and other services.
 
 
 ### Chronica overview
 
 * example "agent" script (Node)
 * admin console (ReactJS)
-* ingester service
-* data store service (Redis)
-* proxy service
-* cert service 
+* API gateway
+* ingester service (Node)
+* storage service (Redis)
+* document storage service (Elastic)
+* time-series storage service (InfluxDB)
+* proxy service (Node)
+* enrollment service (Node)
 
 
 ### Chronica services
