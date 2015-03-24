@@ -18,7 +18,7 @@ An extensible client bash script was developed, which included various standard 
 
 This seemed like a simple secure solution to the problem of custom monitoring of security and operations.
 
-But the Chronic server was a terribly monolithic Java/SQL application, with an Angular front-end. I enjoyed using Angular for the first time. Anyway, I abandoned that project within a few months, about a year ago.
+But the Chronic server was a terribly monolithic Java/SQL application, with an Angular front-end. I enjoyed learning and using Angular for that. Anyway, I abandoned that project within a few months, about a year ago.
 
 But monitoring is fun. So Chronica will re-imagine that solution, and implement it using Node microservices, Redis and ReactJS.
 
