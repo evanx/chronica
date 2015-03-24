@@ -22,7 +22,7 @@ But the Chronic server was a terribly monolithic Java/SQL application, with an A
 
 But monitoring is fun. So Chronica will re-imagine that solution, and implement it using Node microservices, Redis and ReactJS.
 
-### Chronica 
+### Chronica services
 
 * client script - example client script (Node)
 * admin console (ReactJS)
