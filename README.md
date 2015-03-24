@@ -1,5 +1,5 @@
 
-# chronica - microservice-based monitoring
+# Chronica - microservice-based monitoring
 
 Chronica is envisaged as a simple secure monitoring solution using Node.js and Redis.
 
