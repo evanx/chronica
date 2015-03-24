@@ -22,9 +22,12 @@ But the Chronic server was a terribly monolithic Java/SQL application, with an A
 
 But monitoring is fun. So Chronica will re-imagine that solution, and implement it using Node microservices, Redis and ReactJS.
 
+Also I hope that by building an easy free service for security monitoring, this project might have a positive effect on internet security for many.
+
+
 ### Chronica services
 
-* client script - example client script (Node)
+* example "agent" script (Node)
 * admin console (ReactJS)
 * ingester service
 * data store service (Redis)
