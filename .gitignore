@@ -1,0 +1,7 @@
+/.idea
+/nbproject/private/
+/node_modules/
+/tmp
+*.log
+/certs
+/authserver/nbproject/private/
