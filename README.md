@@ -1,11 +1,12 @@
 
-# chronica - a monitoring service
+# chronica - microservice-based monitoring
 
-Chronica is a cloud monitoring server using Node.js and Redis.
+Chronica is envisaged as monitoring solution using Node.js and Redis.
 
-This is a Node "rewrite" of my abandoned Java <a href="https://github.com/evanx/chronic">Chronic</a> project.
+This is a Node redesign of my abandoned Java <a href="https://github.com/evanx/chronic">Chronic</a> project.
 
-It's a design/work in progress, as a side-project, to build a microservice-based solution for monitoring servers and services. 
+It's a design/work in progress, as a side-project.
+ 
 
 ### Background: Chronic
 
