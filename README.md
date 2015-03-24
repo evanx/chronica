@@ -10,9 +10,9 @@ It's a design/work in progress, as a side-project.
 
 ### Background: Chronic
 
-The intial problem that prompted Chronic, was my receiving many overnight custom cronjob emails. 
+The intial problem that prompted Chronic, was my receiving many overnight cronjob emails, from custom backup scripts etc. And wanting to use cron scripts for monitoring security-related information.
 
-Chronic was a Java monitoring server whereby client machines can post output e.g. from shell scripts, to this server. This text is diff'ed to the previous posting e.g from the previous day, and then emailed only when the content has changed.
+Chronic was a Java monitoring server whereby client machines can post output e.g. from shell scripts, to this server. This text is diff'ed to the previous posting e.g from the previous day, and then sending a notification when the content has changed. This enabled custom minutely monitoring scripts to be run via cron.
 
 An extensible client bash script was developed, which included various standard checks. More importantly, it enabled custom checks. It piped the output of "checks" into `curl` in order to HTTPS POST information to the server via secure SSL. Email notifications would include HTTPS links to view the text securely via browser, with Mozilla Persona authentication.
 
