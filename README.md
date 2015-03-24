@@ -10,7 +10,7 @@ It's a design/work in progress, as a side-project.
 
 ### Background: Chronic
 
-The intial problem that prompted Chronic, was my receiving many overnight cronjob emails, from custom backup scripts etc. And wanting to use cron scripts for monitoring security-related information.
+The initial problem that prompted Chronic, was my receiving many overnight cronjob emails, from custom backup scripts etc. And wanting to use cron scripts for monitoring security-related information.
 
 Chronic was a Java monitoring server whereby client machines can post output e.g. from shell scripts, to this server. This text is diff'ed to the previous posting e.g from the previous day, and then sending a notification when the content has changed. This enabled custom monitoring scripts to be run via the cron, e.g. every minute, or every day.
 
