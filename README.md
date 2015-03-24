@@ -1,5 +1,7 @@
 
-## chronica - a cloud monitoring server using Node.js and Redis
+# chronica 
+
+### a cloud monitoring server using Node.js and Redis
 
 This is a Node "rewrite" of my abandoned Java <a href="https://github.com/evanx/chronic">Chronic</a> project.
 
