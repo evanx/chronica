@@ -10,13 +10,13 @@ It's a design/work in progress, as a side-project.
 
 ### Background: Chronic
 
-The intial problem that prompted Chronic, was a sysadmin receiving many overnight custom cronjob emails. 
+The intial problem that prompted Chronic, was my receiving many overnight custom cronjob emails. 
 
-Chronic was a Java monitoring server whereby client machines can pipe post output e.g. from shell scripts, to this server. This text is diff'ed to the previous posting e.g from the previous day, and then emailed only when the content has changed.
+Chronic was a Java monitoring server whereby client machines can post output e.g. from shell scripts, to this server. This text is diff'ed to the previous posting e.g from the previous day, and then emailed only when the content has changed.
 
-An extensible client bash script was developed, which included various standard checks. More importantly, it enabled custom checks. It piped the output of "checks" into `curl` to HTTPS POST to the server via secure SSL.
+An extensible client bash script was developed, which included various standard checks. More importantly, it enabled custom checks. It piped the output of "checks" into `curl` in order to HTTPS POST information to the server via secure SSL. Email notifications would include HTTPS links to view the text securely via browser, with Mozilla Persona authentication.
 
-Anyway, the Chronic server was a terribly monolithic Java/SQL application, with an Angular front-end. Anyway, I abandoned that project.
+Anyway, the Chronic server was a terribly monolithic Java/SQL application, with an Angular front-end. Anyway, I abandoned that project within a few months, about a year ago.
 
 But monitoring is fun. Chronica will re-imagine that solution, and implement it using Node microservices, Redis and ReactJS.
 
