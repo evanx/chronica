@@ -1,11 +1,16 @@
 {
+<<<<<<< HEAD
   "name": "chronica",
+=======
+  "name": "cronica-active",
+>>>>>>> 3f408f2cb5a02c1c5655ca8a9094d2c9cefa0fad
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+<<<<<<< HEAD
   "repository": {
     "type": "git",
     "url": "https://github.com/evanx/chronica.git"
@@ -22,5 +27,14 @@
     "redis": "^0.12.1",
     "redis-client": "^0.3.5",
     "winston": "^0.9.0"
+=======
+  "author": "Evan Summers <evan.summers@gmail.com> (https://github.com/evanx)",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^0.9.0",
+    "express": "^4.12.3",
+    "lodash": "^3.6.0",
+    "request": "^2.54.0"
+>>>>>>> 3f408f2cb5a02c1c5655ca8a9094d2c9cefa0fad
   }
 }

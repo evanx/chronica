@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /.idea
 /nbproject/private/
 /node_modules/
@@ -5,3 +6,14 @@
 *.log
 /certs
 /authserver/nbproject/private/
+=======
+.idea
+/nbproject/private/
+/node_modules
+/tmp/*
+/conf/*
+/logs/*
+/backups/*
+/*.log
+/*.out
+>>>>>>> 3f408f2cb5a02c1c5655ca8a9094d2c9cefa0fad
