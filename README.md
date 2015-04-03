@@ -1,7 +1,7 @@
 
 # Chronica Active
 
-<b>Microservice to monitor urls</b>
+## Microservice to monitor urls
 
 
 ### Other resources
