@@ -4,7 +4,7 @@
 See: https://github.com/evanx/chronica-active/blob/master/lib/checkUrls.js
 
 
-### Chronica
+### Background: Chronica suite
 
 Chronica is envisaged as suite of components and microservices to assist with centralized logging, analytics and monitoring.
 
