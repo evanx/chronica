@@ -40,7 +40,7 @@ The initial trivial implementation checks URLs and alerts via email e.g. with th
 }
 ```
 
-The URLs are checked every `period` and the nonzero `alertCount` is used for debouncing status changes, e.g. if the status changes, then upon a subsequent check, the alert is triggered.
+The URLs are checked every `period` e.g. 60 seconds, and the nonzero `alertCount` is used for debouncing status changes, e.g. if the status changes, then upon a subsequent recheck, the alert is triggered e.g. 2 minutes later.
 
 See: https://github.com/evanx/chronica-active/blob/master/lib/Services.js
 
