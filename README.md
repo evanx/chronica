@@ -12,6 +12,8 @@ The technology stack includes Node, Redis and ReactJS.
 
 This is inspired by an earlier effort which used Java, SQL and AngularJS, namely <a href="https://github.com/evanx/chronic">Chronic</a>, which has been abandoned.
 
+See: https://github.com/evanx/chronica
+
 
 ### Sample config file
 
