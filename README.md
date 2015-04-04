@@ -43,6 +43,7 @@ Currently the application is hardcoded to load the config file from `/var/chroni
 
 See: https://github.com/evanx/chronica-active/blob/master/lib/app-active-chronica.js
 
+
 ### Triggering alerts
 
 The URLs are checked every `period` e.g. 60 seconds, and the nonzero `alertCount` is used for debouncing status changes.
@@ -50,6 +51,13 @@ The URLs are checked every `period` e.g. 60 seconds, and the nonzero `alertCount
 If the status changes, then only upon a subsequent recheck, is the alert triggered e.g. 2 minutes later.
 
 See: https://github.com/evanx/chronica-active/blob/master/lib/Services.js
+
+
+### Alerts
+
+We use `nodemailer` which seems to work out the box at least for `@gmail.com` addresses.
+
+See: https://github.com/evanx/chronica-active/blob/master/lib/ALerts.js
 
 
 ### Other resources
