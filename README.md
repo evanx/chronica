@@ -41,6 +41,7 @@ The initial trivial implementation checks URLs and alerts admins via email when 
 
 Currently the application is hardcoded to load the config file from `/var/chronica/active.json` unless it is specified in the environment variable `CONFIG_FILE.`
 
+See: https://github.com/evanx/chronica-active/blob/master/lib/app-active-chronica.js
 
 ### Triggering alerts
 
