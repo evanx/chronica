@@ -15,7 +15,7 @@ This is inspired by an earlier effort which used Java, SQL and AngularJS, namely
 
 ### Sample config file
 
-The initial trivial implementation checks URLs and alerts admins via email when the site goes down or the HTTP response code changes e.g. from 200 to 404.
+The initial trivial implementation checks URLs and alerts admins via email when the site goes down or the HTTP response code changes e.g. from 200 to an error response e.g. 500 or 404.
 
 ```json
 {
