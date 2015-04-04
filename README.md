@@ -55,9 +55,9 @@ See: https://github.com/evanx/chronica-active/blob/master/lib/Services.js
 
 ### Alerts
 
-We use `nodemailer` which seems to work out the box at least for `@gmail.com` addresses.
+We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/ALerts.js
+See: https://github.com/evanx/chronica-active/blob/master/lib/Alerts.js
 
 
 ### Other resources
