@@ -1,5 +1,5 @@
 
-## Chronica Active - A microservice to monitor urls
+## Chronica Active - a microservice to monitor urls
 
 See: https://github.com/evanx/chronica-active/blob/master/lib/checkUrls.js
 
