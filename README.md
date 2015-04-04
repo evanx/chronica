@@ -1,13 +1,14 @@
 
 # Chronica Active
 
-## Microservice to monitor urls
+<b>A Microservice to monitor urls</b>
 
 See: https://github.com/evanx/chronica-active/blob/master/lib/checkUrls.js
 
+
 ### Chronica
 
-Chronica is envisaged as suite of components and microservices for centralized logging, analytics and monitoring.
+Chronica is envisaged as suite of components and microservices to assist with centralized logging, analytics and monitoring.
 
 The technology stack includes Node, Redis and ReactJS.
 
