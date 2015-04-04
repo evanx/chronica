@@ -43,6 +43,12 @@ Currently the application is hardcoded to load the config file from `/var/chroni
 
 See: https://github.com/evanx/chronica-active/blob/master/lib/app-active-chronica.js
 
+We start the app as follows using `pm2.`
+
+```shell
+$ cd ~/chronica-active
+$ pm2 start lib/app-active-chronica.js
+```
 
 ### Triggering alerts
 
