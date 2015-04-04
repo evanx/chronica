@@ -44,7 +44,9 @@ Currently the application is hardcoded to load the config file from `/var/chroni
 
 ### Triggering alerts
 
-The URLs are checked every `period` e.g. 60 seconds, and the nonzero `alertCount` is used for debouncing status changes, e.g. if the status changes, then upon a subsequent recheck, the alert is triggered e.g. 2 minutes later.
+The URLs are checked every `period` e.g. 60 seconds, and the nonzero `alertCount` is used for debouncing status changes.
+
+If the status changes, then only upon a subsequent recheck, is the alert triggered e.g. 2 minutes later.
 
 See: https://github.com/evanx/chronica-active/blob/master/lib/Services.js
 
