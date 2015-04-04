@@ -59,7 +59,7 @@ If the status changes, then only upon a subsequent recheck, is the alert trigger
 See: https://github.com/evanx/chronica-active/blob/master/lib/Services.js
 
 
-### Alerts
+### Sending alerts
 
 We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
