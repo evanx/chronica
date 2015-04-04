@@ -1,2 +1,2 @@
 
-require('lib/lib/app-active-chronica.js');
+require('./lib/app-active-chronica.js');
