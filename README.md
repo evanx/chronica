@@ -15,7 +15,7 @@ This is inspired by an earlier effort which used Java, SQL and AngularJS, namely
 
 ### Sample config file
 
-The initial trivial implementation checks URLs and alerts via email e.g. with the HTTP response code changes e.g. from 200 to 404.
+The initial trivial implementation checks URLs and alerts admins via email when the HTTP response code changes e.g. from 200 to 404.
 
 ```json
 {
