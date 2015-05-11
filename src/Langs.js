@@ -14,20 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-var configFile = '/var/pri/chronica/active.json';
+var lodash = require('lodash');
 
-if (process.env.CONFIG_FILE) {
-   configFile = process.env.CONFIG_FILE;
+export function assign(target, source) {
+   lodash.forEach(source, function(item, key) {
+      target[key] = item;
+   });
+   return target;
 }
-
-global.config = require(configFile);
-
-var chronicaLogger = require('./chronicaLogger');
-
-global.log = chronicaLogger({name: 'chronica-active', level: 'info'});
-
-global.log.info('config urls', config.urls);
-
-require('./report');
-
-require('./checkUrls');

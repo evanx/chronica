@@ -1,7 +1,7 @@
 
 ## Chronica Active - a microservice to monitor urls
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/checkUrls.js
+See: https://github.com/evanx/chronica-active/blob/master/src/checkUrls.js
 
 
 ### Background: Chronica suite
@@ -43,7 +43,7 @@ The initial trivial implementation checks URLs and alerts admins via email when 
 
 Currently the application is hardcoded to load the config file from `/var/chronica/active.json` unless it is specified in the environment variable `CONFIG_FILE.`
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/app-active-chronica.js
+See: https://github.com/evanx/chronica-active/blob/master/src/app-active-chronica.js
 
 We start the app as follows using `pm2.`
 
@@ -58,14 +58,14 @@ The URLs are checked every `period` e.g. 60 seconds, and the nonzero `alertCount
 
 If the status changes, then only upon a subsequent recheck, is the alert triggered e.g. 2 minutes later.
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/Services.js
+See: https://github.com/evanx/chronica-active/blob/master/src/Services.js
 
 
 ### Sending alerts
 
 We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/Alerts.js
+See: https://github.com/evanx/chronica-active/blob/master/src/Alerts.js
 
 
 ### Other resources

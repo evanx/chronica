@@ -1,2 +1,3 @@
 
-require('./lib/app-active-chronica.js');
+require('babel/register');
+require('./src/app.js');
