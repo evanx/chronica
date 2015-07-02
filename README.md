@@ -29,12 +29,14 @@ The initial trivial implementation checks URLs and alerts admins via email when 
 
 ```yaml
 loggerLevel: info
-alert:
-  alertCount: 2
+alerter:
+  debounceCount: 2
   fromEmail: chronica-alerts@my.com
   admins:
   - email: me@my.com
-dailyReport:
+tracker:
+  debounceCount: 2  
+reporter:
   enabled: true
   hour: 16
   minute: 10
@@ -71,11 +73,11 @@ pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml debug
 
 #### Triggering alerts
 
-The URLs are checked every `period` e.g. 60 seconds, and the nonzero `alertCount` is used for debouncing status changes.
+The URLs are checked every `period` e.g. 60 seconds, and the nonzero `debounceCount` is used for debouncing status changes.
 
 If the status changes, then only upon a subsequent recheck, is the alert triggered e.g. 2 minutes later.
 
-See: https://github.com/evanx/chronica-active/blob/master/src/Services.js
+See: https://github.com/evanx/chronica-active/blob/master/src/tracker.js
 
 
 #### Sending alerts

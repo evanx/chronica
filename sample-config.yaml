@@ -1,7 +1,7 @@
 loggerLevel: info
 startReportDelay: 4000 # send an email when starting
 alert:
-  alertCount: 2
+  debounceCount: 2
   fromEmail: chronica-alerts@my.com
   admins:
   - email: me@my.com  
