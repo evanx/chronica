@@ -19,26 +19,22 @@ See: https://github.com/evanx/chronica
 
 The initial trivial implementation checks URLs and alerts admins via email when the site goes down or the HTTP response code changes e.g. from 200 to an error response e.g. 500 or 404.
 
-```json
-{
-   "alerts": {
-      "fromEmail": "chronica-alerts@ngena.com",
-      "admins": [
-          {
-             "email": "...@gmail.com"
-          }
-       ]
-   },
-   "checkUrls": {
-      "period": 60000,
-      "alertCount": 2
-   },
-   "services": [
-      {
-         "url": "github.com/evanx",
-      }
-   ]
-}
+```yaml
+loggerLevel: debug
+alert:
+  alertCount: 2
+  fromEmail: noreply@my.com
+  admins:
+  - email: me@my.com
+dailyReport:
+  enabled: true
+  hour: 16
+  minute: 10
+urlMonitor:
+  period: 60000
+  timeout: 4000
+  services:
+  - url: http://google.co.za
 ```
 
 Currently the application is hardcoded to load the config file from `/var/chronica/active.json` unless it is specified in the environment variable `CONFIG_FILE.`
