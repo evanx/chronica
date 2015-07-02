@@ -27,13 +27,6 @@ git submodule update
 ```
 since we have a submodule dependency on `https://github.com/evanx/redexutil`
 
-```shell
-cd ~/chronica-active
-pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml debug
-```
-
-Any problems, tweet me at `@evanxsummers.`
-
 ### Running
 
 See `scripts/run.sh`
@@ -42,7 +35,12 @@ See `scripts/run.sh`
 ```
 where we specify the config file.
 
-Also see `scripts/restart.pm2.sh`
+Also see `scripts/restart.pm2.sh` which includes the following command:
+```shell
+cd ~/chronica-active
+pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml debug
+```
+where you need to create your own configuration file.
 
 ### Sample config file
 
@@ -86,5 +84,9 @@ See: https://github.com/evanx/chronica-active/blob/master/src/Alerts.js
 ### Other resources
 
 Chronica overview: https://github.com/evanx/chronica
+
+Redex: https://github.com/evanx/redex
+
+Redex utils: https://github.com/evanx/redexutil
 
 Wiki home: https://github.com/evanx/vellum/wiki
