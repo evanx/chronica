@@ -68,7 +68,7 @@ where we specify the config file.
 Also see `scripts/restart.pm2.sh` which includes the following command:
 ```shell
 cd ~/chronica-active
-pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml debug
+pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
 ```
 
 ### Implementation
