@@ -1,6 +1,4 @@
 
 
-export CONFIG_FILE=/var/chronica/active.json
-
-  node index.js | bunyan -o short
+  node index.js /var/chronica/active.yaml debug | bunyan -o short
 
