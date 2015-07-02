@@ -1,4 +1,4 @@
 
 
-  node index.js /var/chronica/active.yaml debug | bunyan -o short
+  node index.js ~/.chronica-active.yaml debug | bunyan -o short
 
