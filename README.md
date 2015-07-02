@@ -20,6 +20,8 @@ See `scripts/run.sh`
 ```
 where we specify the config file.
 
+Also see `scripts/restart.pm2.sh`
+
 ### Sample config file
 
 The initial trivial implementation checks URLs and alerts admins via email when the site goes down or the HTTP response code changes e.g. from 200 to an error response e.g. 500 or 404.
