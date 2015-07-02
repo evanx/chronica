@@ -41,7 +41,8 @@ urlMonitor:
   period: 60000
   timeout: 4000
   services:
-  - url: http://google.co.za
+  - url: http://google.com
+  - url: http://facebook.com
 ```
 
 ### Triggering alerts
