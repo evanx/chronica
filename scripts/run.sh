@@ -2,5 +2,5 @@
 
 export CONFIG_FILE=/var/chronica/active.json
 
-node index.js
+  node index.js | bunyan -o short
 
