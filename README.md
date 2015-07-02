@@ -12,6 +12,14 @@ This is inspired by an earlier effort which used Java, SQL and AngularJS, namely
 See: https://github.com/evanx/chronica
 
 
+### Installing
+
+See `scripts/run.sh`
+```shell
+  node index.js ~/.chronica-active.yaml debug | bunyan -o short
+```
+where we specify the config file.
+
 ### Sample config file
 
 The initial trivial implementation checks URLs and alerts admins via email when the site goes down or the HTTP response code changes e.g. from 200 to an error response e.g. 500 or 404.
