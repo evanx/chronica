@@ -15,7 +15,6 @@ See: https://github.com/evanx/chronica
 ### Installing
 
 ```shell
-cd
 git clone https://github.com/evanx/chronica-active
 cd chronica-active
 cat package.json
@@ -24,6 +23,8 @@ git submodule init
 git submodule update
 ```
 Note we have a submodule dependency on `https://github.com/evanx/redexutil` for generic utils for ES7. (We use ES7 async functions, via Babel.)
+
+Note that we include `redis` in our `package.json` for `redexutil/Redis` which is automatically imported by `Utils.`
 
 ### Sample config file
 
@@ -50,9 +51,11 @@ urlMonitor:
 
 ### Running
 
-Ensure `bunyan` and `pm2` are installed globally.
-
 You must create your own configuration file e.g. `~/.chronica-active.yaml.`
+
+These scripts are just a guide and probably won't work for you because we assume:
+- `bunyan` and `pm2` are installed globally
+- `chronica-active` is installed in the root of your home directory
 
 See `scripts/run.sh`
 ```shell
