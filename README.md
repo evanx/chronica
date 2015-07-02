@@ -1,15 +1,14 @@
 
 ## Chronica Active - a microservice to monitor urls
 
-### Background: Chronica suite
+This is a lightweight solution for some quick monitoring.
 
-Chronica is envisaged as suite of components and microservices to assist with centralized logging, analytics and monitoring.
+Looking forward, we will implement this functionality in Redex: https://github.com/evanx/redex.
 
-The technology stack includes Node, Redis and ReactJS.
+
+### Background: Chronica
 
 This is inspired by an earlier effort which used Java, SQL and AngularJS, namely <a href="https://github.com/evanx/chronic">Chronic</a>, which has been abandoned.
-
-See: https://github.com/evanx/chronica
 
 
 ### Installing
