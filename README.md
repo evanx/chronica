@@ -31,7 +31,7 @@ The initial trivial implementation checks URLs and alerts admins via email when 
 loggerLevel: debug
 alert:
   alertCount: 2
-  fromEmail: noreply@my.com
+  fromEmail: chronica-alerts@my.com
   admins:
   - email: me@my.com
 dailyReport:
