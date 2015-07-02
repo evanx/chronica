@@ -28,7 +28,8 @@ git submodule update
 since we have a submodule dependency on `https://github.com/evanx/redexutil`
 
 ```shell
-pm2 start ~/chronica-active/index.js --name chronica-active -- ~/.chronica-active.yaml debug
+cd ~/chronica-active
+pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml debug
 ```
 
 Any problems, tweet me at `@evanxsummers.`
