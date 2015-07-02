@@ -85,9 +85,8 @@ We perform an HTTP HEAD request and check that the response has status code 200.
 
 ```javascript
 async function checkService(service) {
-   let log = logger.method('checkUrl', service.name);
    try {
-      let content = await Requests.request({url: service.url, method: 'head',
+      let content = await Requests.request({url: service.url, method: 'HEAD',
             timeout: config.timeout});
       assert(lodash.isEmpty(content), 'empty content');
       tracker.processStatus(service, 'OK');
@@ -96,6 +95,10 @@ async function checkService(service) {
    }
 }
 ```
+where we perform a `HEAD` request, using an ES7 `async` function.
+
+Note that we use the `redexutil` promise wrapper to `await` the highly-starred `request` NPM module.
+
 See: https://github.com/evanx/chronica-active/blob/master/lib/UrlsMonitor.js
 
 #### Triggering alerts
