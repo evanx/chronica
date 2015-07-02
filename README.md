@@ -1,14 +1,14 @@
 
 ## Chronica Active - a microservice to monitor urls
 
-This is a lightweight solution for some quick monitoring.
+This is a lightweight solution for some quick monitoring of URLs. We regularly perform an HTTP HEAD request, and check that we get a 200 response.
 
 Looking forward, we will implement this functionality in Redex: https://github.com/evanx/redex.
 
 
-### Background: Chronica
+### Background
 
-This is inspired by an earlier effort which used Java, SQL and AngularJS, namely <a href="https://github.com/evanx/chronic">Chronic</a>, which has been abandoned.
+This is inspired by earlier monitoring efforts in Java, namely <a href="https://github.com/evanx/chronic">Chronic</a>, which has been abandoned.
 
 
 ### Installing
