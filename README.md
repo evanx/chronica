@@ -23,9 +23,7 @@ npm install
 git submodule init
 git submodule update
 ```
-Note we have a submodule dependency on `https://github.com/evanx/redexutil` for generic utils for ES7.
-
-(We use ES7 async functions, via Babel.)
+Note we have a submodule dependency on `https://github.com/evanx/redexutil` for generic utils for ES7. (We use ES7 async functions, via Babel.)
 
 ### Sample config file
 
