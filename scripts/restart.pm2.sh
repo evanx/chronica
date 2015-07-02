@@ -11,7 +11,7 @@
 
   pm2 stop chronica-active 
 
-  pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml debug
+  pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
 
   pm2 show chronica-active
 

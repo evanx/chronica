@@ -37,8 +37,7 @@ tracker:
   debounceCount: 2  
 reporter:
   helloDelay: 16000 # send an email 16 seconds after starting
-  period: 45000 # check every 45 seconds
-  timeout: 8000 # connection timeout after 8 seconds
+  dailyEnabled: true
   hour: 16 # 16:10 (pm)
   minute: 10
 urlMonitor:
@@ -48,6 +47,8 @@ urlMonitor:
   - url: http://google.com
   - url: http://facebook.com
 ```
+
+See https://github.com/evanx/chronica-active/blob/master/sample-config.yaml
 
 ### Running
 

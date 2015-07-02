@@ -7,7 +7,7 @@ tracker:
   debounceCount: 2
 reporter:
   helloDelay: 16000 # send an email 16 seconds after starting
-  enabled: true
+  dailyEnabled: true
   hour: 16 # 16:10 (pm)
   minute: 10
 urlMonitor:
