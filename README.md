@@ -14,6 +14,21 @@ See: https://github.com/evanx/chronica
 
 ### Installing
 
+```shell
+cd
+git clone https://github.com/evanx/chronica-active
+cd chronica-active
+cat package.json
+npm install
+git submodule init
+git submodule update
+```
+since we have a submodule dependency on `https://github.com/evanx/redexutil`
+
+Any problems, tweet me at `@evanxsummers`
+
+### Running
+
 See `scripts/run.sh`
 ```shell
   node index.js ~/.chronica-active.yaml debug | bunyan -o short
