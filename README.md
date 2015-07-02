@@ -25,6 +25,8 @@ git submodule update
 ```
 Note we have a submodule dependency on `https://github.com/evanx/redexutil` for generic utils for ES7.
 
+(We use ES7 async functions, via Babel.)
+
 ### Sample config file
 
 The initial trivial implementation checks URLs and alerts admins via email when the site goes down or the HTTP response code changes e.g. from 200 to an error response e.g. 500 or 404.
