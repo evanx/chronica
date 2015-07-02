@@ -87,7 +87,8 @@ We perform an HTTP HEAD request and check that the response has status code 200.
 async function checkService(service) {
    let log = logger.method('checkUrl', service.name);
    try {
-      let content = await Requests.request({url: service.url, method: 'head', timeout: config.timeout});
+      let content = await Requests.request({url: service.url, method: 'head',
+            timeout: config.timeout});
       assert(lodash.isEmpty(content), 'empty content');
       tracker.processStatus(service, 'OK');
    } catch (err) {
