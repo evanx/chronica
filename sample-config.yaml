@@ -1,17 +1,18 @@
 loggerLevel: info
-startReportDelay: 4000 # send an email when starting
-alert:
-  debounceCount: 2
+alerter:
   fromEmail: chronica-alerts@my.com
   admins:
-  - email: me@my.com  
-dailyReport:
+  - email: me@my.com
+tracker:
+  debounceCount: 2
+reporter:
+  helloDelay: 16000 # send an email 16 seconds after starting
   enabled: true
-  hour: 16
+  hour: 16 # 16:10 (pm)
   minute: 10
 urlMonitor:
-  period: 60000
-  timeout: 4000
+  period: 45000 # check every 45 seconds
+  timeout: 8000 # connection timeout after 8 seconds
   services:
   - url: http://google.com
     label: Google Inc # default name and label taken from URL

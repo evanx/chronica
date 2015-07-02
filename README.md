@@ -30,19 +30,20 @@ The initial trivial implementation checks URLs and alerts admins via email when 
 ```yaml
 loggerLevel: info
 alerter:
-  debounceCount: 2
   fromEmail: chronica-alerts@my.com
   admins:
   - email: me@my.com
 tracker:
   debounceCount: 2  
 reporter:
-  enabled: true
-  hour: 16
+  helloDelay: 16000 # send an email 16 seconds after starting
+  period: 45000 # check every 45 seconds
+  timeout: 8000 # connection timeout after 8 seconds
+  hour: 16 # 16:10 (pm)
   minute: 10
 urlMonitor:
-  period: 60000
-  timeout: 4000
+  period: 45000 # check every 45 seconds
+  timeout: 8000 # connection timeout after 8 seconds
   services:
   - url: http://google.com
   - url: http://facebook.com
