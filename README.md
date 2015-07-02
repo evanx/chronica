@@ -71,6 +71,12 @@ cd ~/chronica-active
 pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
 ```
 
+You can tail -f the log file as follows:
+```shell
+ls --sort=time ~/.pm2/logs/chronica-active-out-13.log | head -1 | xargs tail -f |
+    node_modules/bunyan/bin/bunyan -o short
+```
+
 ### Implementation
 
 #### Checking URLs
