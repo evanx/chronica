@@ -50,9 +50,10 @@ urlMonitor:
 
 You must create your own configuration file e.g. `~/.chronica-active.yaml.`
 
-These scripts are just a guide and probably won't work for you because we assume:
+The `scripts/` are just a guide and won't work unless:
 - `bunyan` and `pm2` are installed globally
-- `chronica-active` is installed in the root of your home directory
+- `~/chronica-active` exists
+- `~/.chronica-active.yaml` exists
 
 See `scripts/run.sh`
 ```shell
