@@ -33,16 +33,16 @@ alerter:
   fromEmail: chronica-alerts@my.com
   admins:
   - email: me@my.com
-tracker:
-  debounceCount: 2  
+tracker: # tracks the status and decides if and when the send an email alert
+  debounceCount: 2 # status must stay changed during multiple iterations before alert
 reporter:
   helloDelay: 16000 # send an email 16 seconds after starting
-  dailyEnabled: true
+  dailyEnabled: true # send a daily digest of current status of all services
   hour: 16 # 16:10 (pm)
   minute: 10
 urlMonitor:
-  period: 45000 # check every 45 seconds
-  timeout: 8000 # connection timeout after 8 seconds
+  period: 25000 # check status every 45 seconds
+  timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
   - url: http://google.com
   - url: http://facebook.com
