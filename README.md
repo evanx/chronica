@@ -28,7 +28,7 @@ Note we have a submodule dependency on `https://github.com/evanx/redexutil` for 
 The initial trivial implementation checks URLs and alerts admins via email when the site goes down or the HTTP response code changes e.g. from 200 to an error response e.g. 500 or 404.
 
 ```yaml
-loggerLevel: debug
+loggerLevel: info
 alert:
   alertCount: 2
   fromEmail: chronica-alerts@my.com

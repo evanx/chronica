@@ -1,0 +1,19 @@
+loggerLevel: info
+startReportDelay: 4000 # send an email when starting
+alert:
+  alertCount: 2
+  fromEmail: chronica-alerts@my.com
+  admins:
+  - email: me@my.com  
+dailyReport:
+  enabled: true
+  hour: 16
+  minute: 10
+urlMonitor:
+  period: 60000
+  timeout: 4000
+  services:
+  - url: http://google.com
+    label: Google Inc # default name and label taken from URL
+  - url: http://facebook.com
+    name: fb # default name and label taken from URL
