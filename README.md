@@ -73,22 +73,58 @@ pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
 
 ### Implementation
 
+#### Checking URLs
+
+We perform an HTTP HEAD request and check that the response has status code 200.
+
+```javascript
+async function checkService(service) {
+   let log = logger.method('checkUrl', service.name);
+   try {
+      let content = await Requests.request({url: service.url, method: 'head', timeout: config.timeout});
+      assert(lodash.isEmpty(content), 'empty content');
+      tracker.processStatus(service, 'OK');
+   } catch (err) {
+      tracker.processStatus(service, 'CRITICAL', err.message);
+   }
+}
+```
+See: https://github.com/evanx/chronica-active/blob/master/src/UrlsMonitor.js
+
 #### Triggering alerts
 
 The URLs are checked every `interval` e.g. 45 seconds, and a non-zero `debounceCount` is used for debouncing status changes.
+
+```javascript
+function getEventType(service, status) {
+   if (!service.status) { // no status i.e. app restarted
+      return 'initial';
+   } else if (service.status !== status) { // status changed
+      return 'changed';
+   } else { // status unchanged
+      if (service.statusCount === config.debounceCount) {
+         return 'debounced';
+      } else if (service.statusCount < config.debounceCount) {
+         return 'debouncing';
+      } else {
+         return 'unchanged';
+      }
+   }
+}
+```
 
 If `debounceCount` is non-zero, then when the status changes, only upon a subsequent recheck, is the alert triggered e.g. 2 minutes later. This can be configured via:
 - `debounceCount` - the number of checks with a stable status before triggering an alert
 - `interval` - the interval at which checks are performed (i.e. an HTTP HEAD request)
 
-See: https://github.com/evanx/chronica-active/blob/master/src/tracker.js
+See: https://github.com/evanx/chronica-active/blob/master/src/Tracker.js
 
 
 #### Sending alerts
 
 We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
-See: https://github.com/evanx/chronica-active/blob/master/src/alerter.js
+See: https://github.com/evanx/chronica-active/blob/master/src/Alerter.js
 
 
 ### Other resources
