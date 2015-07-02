@@ -11,7 +11,7 @@ reporter:
   hour: 16 # 16:10 (pm)
   minute: 10
 urlMonitor:
-  period: 25000 # check status every 45 seconds
+  interval: 25000 # check status every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
   - url: http://google.com

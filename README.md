@@ -41,7 +41,7 @@ reporter:
   hour: 16 # 16:10 (pm)
   minute: 10
 urlMonitor:
-  period: 25000 # check status every 45 seconds
+  interval: 25000 # check status every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
   - url: http://google.com
@@ -75,9 +75,11 @@ pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
 
 #### Triggering alerts
 
-The URLs are checked every `period` e.g. 60 seconds, and the nonzero `debounceCount` is used for debouncing status changes.
+The URLs are checked every `interval` e.g. 45 seconds, and a non-zero `debounceCount` is used for debouncing status changes.
 
-If the status changes, then only upon a subsequent recheck, is the alert triggered e.g. 2 minutes later.
+If `debounceCount` is non-zero, then when the status changes, only upon a subsequent recheck, is the alert triggered e.g. 2 minutes later. This can be configured via:
+- `debounceCount` - the number of checks with a stable status before triggering an alert
+- `interval` - the interval at which checks are performed (i.e. an HTTP HEAD request)
 
 See: https://github.com/evanx/chronica-active/blob/master/src/tracker.js
 
@@ -86,7 +88,7 @@ See: https://github.com/evanx/chronica-active/blob/master/src/tracker.js
 
 We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
-See: https://github.com/evanx/chronica-active/blob/master/src/Alerts.js
+See: https://github.com/evanx/chronica-active/blob/master/src/alerter.js
 
 
 ### Other resources
