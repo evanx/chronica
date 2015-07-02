@@ -1,9 +1,6 @@
 
 ## Chronica Active - a microservice to monitor urls
 
-See: https://github.com/evanx/chronica-active/blob/master/src/checkUrls.js
-
-
 ### Background: Chronica suite
 
 Chronica is envisaged as suite of components and microservices to assist with centralized logging, analytics and monitoring.
@@ -35,17 +32,6 @@ urlMonitor:
   timeout: 4000
   services:
   - url: http://google.co.za
-```
-
-Currently the application is hardcoded to load the config file from `/var/chronica/active.json` unless it is specified in the environment variable `CONFIG_FILE.`
-
-See: https://github.com/evanx/chronica-active/blob/master/src/app-active-chronica.js
-
-We start the app as follows using `pm2.`
-
-```shell
-$ cd ~/chronica-active
-$ pm2 start lib/app-active-chronica.js
 ```
 
 ### Triggering alerts
