@@ -14,8 +14,6 @@ See: https://github.com/evanx/chronica
 
 ### Installing
 
-Note that some scripts assume that `bunyan` and `pm2` are installed globally.
-
 ```shell
 cd
 git clone https://github.com/evanx/chronica-active
@@ -28,6 +26,8 @@ git submodule update
 since we have a submodule dependency on `https://github.com/evanx/redexutil`
 
 ### Running
+
+Ensure `bunyan` and `pm2` are installed globally.
 
 See `scripts/run.sh`
 ```shell
