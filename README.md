@@ -96,7 +96,7 @@ async function checkService(service) {
    }
 }
 ```
-See: https://github.com/evanx/chronica-active/blob/master/src/UrlsMonitor.js
+See: https://github.com/evanx/chronica-active/blob/master/lib/UrlsMonitor.js
 
 #### Triggering alerts
 
@@ -124,14 +124,14 @@ If `debounceCount` is non-zero, then when the status changes, only upon a subseq
 - `debounceCount` - the number of checks with a stable status before triggering an alert
 - `interval` - the interval at which checks are performed (i.e. an HTTP HEAD request)
 
-See: https://github.com/evanx/chronica-active/blob/master/src/Tracker.js
+See: https://github.com/evanx/chronica-active/blob/master/lib/Tracker.js
 
 
 #### Sending alerts
 
 We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
-See: https://github.com/evanx/chronica-active/blob/master/src/Alerter.js
+See: https://github.com/evanx/chronica-active/blob/master/lib/Alerter.js
 
 
 ### Other resources
