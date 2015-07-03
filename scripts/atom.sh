@@ -1,5 +1,5 @@
 
-#cd ~/chronica-active
+cd ~/chronica-active
 
- atom ~/chronica-active ~/.chronica-active.yaml
+ atom . ~/.chronica-active.yaml
 
