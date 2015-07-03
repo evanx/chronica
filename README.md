@@ -84,14 +84,14 @@ async function checkService(service) {
    try {
       let content = await Requests.request({url: service.url, method: 'HEAD',
             timeout: config.timeout});
-      assert(lodash.isEmpty(content), 'empty content');
+      assert(lodash.isEmpty(content), 'empty content'); // since HEAD, no content
       tracker.processStatus(service, 'OK');
    } catch (err) {
       tracker.processStatus(service, 'CRITICAL', err.message);
    }
 }
 ```
-where we perform a `HEAD` request, using an ES7 `async` function.
+where we use an ES7 `async` function to `await` the successful `HEAD` request.
 
 Note that we use the `redexutil` promise wrapper to `await` the highly-starred `request` NPM module.
 
