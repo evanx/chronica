@@ -99,7 +99,7 @@ See: https://github.com/evanx/chronica-active/blob/master/lib/UrlsMonitor.js
 
 #### Triggering alerts
 
-The URLs are checked every `interval` e.g. 45 seconds, and a non-zero `debounceCount` is used for debouncing status changes.
+The URLs are checked every `interval` e.g. 45 seconds, and a `debounceCount` is used for debouncing status changes.
 
 ```javascript
 function getEventType(service, status) {
