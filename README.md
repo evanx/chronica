@@ -26,10 +26,15 @@ The initial trivial implementation checks URLs and alerts admins via email when 
 ```yaml
 loggerLevel: info
 alerter:
-  fromEmail: chronica-alerts@my.com
-  admins: # email recipients for alerts
-  - email: me@my.com
-  - email: other@my.com
+  messengers:
+    slack:
+      bots: # see: https://api.slack.com/slackbot
+      - url: https://<ACCOUNT>.slack.com/services/hooks/slackbot?token=<TOKEN>&channel=%23<CHANNEL>
+    email:
+      fromEmail: chronica-alerts@my.com
+      admins: # email recipients for alerts
+      - email: me@my.com
+      - email: other@my.com
 tracker: # tracks the status and decides if and when the send an email alert
   debounceCount: 2 # status must stay changed during multiple iterations before alert
 reporter:

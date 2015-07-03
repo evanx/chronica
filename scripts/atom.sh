@@ -1,5 +1,6 @@
 
 cd ~/chronica-active
 
- atom . ~/.chronica-active.yaml
+ atom ~/.chronica-active.yaml
+ atom .
 
