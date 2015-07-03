@@ -69,7 +69,7 @@ pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
 
 You can `tail -f` the log file as follows:
 ```shell
-ls --sort=time ~/.pm2/logs/chronica-active-out-*.log | 
+ls --sort=time ~/.pm2/logs/chronica-active-out-*.log |
     head -1 | xargs tail -f | bunyan -o short
 ```
 
@@ -130,6 +130,26 @@ See: https://github.com/evanx/chronica-active/blob/master/lib/Tracker.js
 
 We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
+```javascript
+let transport = nodemailer.createTransport();
+
+async function sendEmail(email, subject, message) {
+   let options = {
+      from: config.fromEmail,
+      to: email,
+      subject: 'Chronica ' + subject
+   };
+   if (message) {
+      options.text = message;
+   }
+   return new Promise((resolve, reject) => {
+      transport.sendMail(options, (error, response) => {
+         if (error) {
+            reject(error);
+         } else {
+            resolve(response);
+         }
+```
 See: https://github.com/evanx/chronica-active/blob/master/lib/Alerter.js
 
 
