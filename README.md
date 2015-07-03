@@ -6,11 +6,6 @@ This is a lightweight solution for some quick monitoring of URLs. We regularly p
 Looking forward, we will implement this functionality in Redex: https://github.com/evanx/redex.
 
 
-### Background
-
-This is inspired by earlier monitoring efforts in Java, namely <a href="https://github.com/evanx/chronic">Chronic</a>, which has been abandoned.
-
-
 ### Installing
 
 ```shell
@@ -23,6 +18,7 @@ git submodule update
 ```
 Note we have a submodule dependency on `https://github.com/evanx/redexutil` for generic utils for ES7. (We use ES7 async functions, via Babel.)
 
+
 ### Sample config file
 
 The initial trivial implementation checks URLs and alerts admins via email when the site goes down or the HTTP response code changes e.g. from 200 to an error response e.g. 500 or 404.
@@ -31,7 +27,7 @@ The initial trivial implementation checks URLs and alerts admins via email when 
 loggerLevel: info
 alerter:
   fromEmail: chronica-alerts@my.com
-  admins:
+  admins: # email recipients for alerts
   - email: me@my.com
 tracker: # tracks the status and decides if and when the send an email alert
   debounceCount: 2 # status must stay changed during multiple iterations before alert
@@ -138,8 +134,6 @@ See: https://github.com/evanx/chronica-active/blob/master/lib/Alerter.js
 
 
 ### Other resources
-
-Chronica overview: https://github.com/evanx/chronica
 
 Redex: https://github.com/evanx/redex
 

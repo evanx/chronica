@@ -1,7 +1,7 @@
 loggerLevel: info
 alerter:
   fromEmail: chronica-alerts@my.com
-  admins:
+  admins: # email recipients for alerts
   - email: me@my.com
 tracker: # tracks the status and decides if and when the send an email alert
   debounceCount: 2 # status must stay changed during multiple iterations before alert
@@ -11,7 +11,7 @@ reporter:
   hour: 16 # 16:10 (pm)
   minute: 10
 urlMonitor:
-  interval: 25000 # check status every 45 seconds
+  interval: 45000 # check status every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
   - url: http://google.com
