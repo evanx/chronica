@@ -18,4 +18,9 @@
 
   sleep 2
 
-  ls -l ~/.pm2/logs/chronica-active-*
+  ls --sort=time ~/.pm2/logs/chronica-active-err-*.log |
+     head -1 | xargs cat | bunyan -o short
+
+  ls --sort=time ~/.pm2/logs/chronica-active-out-*.log |
+     head -1 | xargs tail -f | bunyan -o short
+
