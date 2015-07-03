@@ -119,9 +119,9 @@ function getEventType(service, status) {
 }
 ```
 
-If `debounceCount` is non-zero, then when the status changes, only upon a subsequent recheck, is the alert triggered e.g. 2 minutes later. This can be configured via:
+If `debounceCount` is non-zero, then when the status changes, only upon a subsequent recheck, is the alert triggered e.g. 2 minutes later, depending on:
 - `debounceCount` - the number of checks with a stable status before triggering an alert
-- `interval` - the interval at which checks are performed (i.e. an HTTP HEAD request)
+- `interval` - the interval at which checks are performed e.g. 45 seconds
 
 See: https://github.com/evanx/chronica-active/blob/master/lib/Tracker.js
 
