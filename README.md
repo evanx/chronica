@@ -1,8 +1,6 @@
 
 ## Chronica Active - a microservice to monitor urls
 
-NOTE: please use commit 82d9c2007fcf11aaeecdc933476b15ad0ee870d4
-
 This is a lightweight solution for some quick monitoring of URLs.
 
 At a specified interval e.g. 45 seconds, we send an HTTP HEAD request and expect a 200 response.
@@ -27,8 +25,10 @@ Cons:
 
 ### Installing
 
+<b>NOTE: please use commit 82d9c20</b>
+
 ```shell
-git clone https://github.com/evanx/chronica-active
+git clone https://github.com/evanx/chronica-active 82d9c20
 cd chronica-active
 cat package.json
 npm install
