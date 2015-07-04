@@ -3,13 +3,11 @@
 
 This is a lightweight solution for some quick monitoring of URLs.
 
-At a specified interval e.g. 45 seconds, an HTTP HEAD request is performed to test for a 200 response.
+At a specified interval e.g. 45 seconds, we send an HTTP HEAD request and expect a 200 response.
 
 A single YAML configuration file is used. There is no database, and no history.
 
 Alerts are sent to specified email addresses and/or a Slack channel via your Slackbot.
-
-Looking forward, we will implement more sophisticated monitoring functionality in Redex: https://github.com/evanx/redex.
 
 Pros:
 - minimal solution
@@ -20,7 +18,6 @@ Pros:
 Cons:
 - no history
 - duplicate alerts if multiple instances monitor the same machines
-
 
 ### Installing
 
@@ -212,9 +209,14 @@ async function sendEmail(email, subject, message) {
 See: https://github.com/evanx/chronica-active/blob/master/lib/EmailMessenger.js
 
 
-### Other resources
+### Future work
 
-Redex: https://github.com/evanx/redex
+We expect to copy these components into Redex, our modular/CSP project.
+
+See: https://github.com/evanx/redex
+
+
+### Other resources
 
 Redex utils: https://github.com/evanx/redexutil
 
