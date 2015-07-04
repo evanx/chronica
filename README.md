@@ -40,7 +40,7 @@ alerter:
   messengers:
     slack:
       bots: # see: https://api.slack.com/slackbot
-      - url: https://<ACCOUNT>.slack.com/services/hooks/slackbot?token=<TOKEN>&channel=%23<CHANNEL>
+      - url: https://MY.slack.com/services/hooks/slackbot?token=...
     email:
       fromEmail: chronica-alerts@my.com
       admins: # email recipients for alerts
