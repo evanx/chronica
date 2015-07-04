@@ -1,9 +1,25 @@
 
 ## Chronica Active - a microservice to monitor urls
 
-This is a lightweight solution for some quick monitoring of URLs. We regularly perform an HTTP HEAD request, and check that we get a 200 response.
+This is a lightweight solution for some quick monitoring of URLs.
 
-Looking forward, we will implement this functionality in Redex: https://github.com/evanx/redex.
+At a specified interval e.g. 45 seconds, an HTTP HEAD request is performed to test for a 200 response.
+
+A single YAML configuration file is used. There is no database, and no history.
+
+Alerts are sent to specified email addresses and/or a Slack channel via your Slackbot.
+
+Looking forward, we will implement more sophisticated monitoring functionality in Redex: https://github.com/evanx/redex.
+
+Pros:
+- minimal solution
+- built with Node
+- YAML configuration
+- Slack integration
+
+Cons:
+- no history
+- duplicate alerts if multiple instances monitor the same machines
 
 
 ### Installing
@@ -20,8 +36,6 @@ Note we have a submodule dependency on `https://github.com/evanx/redexutil` for 
 
 
 ### Sample config file
-
-The initial trivial implementation checks URLs and alerts admins via email when the site goes down or the HTTP response code changes e.g. from 200 to an error response e.g. 500 or 404.
 
 ```yaml
 loggerLevel: info
@@ -43,7 +57,7 @@ reporter:
     hour: 16 # 16:10 (pm)
     minute: 10
 urlMonitor:
-  interval: 25000 # check status every 45 seconds
+  interval: 45000 # check status every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
   - url: http://google.com
@@ -134,6 +148,44 @@ See: https://github.com/evanx/chronica-active/blob/master/lib/Tracker.js
 
 #### Sending alerts
 
+We configure an email and Slack messengers for alerts.
+
+```javascript
+async function sendAlert(subject, message) {
+   return await* that.messengers.map(messenger => {
+      messenger.sendAlert(subject, message);
+   });
+}
+```
+
+See: https://github.com/evanx/chronica-active/blob/master/lib/Alerter.js
+
+
+##### Slack
+
+We HTTP POST the message to your Slackbot as follows:
+
+```javascript
+async function sendAlert(subject, message) {
+   return await* config.bots.map(bot => {
+      sendSlack(bot, subject, message);
+   });
+}
+
+async function sendSlack(bot, subject, message) {
+   let slackMessage = formatSlackMessage(bot, subject, message);
+   let content = await Requests.request({url: bot.url, method: 'post',
+       body: slackMessage});
+}
+```
+
+See: https://github.com/evanx/chronica-active/blob/master/lib/SlackMessenger.js
+
+See: https://api.slack.com/slackbot
+
+
+##### Email
+
 We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
 ```javascript
@@ -156,7 +208,8 @@ async function sendEmail(email, subject, message) {
             resolve(response);
          }
 ```
-See: https://github.com/evanx/chronica-active/blob/master/lib/Alerter.js
+
+See: https://github.com/evanx/chronica-active/blob/master/lib/EmailMessenger.js
 
 
 ### Other resources
