@@ -18,7 +18,7 @@ then
   exit 1
 fi
 
-[ -d util/.git ] || git submodule update
+[ -d util/.git ] || git submodule init
 [ -f util/Utils.js ] || git submodule update
 
 if [ ! -d util/.git ]
