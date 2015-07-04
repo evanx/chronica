@@ -15,7 +15,7 @@ c1commit() {
   cd util
   c1push $message
   cd ../scripts
-  c1push $message 
+  c1push $message
   cd ..
   c1push $message
 }
@@ -25,5 +25,5 @@ if [ $# -gt 0 ]
 then
   c1commit "$*"
 else
-  c1commit "scripts"
+  c1commit "update"
 fi
