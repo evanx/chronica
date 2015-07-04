@@ -9,8 +9,9 @@ fi
   [ -f util/.git ] || git submodule init
   git submodule update
 
+  npm install
+
   cd util
   git checkout master
   git pull
 
-  npm install
