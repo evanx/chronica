@@ -27,7 +27,8 @@ then
   then
     c1commit "$1"
   else
-    echo "ERROR $# args"
+    echo "ERROR: $# args"
+    echo "Usage: single arg commit message"
   fi
 else
   c1commit "update"
