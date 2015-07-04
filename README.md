@@ -20,7 +20,7 @@ Cons:
 - duplicate alerts if multiple instances monitor the same machines
 
 <hr>
-<img src="http://evanx.github.io/images/chronica/chronica-slack2.png" width="800" border="1"/>
+<img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
 <hr>
 
 ### Installing
