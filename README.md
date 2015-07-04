@@ -83,23 +83,23 @@ See https://github.com/evanx/chronica-active/blob/master/sample-config.yaml
 
 ### Running
 
-You must create your own configuration file e.g. `~/.chronica-active.yaml.`
+You must create your own configuration file e.g. `~/etc/chronica.yaml.`
 
 The `scripts/` are just a guide and won't work unless:
 - `bunyan` and `pm2` are installed globally
 - `~/chronica-active` exists
-- `~/.chronica-active.yaml` exists
+- `~/etc/chronica.yaml` exists
 
 See `scripts/run.sh`
 ```shell
-  node index.js ~/.chronica-active.yaml debug | bunyan -o short
+  node index.js ~/etc/chronica.yaml debug | bunyan -o short
 ```
 where we specify the config file.
 
 Also see `scripts/restart.pm2.sh` which includes the following command:
 ```shell
 cd ~/chronica-active
-pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
+pm2 start index.js --name chronica-active -- ~/etc/chronica.yaml
 ```
 
 You can `tail -f` the log file as follows:
@@ -131,9 +131,9 @@ async function checkService(service) {
       let content = await Requests.request({url: service.url, method: 'HEAD',
             timeout: config.timeout});
       assert(lodash.isEmpty(content), 'empty content'); // since HEAD, no content
-      tracker.processStatus(service, 'OK');
+      components.tracker.processStatus(service, 'OK');
    } catch (err) {
-      tracker.processStatus(service, 'CRITICAL', err.message);
+      components.tracker.processStatus(service, 'CRITICAL', err.message);
    }
 }
 ```

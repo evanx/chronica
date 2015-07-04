@@ -1,5 +1,2 @@
 
-cd ~/chronica-active
-
- atom ~/.chronica-active.yaml
- atom .
+( sleep 4 ; atom ~/etc/chronica.yaml ) & atom .

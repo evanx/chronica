@@ -1,7 +1,7 @@
 
   rm -f ~/.pm2/logs/chronica-active-*
 
-  [ -f  ~/.chronica-active.yaml ] || exit 1
+  [ -f  ~/etc/chronica.yaml ] || exit 1
 
   cat index.js | grep -q evanxsummers || exit 1
 

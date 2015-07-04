@@ -2,15 +2,11 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-import assert from 'assert';
-import lodash from 'lodash';
 import express from 'express';
 
-import ExpressResponses from './ExpressResponses';
+import ExpressResponses from '../lib/ExpressResponses';
 
-const logger = Loggers.create(module.filename);
-
-export default function create(state, config) {
+export function create(config, logger, components, state) {
 
    let app, server, listening;
 

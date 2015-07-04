@@ -1,23 +1,24 @@
 
-processors:
+components:
+
+- name: emailMessenger
+  class: EmailMessenger
+
+- name: slackMessenger
+  class: SlackMessenger
 
 - name: alerter
   class: Alerter
 
 - name: reporter
   class: Reporter
-  requires: [alerter, systemReporter, serviceReporter]
 
 - name: tracker
   class: Tracker
-  requires: [reporter]
 
 - name: urlMonitor
   class: UrlMonitor
   requires: tracker
-
-- name: reporter
-  class: Reporter
 
 - name: systemReporter
   class: SystemReporter
@@ -25,8 +26,12 @@ processors:
 - name: serviceReporter
   class: ServiceReporter
 
+- name: reporter
+  class: Reporter
+
 - name: urlMonitor
   class: ExpressServer
 
 - name: expressServer
   class: ExpressServer
+  port: 8881

@@ -1,10 +1,10 @@
 
 
-  [ -f  ~/.chronica-active.yaml ] || exit 1
+  [ -f  ~/etc/chronica.yaml ] || exit 1
 
   cat index.js | grep -q evanxsummers || exit 1
 
-  node_modules/pm2/bin/pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
+  node_modules/pm2/bin/pm2 start index.js --name chronica-active -- ~/etc/chronica.yaml
 
   node_modules/pm2/bin/pm2 show chronica-active
 

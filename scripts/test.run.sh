@@ -33,10 +33,10 @@ fi
 
 if node -v | grep ^v
 then
-  node index.js ~/etc/chronica.yaml debug | ./node_modules/bunyan/bin/bunyan -o short 
+  node index.js ~/etc/chronica.yaml debug | ./node_modules/bunyan/bin/bunyan -o short | grep -v '^\s*at .*babel'
 elif nodejs -v | grep ^v
 then
-  nodejs index.js ~/etc/chronica.yaml debug | ./node_modules/bunyan/bin/bunyan -o short 
+  nodejs index.js ~/etc/chronica.yaml debug | ./node_modules/bunyan/bin/bunyan -o short | grep -v '^\s*at .*babel' 
 else
    echo 'Please install Node'
    exit 1
