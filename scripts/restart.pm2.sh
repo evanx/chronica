@@ -2,7 +2,26 @@
 
 if ! which pm2
 then
-  echo 'Please install pm2 globally: npm install pm2 -g'
+  echo 'Please install globally: npm install -g pm2'
+  exit 1
+fi
+
+if ! ls -l  ~/.chronica-active.yaml
+then
+  echo 'Create config file e.g.  ~/.chronica-active.yaml'
+  echo 'See https://github.com/evanx/chronica-active'
+  exit 1
+fi
+
+if ! cat index.js | grep -q evanxsummers
+then
+  echo 'Run from chronica directory e.g. cd ~/chronica-active'
+  exit 1
+fi
+
+if ! pwd | grep -q '/chronica-active'
+then
+  echo 'Please cd into and run from chronica directory e.g. cd ~/chronica-active'
   exit 1
 fi
 

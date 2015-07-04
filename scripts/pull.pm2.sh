@@ -1,7 +1,7 @@
 
 if ! which pm2
 then
-  echo 'Please install pm2 globally: npm install pm2 -g'
+  echo 'Please install pm2 globally: sudo npm install pm2 -g'
   exit 1
 fi
 

@@ -38,7 +38,7 @@ Note we have a submodule dependency on `https://github.com/evanx/redexutil` for 
 Our scripts use `pm2` for process management, and `bunyan` for showing logs.
 In order to use these scripts, you should install `bunyan` and `pm2` globally:
 ```shell
- npm install bunyan pm2 -g
+ sudo npm install bunyan pm2 -g
 ```
 
 ### Sample config file

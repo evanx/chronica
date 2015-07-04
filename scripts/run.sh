@@ -10,11 +10,9 @@ if ! cat index.js | grep -q evanxsummers
 then
   echo 'Run from chronica directory e.g. cd ~/chronica-active'
   exit 1
-fi
-
-if ! pwd | grep -q "/chronica-active"
+elif ! pwd | grep -q '/chronica-active'
 then
-  echo "Please run from chronica-active directory"
+  echo 'Please cd into and run from chronica-active/ directory'
   exit 1
 fi
 
