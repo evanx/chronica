@@ -1,7 +1,9 @@
 
-
-  which bunyan || exit 1
-  which pm2 || exit 1
+if ! which pm2
+then
+  echo 'Please install pm2 globally: npm install pm2 -g'
+  exit 1
+fi
 
   rm -f ~/.pm2/logs/chronica-active-*
 
