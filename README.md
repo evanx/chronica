@@ -19,6 +19,10 @@ Cons:
 - no history
 - duplicate alerts if multiple instances monitor the same machines
 
+<hr>
+<img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="400" border="1"/>
+<hr>
+
 ### Installing
 
 ```shell
