@@ -3,12 +3,14 @@ components:
 
 - name: emailMessenger
   class: EmailMessenger
+  schedule:
 
 - name: slackMessenger
   class: SlackMessenger
 
 - name: alerter
   class: Alerter
+  scheduleTimeout: 8000
 
 - name: reporter
   class: Reporter
@@ -19,6 +21,7 @@ components:
 - name: urlMonitor
   class: UrlMonitor
   requires: tracker
+  scheduledInterval: 8000
 
 - name: systemReporter
   class: SystemReporter
