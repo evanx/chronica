@@ -17,11 +17,11 @@ Pros:
 
 Cons:
 - no history
-- duplicate alerts if multiple instances monitor the same machines
 
 <hr>
 <img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
 <hr>
+
 
 ### Installing
 
@@ -41,7 +41,11 @@ In order to use these scripts, you should install `bunyan` and `pm2` globally:
  sudo npm install bunyan pm2 -g
 ```
 
-Considering forking the project via github and then deploy your own copy. Then you can modifiy the scripts for your own purposes. If you are a JavaScript developer, you can make modifications and easily do a pull request via github.
+The `scripts/` are a git submodule: https://github.com/evanx/chronica-active-scripts
+
+Considering forking the script repo via github and then deploy your own copy. Then you can modifiy the scripts for your own purposes.
+
+If you are a JavaScript developer, fork the main repo, so can make modifications and easily do a pull request via github.
 
 ### Sample config file
 
@@ -74,6 +78,7 @@ urlMonitor:
 
 See https://github.com/evanx/chronica-active/blob/master/sample-config.yaml
 
+
 ### Running
 
 You must create your own configuration file e.g. `~/.chronica-active.yaml.`
@@ -99,6 +104,17 @@ You can `tail -f` the log file as follows:
 ```shell
 ls --sort=time ~/.pm2/logs/chronica-active-out-*.log |
     head -1 | xargs tail -f | bunyan -o short
+```
+
+### Recommended deployment configuration
+
+Note that if you use multiple instances with the same config file i.e. monitoring the same endpoints, you can expect duplicate alerts. Rather use one instance to monitor all your endpoints, and another remote instance to monitor the monitor ;)
+
+In order to monitor Chronica remotely, include the following in its config file:
+```yaml
+status:
+   location: /chronica
+   port: 8881
 ```
 
 ### Implementation
