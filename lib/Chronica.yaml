@@ -3,14 +3,13 @@ components:
 
 - name: emailMessenger
   class: EmailMessenger
-  schedule:
 
 - name: slackMessenger
   class: SlackMessenger
 
 - name: alerter
   class: Alerter
-  scheduleTimeout: 8000
+  scheduledTimeout: 8000
 
 - name: reporter
   class: Reporter

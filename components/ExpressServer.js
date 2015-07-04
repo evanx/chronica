@@ -22,7 +22,7 @@ export function create(config, logger, components, state) {
          app = express();
          logger.info('listening', config.port);
       },
-      end() {
+      async end() {
          if (server) {
             server.close();
             logger.info('end');
