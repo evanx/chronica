@@ -1,21 +1,9 @@
 
 
-if ! which pm2
-then
-  echo 'Please install globally: npm install -g pm2'
-  exit 1
-fi
-
 if ! ls -l  ~/.chronica-active.yaml
 then
   echo 'Create config file e.g.  ~/.chronica-active.yaml'
   echo 'See https://github.com/evanx/chronica-active'
-  exit 1
-fi
-
-if ! cat index.js | grep -q evanxsummers
-then
-  echo 'Run from chronica directory e.g. cd ~/chronica-active'
   exit 1
 fi
 
@@ -31,11 +19,11 @@ fi
 
   cat index.js | grep -q evanxsummers || exit 1
 
-  pm2 stop chronica-active
+  node_modules/pm2/bin/pm2 stop chronica-active
 
-  pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
+  node_modules/pm2/bin/pm2 start index.js --name chronica-active -- ~/.chronica-active.yaml
 
-  pm2 show chronica-active
+  node_modules/pm2/bin/pm2 show chronica-active
 
   sleep 2
 

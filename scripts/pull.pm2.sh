@@ -1,10 +1,4 @@
 
-if ! which pm2
-then
-  echo 'Please install pm2 globally: sudo npm install pm2 -g'
-  exit 1
-fi
-
   rm -f ~/.pm2/logs/chronica-active-*
 
   [ -f  ~/.chronica-active.yaml ] || exit 1
@@ -14,9 +8,9 @@ fi
   git pull
   git submodule update
 
-  pm2 restart chronica-active
+  node_modules/pm2/bin/pm2 restart chronica-active
 
-  pm2 show chronica-active
+  node_modules/pm2/bin/pm2 show chronica-active
 
   sleep 2
 

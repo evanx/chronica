@@ -5,11 +5,6 @@ then
   exit 1
 fi
 
-if ! which pm2
-then
-  echo 'Please install globally: sudo npm install -g pm2'
-fi
-
   git pull
   [ -f util/.git ] || git submodule init
   git submodule update
