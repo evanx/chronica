@@ -23,7 +23,7 @@ c1commit() {
 
 if [ $# -gt 0 ]
 then
-  c1commit "$*"
+  c1commit "$1"
 else
   c1commit "update"
 fi
