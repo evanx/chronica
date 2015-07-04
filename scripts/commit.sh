@@ -23,7 +23,12 @@ c1commit() {
 
 if [ $# -gt 0 ]
 then
-  c1commit "$1"
+  if [ $# -eq 1 ] 
+  then
+    c1commit "$1"
+  else
+    echo "ERROR $# args"
+  fi
 else
   c1commit "update"
 fi
