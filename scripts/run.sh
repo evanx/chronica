@@ -18,10 +18,10 @@ then
   exit 1
 fi
 
-[ -d util/.git ] || git submodule init
+[ -f util/.git ] || git submodule init
 [ -f util/Utils.js ] || git submodule update
 
-if [ ! -d util/.git ]
+if [ ! -f util/.git ]
 then
    echo 'Please init the util/ git submodule: git submodule init'
    exit 1

@@ -3,7 +3,7 @@
   then
     err=`ls --sort=time ~/.pm2/logs/chronica-active-err* | head -1`
     echo; echo "$err"
-    tail $err | bunyan -o short
+    tail $err | node_modules/bunyan/bin/bunyan
     ls -l $err
   fi
 
@@ -11,6 +11,6 @@
   then
     out=`ls --sort=time ~/.pm2/logs/chronica-active-out* | head -1`
     echo; echo "$out"
-    tail $out | bunyan -o short
+    tail $out | node_modules/bunyan/bin/bunyan
     ls -l $out
   fi
