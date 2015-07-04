@@ -31,6 +31,8 @@ then
   exit 1
 fi
 
+clear
+
 if node -v | grep ^v
 then
   node index.js ~/etc/chronica.yaml debug | ./node_modules/bunyan/bin/bunyan -o short 

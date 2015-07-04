@@ -1,0 +1,30 @@
+
+components:
+
+- name: emailMessenger
+
+- name: slackMessenger
+  class: slackMessenger
+
+- name: alerter
+  class: alerter
+  scheduledTimeout: 8000
+  optionalRequires: [ emailMessenger, slackMessenger ]
+
+- name: systemReporter
+
+- name: serviceReporter
+
+- name: reporter
+  requires: [ alerter, systemReporter, serviceReporter ]
+
+- name: tracker
+  requires: [ reporter ]
+
+- name: urlMonitor
+  scheduledInterval: 8000
+  requires: [ tracker ]
+
+- name: expressServer
+  class: ExpressServer
+  port: 8881

@@ -3,4 +3,4 @@
 
 require('babel/register')({stage: 0});
 Object.assign(global, require('./util/Utils'));
-require('./lib/configurator');
+require('./lib/ApplicationConfigurator');
