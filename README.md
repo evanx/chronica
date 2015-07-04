@@ -39,9 +39,9 @@ tracker: # tracks the status and decides if and when the send an email alert
   debounceCount: 2 # status must stay changed during multiple iterations before alert
 reporter:
   helloDelay: 16000 # send an email 16 seconds after starting
-  dailyEnabled: true # send a daily digest of current status of all services
-  hour: 16 # 16:10 (pm)
-  minute: 10
+  daily: # send a daily digest of current status of all services
+    hour: 16 # 16:10 (pm)
+    minute: 10
 urlMonitor:
   interval: 25000 # check status every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
@@ -101,7 +101,7 @@ where we use an ES7 `async` function to `await` the successful `HEAD` request.
 
 Note that we use the `redexutil` promise wrapper to `await` the highly-starred `request` NPM module.
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/UrlsMonitor.js
+See: https://github.com/evanx/chronica-active/blob/master/lib/UrlMonitor.js
 
 #### Triggering alerts
 
