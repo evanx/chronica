@@ -12,3 +12,5 @@ fi
   cd util
   git checkout master
   git pull
+
+  npm install
