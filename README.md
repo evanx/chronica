@@ -41,6 +41,8 @@ In order to use these scripts, you should install `bunyan` and `pm2` globally:
  sudo npm install bunyan pm2 -g
 ```
 
+Considering forking the project via github and then deploy your own copy. Then you can modifiy the scripts for your own purposes. If you are a JavaScript developer, you can make modifications and easily do a pull request via github.
+
 ### Sample config file
 
 ```yaml
