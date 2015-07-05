@@ -25,10 +25,8 @@ Cons:
 
 ### Installing
 
-<b>NOTE: please use commit 82d9c20</b>
-
 ```shell
-git clone https://github.com/evanx/chronica 82d9c20
+git clone https://github.com/evanx/chronica
 cd chronica
 cat package.json
 npm install
@@ -54,15 +52,14 @@ If you are a JavaScript developer, fork the main repo, so can make modifications
 ```yaml
 loggerLevel: info
 alerter:
-  messengers:
-    slack:
-      bots: # see: https://api.slack.com/slackbot
-      - url: https://MY.slack.com/services/hooks/slackbot?token=...
-    email:
-      fromEmail: chronica-alerts@my.com
-      admins: # email recipients for alerts
-      - email: me@my.com
-      - email: other@my.com
+slackMessenger:
+   bots: # see: https://api.slack.com/slackbot
+   - url: https://MY.slack.com/services/hooks/slackbot?token=...
+emailMessenger:
+   fromEmail: chronica-alerts@my.com
+   admins: # email recipients for alerts
+   - email: me@my.com
+   - email: other@my.com
 tracker: # tracks the status and decides if and when the send an email alert
   debounceCount: 2 # status must stay changed during multiple iterations before alert
 reporter:
@@ -85,8 +82,7 @@ See https://github.com/evanx/chronica/blob/master/sample-config.yaml
 
 You must create your own configuration file e.g. `~/etc/chronica.yaml.`
 
-The `scripts/` are just a guide and won't work unless:
-- `bunyan` and `pm2` are installed globally
+The `scripts/` are just a guide and won't work as in unless:
 - `~/chronica` exists
 - `~/etc/chronica.yaml` exists
 
@@ -114,10 +110,11 @@ Note that if you use multiple instances with the same config file i.e. monitorin
 
 In order to monitor Chronica remotely, include the following in its config file:
 ```yaml
-status:
+expressServer:
    location: /chronica
    port: 8881
 ```
+and proxy as required via NGINX or other.
 
 ### Implementation
 
