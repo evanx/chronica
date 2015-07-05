@@ -8,9 +8,6 @@ import ExpressResponses from '../lib/ExpressResponses';
 
 export function create(config, logger, components, state) {
 
-   assert(config.port, 'port');
-   assert(config.location, 'location');
-
    let app, server, listening;
 
    const those = {

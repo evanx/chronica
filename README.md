@@ -138,7 +138,7 @@ where we use an ES7 `async` function to `await` the successful `HEAD` request.
 
 Note that we use the `redexutil` promise wrapper to `await` the highly-starred `request` NPM module.
 
-See: https://github.com/evanx/chronica/blob/master/lib/UrlMonitor.js
+See: https://github.com/evanx/chronica/blob/master/lib/urlMonitor.js
 
 #### Triggering alerts
 
@@ -166,7 +166,7 @@ If `debounceCount` is non-zero, then when the status changes, only upon a subseq
 - `debounceCount` - the number of checks with a stable status before triggering an alert
 - `interval` - the interval at which checks are performed e.g. 45 seconds
 
-See: https://github.com/evanx/chronica/blob/master/lib/Tracker.js
+See: https://github.com/evanx/chronica/blob/master/lib/tracker.js
 
 
 #### Sending alerts
@@ -174,14 +174,17 @@ See: https://github.com/evanx/chronica/blob/master/lib/Tracker.js
 We configure an email and Slack messengers for alerts.
 
 ```javascript
-async function sendAlert(subject, message) {
-   return await* that.messengers.map(messenger => {
-      messenger.sendAlert(subject, message);
-   });
+async sendAlert(subject, message) {
+   if (components.emailMessenger) {
+      await components.emailMessenger.sendAlert(subject, message);
+   }
+   if (components.slackMessenger) {
+      await components.slackMessenger.sendAlert(subject, message);
+   }
 }
 ```
 
-See: https://github.com/evanx/chronica/blob/master/lib/Alerter.js
+See: https://github.com/evanx/chronica/blob/master/lib/alerter.js
 
 
 ##### Slack
@@ -202,7 +205,7 @@ async function sendSlack(bot, subject, message) {
 }
 ```
 
-See: https://github.com/evanx/chronica/blob/master/lib/SlackMessenger.js
+See: https://github.com/evanx/chronica/blob/master/lib/slackMessenger.js
 
 See: https://api.slack.com/slackbot
 
@@ -232,7 +235,7 @@ async function sendEmail(email, subject, message) {
          }
 ```
 
-See: https://github.com/evanx/chronica/blob/master/lib/EmailMessenger.js
+See: https://github.com/evanx/chronica/blob/master/lib/emailMessenger.js
 
 
 ### Future work
