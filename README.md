@@ -1,22 +1,23 @@
 
 ## Chronica Active - a microservice to monitor urls
 
-This is a lightweight solution for some quick monitoring of URLs.
+This is a simple solution for monitoring of URL status (200 or not).
 
-At a specified interval e.g. 45 seconds, we send an HTTP HEAD request and expect a 200 response.
+At a specified interval e.g. 45 seconds, we send an HTTP HEAD request to each URL.
 
 A single YAML configuration file is used. There is no database, and no history.
 
 Alerts are sent to specified email addresses and/or a Slack channel via your Slackbot.
 
 Pros:
-- minimal solution
-- built with Node
 - YAML configuration
 - Slack integration
+- built with Node
 
 Cons:
+- URL status monitoring only
 - no history
+- no fancy graphs
 
 ---
 <img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
