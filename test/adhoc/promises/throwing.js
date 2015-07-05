@@ -28,14 +28,16 @@ const tests = {
       Promise.resolve('any').then(value => {throw value});
    },
    swallowSyncBetter(name) { // better programming
-      Promise.resolve('any').then(value => {throw value}).catch(err => assert.equals(err, 'any'));
+      Promise.resolve('any').then(value => {throw value})
+      .catch(err => assert.equals(err, 'any'));
    },
    swallowSyncCatchThrowBeware(name) { // programmer beware
       // any sync method will swallow errors in catch
-      Promise.resolve('any').then(value => {throw value}).catch(err => {throw err});
+      Promise.resolve('any').then(value => {throw value})
+      .catch(err => {throw err});
    },
    async swallowAsyncBeware(name) { // programmer beware
-      // any async method will swallow errors in promises not awaited or returned
+      // swallows errors in promises not awaited or returned
       Promise.resolve('any').then(value => {throw value});
    },
    async throwAsyncReturn(name) { // good usage: return promise
