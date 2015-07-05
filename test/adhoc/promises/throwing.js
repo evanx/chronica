@@ -50,29 +50,29 @@ const tests = {
    async throwsSanityAwaitAsync(key) { // sanity check
       return await Promise.reject(key);
    },
-   returnsSwallows(key) { // programmer beware
-      // any sync function swallows errors in promises
-      // so you must have catch() if not returning the promise
+   returnsSwallows(key) { // programmer beware: promises can swallow errors
+      // so you should have promise.catch() if not returning the promise
       Promise.resolve('any').then(value => {throw value});
       return key;
    },
-   returnsBetter(key) { // better programming
+   returnsBetter(key) { // better programming: use promise.catch()
       Promise.resolve('any').then(value => {throw value})
       .catch(err => {
          if (err !== 'any') {
+            // throwed errors will be swallowed so just log it
             console.error('ERROR:', key, err);
          }
       });
       return key;
    },
    returnsCatchThrow(key) { // programmer beware
-      // any sync function swallows errors in catch
+      // errors in promise.catch() are swallowed
       Promise.resolve('any').then(value => {throw value})
       .catch(err => {throw err});
       return key;
    },
    async returnsAsync(key) { // programmer beware
-      // swallows errors in promises not awaited or returned
+      // errors are swallowed in promises not awaited or returned
       try {
          Promise.resolve('any').then(value => {throw value});
          return key;
@@ -87,7 +87,7 @@ const tests = {
         throw 'never happens: we cannot catch errors without await';
      }
    },
-   async throwsAwaitAsync(key) { // best usage: await promise and catch errors
+   async throwsAwaitAsync(key) { // best usage: await promise and catch errors locally
       try {
          await Promise.resolve(key).then(value => {throw value});
          throw 'never happens: error happened above, caught below';
@@ -122,11 +122,11 @@ async function run(keys) {
          if (e.stack) {
             console.error(e.stack); // show programming errors
          }
-         if (/^throws/.test(key)) {
-            assert.equal(e, key); // expected an error, but must match the key e.g. not AssertionError
-         } else {
+         if (/^throws/.test(key)) { // expected an error,
+            assert.equal(e, key); // but must match the key e.g. not AssertionError
+         } else { // should not have thrown an error
             console.error('ERROR: ' + e);
-            throw e; // should not have thrown an error
+            throw e;
          }
       }
       console.log('end', key);
