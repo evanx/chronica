@@ -23,7 +23,7 @@ Note that we throw an error is our promise resolved function to simulate an erro
 
 ### Running
 
-We run th test as follows:
+We run the tests as follows:
 
 ```shell
 git clone https://github.com/evanx/chronica.git &&
@@ -35,7 +35,6 @@ git clone https://github.com/evanx/chronica.git &&
 #### Output
 
 ```shell
-evans@boromir:~/chronica$ babel-node --stage 0 test/adhoc/promises/throwing.js | tail
 end throwsSanityPromiseAsync
 catch throwsSanityAwaitAsync throwsSanityAwaitAsync
 end throwsSanityAwaitAsync
