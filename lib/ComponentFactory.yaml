@@ -27,4 +27,5 @@ default:
 
     expressServer:
       default:
-        port: 8880
+        port: 8881
+        location: /
