@@ -20,8 +20,8 @@ Cons:
 
 ---
 <img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
----
 
+---
 
 ### Installing
 
