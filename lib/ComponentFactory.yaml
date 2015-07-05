@@ -2,9 +2,13 @@
 default:
   componentStartTimeout: 5000
   componentEndTimeout: 5000
+
   components:
+
     emailMessenger:
+
     slackMessenger:
+
     alerter:
       scheduledTimeout: 8000
       default:

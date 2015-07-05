@@ -9,10 +9,11 @@ import ExpressResponses from '../lib/ExpressResponses';
 export function create(config, logger, components, appState) {
 
    let app, server;
+   let state = { config };
 
    const those = {
       get state() {
-         return { config };
+         return { state };
       },
       async start() {
          app = express();
@@ -20,7 +21,8 @@ export function create(config, logger, components, appState) {
             res.json(those.state);
          });
          server = app.listen(config.port);
-         logger.info('listening', config.port, appState.hostname);
+         state.hostname = appState.rootConfig.env.hostname;
+         logger.info('listening', state);
       },
       async end() {
          if (server) {

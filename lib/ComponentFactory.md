@@ -36,20 +36,24 @@ scheduledInterval: 45000 # invoke every 45 seconds
 `ComponentFactory` decorates their config using defaults from YAML files, and invokes the component's exported `create` method. The following example is an ExpressJS server:
 
 ```javascript
-export function create(config, logger, components, state) {
+export function create(config, logger, components, appState) {
 
-   let app, server, listening;
+   let app, server;
 
-   const those = {
+   const state = { config }; // component state
+
+   const those = { // exported functions including lifecycle
       get state() {
-         return { config, listening };
+         return state;
       },
       async start() {
          app = express();
-         logger.info('listening', config.port);
          app.get(config.location, async (req, res) => {
             res.json(those.state);
          });
+         server = app.listen(config.port);
+         state.hostname = appState.rootConfig.env.hostname;
+         logger.info('listening', that);
       },
       async end() {
          if (server) {
@@ -63,7 +67,7 @@ export function create(config, logger, components, state) {
    return those;
 }
 ```
-where the `state` method is for introspection to assist with debugging.
+where the readable `state` property is for introspection to assist with debugging.
 
 The `ComponentFactory` provides the component with the following:
 - its configuration, which is decorated with defaults and asserted
