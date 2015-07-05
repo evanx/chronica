@@ -3,20 +3,20 @@
 
 Async functions are an ES7 proposal (stage 0).
 
-The individual test function names are keys from Object.keys(tests)
+The individual test function names are keys from `Object.keys(tests)``
 
-The test harness checks the suffix and prefix of the test's key e.g. 'returnsPromiseAync'
+The test harness checks the suffix and prefix of the test's key e.g. `returnsPromiseAync`
 
-The suffix is 'Async' if it is an ES7 async function.
+The suffix is `Async` if it is an ES7 async function (proposed, stage 0).
 
-The prefix is 'returns' or 'throws.' We check accordingly that the function:
+The prefix is `returns` or `throws.` We check accordingly that the function:
 - returns its key, or
 - throws its key
 where we pass the test its key as an argument.
 
 Any test that throws or returns any other object is considered a failure.
 
-Note that the returned promises are await'ed, and so are converted into their resolved values by ES7.
+Note that the returned promises are await'ed, and so are converted into their resolved values as per ES7 proposal.
 
 Note that we throw an error is our promise resolved function to simulate an error therein.
 
