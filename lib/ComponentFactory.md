@@ -1,7 +1,7 @@
 
 ### ComponentFactory
 
-We instantiate components via a factory, which decorates their config using defaults from YAML files.
+We instantiate components via `ComponentFactory.`
 
 Components have the following lifecycle methods:
 - `start`
@@ -33,6 +33,37 @@ scheduledTimeout: 8000 # invoke 8 seconds after start
 scheduledInterval: 45000 # invoke every 45 seconds
 ```
 
+`ComponentFactory` decorates their config using defaults from YAML files, and invokes the component's exported `create` method. The following example is an ExpressJS server:
+
+```javascript
+export function create(config, logger, components, state) {
+
+   let app, server, listening;
+
+   const those = {
+      get state() {
+         return { config, listening };
+      },
+      async start() {
+         app = express();
+         logger.info('listening', config.port);
+         app.get(config.location, async (req, res) => {
+            res.json(those.state);
+         });
+      },
+      async end() {
+         if (server) {
+            server.close();
+         } else {
+            logger.warn('end');
+         }
+      },
+   };
+
+   return those;
+}
+```
+where the `state` method is for introspection.
 
 #### Booting
 
