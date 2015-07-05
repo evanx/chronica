@@ -1,8 +1,6 @@
 
 ### Promises can swallow your errors
 
-Async functions are an ES7 proposal (stage 0).
-
 The individual test function names are keys from `Object.keys(tests)`
 
 ```javascript
@@ -67,8 +65,8 @@ We run the tests as follows:
 ```shell
 git clone https://github.com/evanx/chronica.git &&
   cd ~/chronica &&
-  npm install &&
   node_modules/babel/bin/babel-node --stage 0 test/adhoc/promises/throwing.js
+  npm install &&
 ```
 
 #### Output
