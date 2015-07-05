@@ -22,6 +22,8 @@ where we pass the test its key as an argument.
 Any test that throws or returns any other object is considered a failure.
 
 Note that the returned promises are await'ed, and so are converted into their resolved values by ES7.
+
+Note that we throw an error is our promise resolved function to simulate an error therein.
 */
 const tests = {
    returnsSanity(key) { // sanity check
