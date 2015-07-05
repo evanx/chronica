@@ -86,7 +86,7 @@ export function create(config, logger, components, appState) {
 where the readable `state` property is for introspection to assist with debugging.
 
 ---
-<img src='https://raw.githubusercontent.com/evanx/evanx.github.io/master/images/chronica/chronica-express.png' alt=''/>
+<img src='https://raw.githubusercontent.com/evanx/evanx.github.io/master/images/chronica/chronica-express.png' width=600 alt=''/>
 
 ---
 
