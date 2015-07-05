@@ -5,6 +5,7 @@ export function create(config, logger, components, state) {
 
    logger.debug('config', config);
 
+   Maybe.notEmpty(config.services, 'services').value;
    config.services.forEach(service => {
       if (service.url) {
          if (!service.name) {

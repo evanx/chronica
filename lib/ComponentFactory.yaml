@@ -1,30 +1,27 @@
 
 components:
+  emailMessenger:
+  slackMessenger:
+  alerter:
+    scheduledTimeout: 8000
+    default:
+      optionalRequiredComponents: [ emailMessenger, slackMessenger ]
 
-- name: emailMessenger
+  systemReporter:
 
-- name: slackMessenger
-  class: slackMessenger
+  serviceReporter:
 
-- name: alerter
-  class: alerter
-  scheduledTimeout: 8000
-  optionalRequires: [ emailMessenger, slackMessenger ]
+  reporter:
+    requiredComponents: [ alerter, systemReporter, serviceReporter ]
 
-- name: systemReporter
+  tracker:
+    requiredComponents: [ reporter ]
 
-- name: serviceReporter
+  urlMonitor:
+    requiredComponents: [ reporter ]
+    default:
+      scheduledInterval: 8000
 
-- name: reporter
-  requires: [ alerter, systemReporter, serviceReporter ]
-
-- name: tracker
-  requires: [ reporter ]
-
-- name: urlMonitor
-  scheduledInterval: 8000
-  requires: [ tracker ]
-
-- name: expressServer
-  class: ExpressServer
-  port: 8881
+  expressServer:
+    default:
+      port: 8880

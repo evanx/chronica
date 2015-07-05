@@ -8,19 +8,21 @@ import ExpressResponses from '../lib/ExpressResponses';
 
 export function create(config, logger, components, state) {
 
+   assert(config.port, 'port');
+   assert(config.location, 'location');
+
    let app, server, listening;
 
    const those = {
       get state() {
          return { config, listening };
       },
-      init() {
-         assert(config.port, 'port');
-         assert(config.timeout, 'timeout');
-      },
       async start() {
          app = express();
          logger.info('listening', config.port);
+         app.get(config.location, async (req, res) => {
+            res.json(those.state);
+         });
       },
       async end() {
          if (server) {
