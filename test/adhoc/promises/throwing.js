@@ -12,8 +12,15 @@ import assert from 'assert';
 import lodash from 'lodash';
 
 /*
-The test harness checks the prefix of the test's key (function name e.g. 'returnsPromiseAync').
-This prefix is 'returns' or 'throws.'
+Note that async functions are an ES7 proposal (stage 0).
+
+The individual test function names are keys from Object.keys(tests)
+
+The test harness checks the suffix and prefix of the test's key e.g. 'returnsPromiseAync'
+
+The suffix is 'Async' if it is an ES7 async function.
+
+The prefix is 'returns' or 'throws.'
 We check accordingly that the function:
 - returns its key, or
 - throws its key
