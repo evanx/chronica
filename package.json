@@ -1,7 +1,7 @@
 {
   "name": "chronica",
   "version": "0.1.2",
-  "description": "monitor urls with email alerts",
+  "description": "monitor urls' status, debounce and alert via email and slackbot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -27,12 +27,12 @@ Cons:
 ### Installing
 
 ```shell
-git clone https://github.com/evanx/chronica
-cd chronica
-cat package.json
-npm install
-git submodule init
-git submodule update
+git clone https://github.com/evanx/chronica &&
+  cd chronica &&
+  cat package.json &&
+  npm install &&
+  git submodule init &&
+  git submodule update
 ```
 Note we have a submodule dependency on `https://github.com/evanx/redexutil` for generic utils for ES7. (We use ES7 async functions, via Babel.)
 
@@ -72,8 +72,8 @@ urlMonitor:
   interval: 45000 # check status every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
-  - url: http://google.com
-  - url: http://facebook.com
+  - url: http://myserver.com
+  - url: http://myotherserver.com
 ```
 
 See https://github.com/evanx/chronica/blob/master/sample-config.yaml
