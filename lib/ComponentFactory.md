@@ -79,8 +79,6 @@ where we timeout the components' `end()` async functions.
 See: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.js
 
 
-### Checking URLs
+### Other documentation
 
-We perform an HTTP HEAD request and check that the response has status code 200.
-
-See overview: https://github.com/evanx/chronica/blob/master/lib/README.md
+Implementation overview: https://github.com/evanx/chronica/blob/master/lib/README.md

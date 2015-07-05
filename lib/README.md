@@ -146,6 +146,6 @@ async function sendEmail(email, subject, message) {
 See: https://github.com/evanx/chronica/blob/master/components/emailMessenger.js
 
 
-### Learn more
+### Other documentation
 
 Component factory overview: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.md
