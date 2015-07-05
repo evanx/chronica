@@ -3,7 +3,40 @@
 
 We instantiate components via a factory, which decorates their config using defaults from YAML files.
 
-We create this factory using this root configuration:
+Components have the following lifecycle methods:
+- `start`
+- `end`
+- `scheduledTimeout`
+- `scheduledInterval`
+
+For example:
+
+```javascript
+   async start() {
+      logger.info('started');
+   },
+   async scheduledTimeout() {
+      logger.info('scheduledTimeout')
+   },
+   async scheduledInterval() {
+      logger.info('scheduledInterval')
+   },
+   async end() {
+      logger.info('end');
+   },
+```
+
+The scheduled methods are optional. Their intervals can be specified in their config:
+
+```yaml
+scheduledTimeout: 8000 # invoke 8 seconds after start
+scheduledInterval: 45000 # invoke every 45 seconds
+```
+
+
+#### Booting
+
+We create the factory using our configuration loaded from `~/etc/chronica.yaml` or another config file specified on the command-line.
 
 ```javascript
 export async function create(rootConfig) {
@@ -66,19 +99,31 @@ where we timeout the components' `start()` async functions.
 
 #### Scheduler
 
-We schedule a timeout and interval on components, if configured.
+Besides its `start()` and `end()` lifecycle methods, a component can define `scheduledTimeout()` and `scheduleInterval()` methods. These are configured as follows:
+
+
+
+We schedule a timeout and interval on components, if configured, as follows:
 ```javascript
 function schedule() {
    for (let [name, config] of state.configs) {
       if (config.scheduledTimeout) {
          state.scheduledTimeouts.set(name, setTimeout(() => {
-            state.processors[name].scheduledTimeout();
+            try {
+               state.processors[name].scheduledTimeout();
+            } catch (err) {
+               logger.warn('scheduledTimeout', name, err);
+            }
          }, config.scheduledTimeout));
       }
       let scheduledInterval = config.scheduledInterval;
       if (scheduledInterval) {
          state.scheduledIntervals.set(name, setInterval(() => {
-            state.processors[name].scheduledInterval();
+            try {
+               state.processors[name].scheduledInterval();
+            } catch (err) {
+               logger.warn('scheduledTimeout', name, err);
+            }
          }, config.scheduledInterval));
 ```
 where we record the ids e.g. to cancel in the event of an orderly shutdown.
@@ -99,7 +144,7 @@ async end() {
          return await Promises.timeout(name, rootConfig.componentEndTimeout,
             state.components[name].end());
       } catch (err) {
-         logger.warn('end:', name);
+         logger.warn('end', name);
 ```
 where we timeout the components' `end()` async functions.
 
