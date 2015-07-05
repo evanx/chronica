@@ -75,3 +75,37 @@ run().then(value => {
 }, reason => {
    logger.info('run rejected:', reason);
 });
+
+/* outputs
+evans@boromir:~/chronica$ babel-node --stage 0 test/adhoc/promises/throwing.js
+start swallowSyncNone
+done sync swallowSyncNone
+end swallowSyncNone
+start swallowAsyncNone
+start throwSync
+catch throwSync throwSync
+end throwSync
+start throwAsync
+start swallowSyncBeware
+done sync swallowSyncBeware
+end swallowSyncBeware
+start swallowSyncBetter
+done sync swallowSyncBetter
+end swallowSyncBetter
+start swallowSyncCatchThrowBeware
+done sync swallowSyncCatchThrowBeware
+end swallowSyncCatchThrowBeware
+start swallowAsyncBeware
+start throwAsyncReturn
+start throwAsyncAwait
+done await swallowAsyncNone
+end swallowAsyncNone
+catch throwAsync throwAsync
+end throwAsync
+done await swallowAsyncBeware
+end swallowAsyncBeware
+catch throwAsyncReturn throwAsyncReturn
+end throwAsyncReturn
+catch throwAsyncAwait throwAsyncAwait
+end throwAsyncAwait
+*/
