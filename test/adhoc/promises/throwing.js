@@ -48,7 +48,7 @@ const tests = {
       try {
         return Promise.resolve(name).then(value => {throw value});
      } catch (e) {
-        assert(true, 'we cann catch errors when returning promise in async function');
+        throw e;
      }
    },
    async throwAsyncAwaitBest(name) { // best usage: await promise and catch errors
