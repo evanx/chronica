@@ -3,26 +3,6 @@
 
 We instantiate components via a factory, which decorates their config using defaults from YAML files.
 
-We read the configuration file e.g. `~/etc/chronica.yaml`
-
-https://github.com/evanx/chronica/blob/master/etc/sample-config.yaml
-
-and decorate this with `ComponentFactory.yaml` defaults.
-
-https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.yaml
-
-We create this factory using this root configuration:
-
-```javascript
-export async function create(rootConfig) {
-
-   async function init() {
-      await initComponents();
-      await resolveRequiredComponents();
-      await startComponents();
-      await schedule();
-```
-
 See overview: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.md
 
 
