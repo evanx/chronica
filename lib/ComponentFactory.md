@@ -25,8 +25,15 @@ export async function create(rootConfig) {
 
 We initialise the configured components:
 ```javascript
-   async function initComponents() {
-      return await* state.componentNames.map(async (name) => {
+async function initComponents() {
+   state.componentNames = getComponentNames();
+   return await* state.componentNames.map(async (name) => {
+      let config = getComponentDefaultConfig(name);
+      let componentClassFile = getComponentClassFile(name, config);
+      config = await YamlDecorator.decorateClass(componentClassFile, config);
+      return await startComponent(name, config, componentClassFile);
+   });
+}
 ```
 
 We start the configured components:
