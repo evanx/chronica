@@ -1,27 +1,28 @@
 
-components:
-  emailMessenger:
-  slackMessenger:
-  alerter:
-    scheduledTimeout: 8000
-    default:
-      optionalRequiredComponents: [ emailMessenger, slackMessenger ]
+default:
+  components:
+    emailMessenger:
+    slackMessenger:
+    alerter:
+      scheduledTimeout: 8000
+      default:
+        optionalRequiredComponents: [ emailMessenger, slackMessenger ]
 
-  systemReporter:
+    systemReporter:
 
-  serviceReporter:
+    serviceReporter:
 
-  reporter:
-    requiredComponents: [ alerter, systemReporter, serviceReporter ]
+    reporter:
+      requiredComponents: [ alerter, systemReporter, serviceReporter ]
 
-  tracker:
-    requiredComponents: [ reporter ]
+    tracker:
+      requiredComponents: [ reporter ]
 
-  urlMonitor:
-    requiredComponents: [ reporter ]
-    default:
-      scheduledInterval: 8000
+    urlMonitor:
+      requiredComponents: [ reporter ]
+      default:
+        scheduledInterval: 8000
 
-  expressServer:
-    default:
-      port: 8880
+    expressServer:
+      default:
+        port: 8880

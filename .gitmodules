@@ -3,4 +3,4 @@
 	url = git@github.com:evanx/redexutil.git
 [submodule "scripts"]
 	path = scripts
-	url = git@github.com:evanx/chronica-active-scripts.git
+	url = git@github.com:evanx/chronica-scripts.git

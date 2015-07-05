@@ -2,35 +2,41 @@
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
 /* we run this test as follows:
-   babel-node --stage 0 test/adhoc/promises/throwing.js
-   */
+cd ~/chronica
+babel-node --stage 0 test/adhoc/promises/throwing.js
+*/
 
 import assert from 'assert';
 import lodash from 'lodash';
 
 const tests = {
-   swallowSyncNone(name) {
+   swallowSyncNone(name) { // sanity check
    },
-   async swallowAsyncNone(name) {
+   async swallowAsyncNone(name) { // sanity check
    },
-   throwSync(name) {
+   throwSync(name) { // sanity check
       throw name;
    },
-   async throwAsync(name) {
+   async throwAsync(name) { // sanity check
       throw name;
    },
-   swallowSyncDangerously(name) {
-      // Programmer BEWARE: any sync method will swallow exception in promise
+   swallowSyncBeware(name) { // programmer beware
+      // any sync method will swallow exception in promise
+      // so you must invoke then() if not returning the promise
       Promise.resolve('any').then(value => {throw value});
    },
-   async swallowAsyncDangerously(name) {
-      // Programmer BEWARE: any async method will swallow exception in promise if not awaited
+   swallowSyncCatchThrowBeware(name) { // programmer beware
+      // any sync method will swallow exception thrown in catch
+      Promise.resolve('any').then(value => {throw value}).catch(err => {throw err});
+   },
+   async swallowAsyncBeware(name) { // programmer beware
+      // any async method will swallow exception in promise not awaited or returned
       Promise.resolve('any').then(value => {throw value});
    },
-   async throwAsyncReturn(name) {
+   async throwAsyncReturn(name) { // good usage: return promise
       return Promise.resolve(name).then(value => {throw value});
    },
-   async throwAsyncAwait(name) {
+   async throwAsyncAwait(name) { // good usage: await promise
       await Promise.resolve(name).then(value => {throw value});
    }
 }
@@ -51,7 +57,7 @@ async function run() {
          console.log('catch', name, e);
          assert(/throw/.test(name), 'throw: ' + name);
          if (e.stack) {
-            console.error(e.stack);
+            console.error(e.stack); // show programming errors
          }
          assert.equal(e, name);
       }

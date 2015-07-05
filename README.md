@@ -28,8 +28,8 @@ Cons:
 <b>NOTE: please use commit 82d9c20</b>
 
 ```shell
-git clone https://github.com/evanx/chronica-active 82d9c20
-cd chronica-active
+git clone https://github.com/evanx/chronica 82d9c20
+cd chronica
 cat package.json
 npm install
 git submodule init
@@ -43,7 +43,7 @@ In order to use these scripts, you should install `bunyan` and `pm2` globally:
  sudo npm install bunyan pm2 -g
 ```
 
-The `scripts/` are a git submodule: https://github.com/evanx/chronica-active-scripts
+The `scripts/` are a git submodule: https://github.com/evanx/chronica-scripts
 
 Considering forking the script repo via github and then deploy your own copy. Then you can modifiy the scripts for your own purposes.
 
@@ -78,7 +78,7 @@ urlMonitor:
   - url: http://facebook.com
 ```
 
-See https://github.com/evanx/chronica-active/blob/master/sample-config.yaml
+See https://github.com/evanx/chronica/blob/master/sample-config.yaml
 
 
 ### Running
@@ -87,7 +87,7 @@ You must create your own configuration file e.g. `~/etc/chronica.yaml.`
 
 The `scripts/` are just a guide and won't work unless:
 - `bunyan` and `pm2` are installed globally
-- `~/chronica-active` exists
+- `~/chronica` exists
 - `~/etc/chronica.yaml` exists
 
 See `scripts/run.sh`
@@ -98,13 +98,13 @@ where we specify the config file.
 
 Also see `scripts/restart.pm2.sh` which includes the following command:
 ```shell
-cd ~/chronica-active
-pm2 start index.js --name chronica-active -- ~/etc/chronica.yaml
+cd ~/chronica
+pm2 start index.js --name chronica -- ~/etc/chronica.yaml
 ```
 
 You can `tail -f` the log file as follows:
 ```shell
-ls --sort=time ~/.pm2/logs/chronica-active-out-*.log |
+ls --sort=time ~/.pm2/logs/chronica-out-*.log |
     head -1 | xargs tail -f | bunyan -o short
 ```
 
@@ -141,7 +141,7 @@ where we use an ES7 `async` function to `await` the successful `HEAD` request.
 
 Note that we use the `redexutil` promise wrapper to `await` the highly-starred `request` NPM module.
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/UrlMonitor.js
+See: https://github.com/evanx/chronica/blob/master/lib/UrlMonitor.js
 
 #### Triggering alerts
 
@@ -169,7 +169,7 @@ If `debounceCount` is non-zero, then when the status changes, only upon a subseq
 - `debounceCount` - the number of checks with a stable status before triggering an alert
 - `interval` - the interval at which checks are performed e.g. 45 seconds
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/Tracker.js
+See: https://github.com/evanx/chronica/blob/master/lib/Tracker.js
 
 
 #### Sending alerts
@@ -184,7 +184,7 @@ async function sendAlert(subject, message) {
 }
 ```
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/Alerter.js
+See: https://github.com/evanx/chronica/blob/master/lib/Alerter.js
 
 
 ##### Slack
@@ -205,7 +205,7 @@ async function sendSlack(bot, subject, message) {
 }
 ```
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/SlackMessenger.js
+See: https://github.com/evanx/chronica/blob/master/lib/SlackMessenger.js
 
 See: https://api.slack.com/slackbot
 
@@ -235,7 +235,7 @@ async function sendEmail(email, subject, message) {
          }
 ```
 
-See: https://github.com/evanx/chronica-active/blob/master/lib/EmailMessenger.js
+See: https://github.com/evanx/chronica/blob/master/lib/EmailMessenger.js
 
 
 ### Future work
