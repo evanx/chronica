@@ -48,7 +48,7 @@ Note that we use the `redexutil` promise wrapper to `await` the highly-starred `
 
 See: https://github.com/evanx/chronica/blob/master/components/urlMonitor.js
 
-#### Triggering alerts
+### Triggering alerts
 
 The URLs are checked every `interval` e.g. 45 seconds, and a `debounceCount` is used for debouncing status changes.
 
@@ -77,7 +77,7 @@ If `debounceCount` is non-zero, then when the status changes, only upon a subseq
 See: https://github.com/evanx/chronica/blob/master/components/tracker.js
 
 
-#### Sending alerts
+### Sending alerts
 
 We configure an email and Slack messengers for alerts.
 
@@ -95,7 +95,7 @@ async sendAlert(subject, message) {
 See: https://github.com/evanx/chronica/blob/master/components/alerter.js
 
 
-#### Slackbot alerts
+### Slackbot alerts
 
 https://api.slack.com/slackbot
 
@@ -118,7 +118,7 @@ async function sendSlack(bot, subject, message) {
 See: https://github.com/evanx/chronica/blob/master/components/slackMessenger.js
 
 
-#### Email alerts
+### Email alerts
 
 We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
