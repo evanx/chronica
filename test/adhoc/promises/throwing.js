@@ -12,31 +12,39 @@ import assert from 'assert';
 import lodash from 'lodash';
 
 const tests = {
-   swallowSyncNoneSanity(name) { // sanity check
+   returnSanity(key) { // sanity check
+      return key;
    },
-   async swallowAsyncNoneSanity(name) { // sanity check
+   async returnSanityAsync(key) { // sanity check
+      return key;
    },
-   throwSyncSanity(name) { // sanity check
-      throw name;
+   async returnPromiseAsync(key) { // sanity check
+      return Promise.resolve(key);
    },
-   async throwAsyncSanity(name) { // sanity check
-      throw name;
+   throwSanity(key) { // sanity check
+      throw key;
    },
-   swallowSyncBeware(name) { // programmer beware
+   async throwSanityAsync(key) { // sanity check
+      throw key;
+   },
+   async throwSanityPromiseAsync(key) { // sanity check
+      return Promise.reject(key);
+   },
+   swallow(key) { // programmer beware
       // any sync method will swallow errors in promises
       // so you must have catch() if not returning the promise
       Promise.resolve('any').then(value => {throw value});
    },
-   swallowSyncBetter(name) { // better programming
+   swallowBetter(key) { // better programming
       Promise.resolve('any').then(value => {throw value})
       .catch(err => assert.equals(err, 'any'));
    },
-   swallowSyncCatchThrowBeware(name) { // programmer beware
+   swallowCatchThrow(key) { // programmer beware
       // any sync method will swallow errors in catch
       Promise.resolve('any').then(value => {throw value})
       .catch(err => {throw err});
    },
-   async swallowAsyncBeware(name) { // programmer beware
+   async swallowAsync(key) { // programmer beware
       // swallows errors in promises not awaited or returned
       try {
          Promise.resolve('any').then(value => {throw value});
@@ -44,90 +52,122 @@ const tests = {
          assert(false, 'we cannot catch errors without await');
       }
    },
-   async throwAsyncReturnGood(name) { // good usage: return promise
+   async throwAsync(key) { // good usage: return promise
       try {
-        return Promise.resolve(name).then(value => {throw value});
+        return Promise.resolve(key).then(value => {throw value});
      } catch (e) {
-        throw e;
+        assert(false, 'we cannot catch errors without await');
      }
    },
-   async throwAsyncAwaitBest(name) { // best usage: await promise and catch errors
+   async throwAwaitAsync(key) { // best usage: await promise and catch errors
       try {
-         await Promise.resolve(name).then(value => {throw value});
-         assert(false, 'error ocurred above, caught below')
+         await Promise.resolve(key).then(value => {throw value});
+         assert(false, 'error ocurred above, caught below');
       } catch (e) {
          throw e;
       }
    }
 }
 
-async function run() {
-   return await* Object.keys(tests).forEach(async (name) => {
-      console.log('start', name);
+async function run(keys) {
+   return await* keys.map(async (key) => {
+      console.log('start', key);
       try {
-         if (/Async/.test(name)) {
-            await tests[name](name);
-            console.log('done await', name);
-         } else {
-            tests[name](name);
-            console.log('done sync', name);
-         }
-         assert(/swallow/.test(name), 'swallow: ' + name);
-      } catch (e) {
-         console.log('catch', name, e);
-         try {
-            assert(/throw/.test(name), 'throw: ' + name);
-            if (e.stack) {
-               console.error(e.stack); // show programming errors
+         if (/Async/.test(key)) {
+            let returned = await tests[key](key);
+            if (/return/.test(key)) {
+               assert.equal(returned, key, 'returned: ' + key);
             }
-            assert.equal(e, name);
-         } catch (err) {
-            console.error('ERROR: ' + err);
-            throw err;
+            console.log('done await', key);
+         } else {
+            let returned = tests[key](key);
+            if (/return/.test(key)) {
+               console.log('returned sync', key, returned);
+               assert.equal(returned, key, 'returned: ' + key);
+            }
+            console.log('done sync', key);
+         }
+         assert(!/throw/.test(key), 'not thrown: ' + key);
+      } catch (e) {
+         console.log('catch', key, e);
+         if (e.stack) {
+            console.error(e.stack); // show programming errors
+         }
+         if (/throw/.test(key)) {
+            assert.equal(e, key);
+         } else {
+            console.error('ERROR: ' + e);
+            throw e;
          }
       }
-      console.log('end', name);
+      console.log('end', key);
+      return key;
    });
 }
 
-run().then(value => {
-   logger.info('run resolved:', value);
+var keys = Object.keys(tests);
+run(keys).then(results => {
+   assert(results.length, keys.length, 'results count matches tests');
+   console.info('then', results.length, keys.length);
+   results.forEach((result, index) => {console.log(result, keys[index])});
+   console.info('OK');
 }, reason => {
-   logger.info('run rejected:', reason);
+   console.error('run rejected:', reason);
 }).catch(error => {
-   logger.info('run error:', error);
-})
+   console.error('run error:', error);
+});
 
 /* outputs
 evans@boromir:~/chronica$ babel-node --stage 0 test/adhoc/promises/throwing.js
-start swallowSyncNone
-done sync swallowSyncNone
-end swallowSyncNone
-start swallowAsyncNone
-start throwSync
-catch throwSync throwSync
-end throwSync
+start returnSanity
+returned sync returnSanity returnSanity
+done sync returnSanity
+end returnSanity
+start returnSanityAsync
+start returnPromiseAsync
+start throwSanity
+catch throwSanity throwSanity
+end throwSanity
+start throwSanityAsync
+start throwSanityPromiseAsync
+start swallow
+done sync swallow
+end swallow
+start swallowBetter
+done sync swallowBetter
+end swallowBetter
+start swallowCatchThrow
+done sync swallowCatchThrow
+end swallowCatchThrow
+start swallowAsync
 start throwAsync
-start swallowSyncBeware
-done sync swallowSyncBeware
-end swallowSyncBeware
-start swallowSyncBetter
-done sync swallowSyncBetter
-end swallowSyncBetter
-start swallowSyncCatchThrowBeware
-done sync swallowSyncCatchThrowBeware
-end swallowSyncCatchThrowBeware
-start swallowAsyncBeware
-start throwAsyncReturn
-start throwAsyncAwait
-done await swallowAsyncNone
-end swallowAsyncNone
+start throwAwaitAsync
+done await returnSanityAsync
+end returnSanityAsync
+catch throwSanityAsync throwSanityAsync
+end throwSanityAsync
+done await swallowAsync
+end swallowAsync
+done await returnPromiseAsync
+end returnPromiseAsync
+catch throwSanityPromiseAsync throwSanityPromiseAsync
+end throwSanityPromiseAsync
 catch throwAsync throwAsync
 end throwAsync
-done await swallowAsyncBeware
-end swallowAsyncBeware
-catch throwAsyncReturn throwAsyncReturn
-end throwAsyncReturn
-catch throwAsyncAwait throwAsyncAwait
-end throwAsyncAwait
+catch throwAwaitAsync throwAwaitAsync
+end throwAwaitAsync
+then 12 12
+returnSanity returnSanity
+returnSanityAsync returnSanityAsync
+returnPromiseAsync returnPromiseAsync
+throwSanity throwSanity
+throwSanityAsync throwSanityAsync
+throwSanityPromiseAsync throwSanityPromiseAsync
+swallow swallow
+swallowBetter swallowBetter
+swallowCatchThrow swallowCatchThrow
+swallowAsync swallowAsync
+throwAsync throwAsync
+throwAwaitAsync throwAwaitAsync
+OK
 */
