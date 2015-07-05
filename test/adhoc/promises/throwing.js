@@ -12,14 +12,14 @@ import assert from 'assert';
 import lodash from 'lodash';
 
 const tests = {
-   swallowSyncNone(name) { // sanity check
+   swallowSyncNoneSanity(name) { // sanity check
    },
-   async swallowAsyncNone(name) { // sanity check
+   async swallowAsyncNoneSanity(name) { // sanity check
    },
-   throwSync(name) { // sanity check
+   throwSyncSanity(name) { // sanity check
       throw name;
    },
-   async throwAsync(name) { // sanity check
+   async throwAsyncSanity(name) { // sanity check
       throw name;
    },
    swallowSyncBeware(name) { // programmer beware
@@ -38,13 +38,26 @@ const tests = {
    },
    async swallowAsyncBeware(name) { // programmer beware
       // swallows errors in promises not awaited or returned
-      Promise.resolve('any').then(value => {throw value});
+      try {
+         Promise.resolve('any').then(value => {throw value});
+      } catch (e) {
+         assert(false, 'we cannot catch errors without await');
+      }
    },
-   async throwAsyncReturn(name) { // good usage: return promise
-      return Promise.resolve(name).then(value => {throw value});
+   async throwAsyncReturnGood(name) { // good usage: return promise
+      try {
+        return Promise.resolve(name).then(value => {throw value});
+     } catch (e) {
+        assert(false, 'we cannot catch errors when returning promise');
+     }
    },
-   async throwAsyncAwait(name) { // good usage: await promise
-      await Promise.resolve(name).then(value => {throw value});
+   async throwAsyncAwaitBest(name) { // best usage: await promise and catch errors
+      try {
+         await Promise.resolve(name).then(value => {throw value});
+      } catch (e) {
+         assert(true, name);
+         throw e;
+      }
    }
 }
 
@@ -62,21 +75,28 @@ async function run() {
          assert(/swallow/.test(name), 'swallow: ' + name);
       } catch (e) {
          console.log('catch', name, e);
-         assert(/throw/.test(name), 'throw: ' + name);
-         if (e.stack) {
-            console.error(e.stack); // show programming errors
+         try {
+            assert(/throw/.test(name), 'throw: ' + name);
+            if (e.stack) {
+               console.error(e.stack); // show programming errors
+            }
+            assert.equal(e, name);
+         } catch (err) {
+            console.error('ERROR: ' + err);
+            throw err;
          }
-         assert.equal(e, name);
       }
       console.log('end', name);
-   })
+   });
 }
 
 run().then(value => {
    logger.info('run resolved:', value);
 }, reason => {
    logger.info('run rejected:', reason);
-});
+}).catch(error => {
+   logger.info('run error:', error);
+})
 
 /* outputs
 evans@boromir:~/chronica$ babel-node --stage 0 test/adhoc/promises/throwing.js
