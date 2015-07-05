@@ -118,6 +118,12 @@ and proxy as required via NGINX or other.
 
 ### Implementation
 
+### ComponentFactory
+
+```javascript
+```
+
+See:
 #### Checking URLs
 
 We perform an HTTP HEAD request and check that the response has status code 200.
@@ -138,7 +144,7 @@ where we use an ES7 `async` function to `await` the successful `HEAD` request.
 
 Note that we use the `redexutil` promise wrapper to `await` the highly-starred `request` NPM module.
 
-See: https://github.com/evanx/chronica/blob/master/lib/urlMonitor.js
+See: https://github.com/evanx/chronica/blob/master/components/urlMonitor.js
 
 #### Triggering alerts
 
@@ -166,7 +172,7 @@ If `debounceCount` is non-zero, then when the status changes, only upon a subseq
 - `debounceCount` - the number of checks with a stable status before triggering an alert
 - `interval` - the interval at which checks are performed e.g. 45 seconds
 
-See: https://github.com/evanx/chronica/blob/master/lib/tracker.js
+See: https://github.com/evanx/chronica/blob/master/components/tracker.js
 
 
 #### Sending alerts
@@ -184,7 +190,7 @@ async sendAlert(subject, message) {
 }
 ```
 
-See: https://github.com/evanx/chronica/blob/master/lib/alerter.js
+See: https://github.com/evanx/chronica/blob/master/components/alerter.js
 
 
 ##### Slack
@@ -207,7 +213,7 @@ async function sendSlack(bot, subject, message) {
 }
 ```
 
-See: https://github.com/evanx/chronica/blob/master/lib/slackMessenger.js
+See: https://github.com/evanx/chronica/blob/master/components/slackMessenger.js
 
 
 ##### Email
@@ -235,7 +241,7 @@ async function sendEmail(email, subject, message) {
          }
 ```
 
-See: https://github.com/evanx/chronica/blob/master/lib/emailMessenger.js
+See: https://github.com/evanx/chronica/blob/master/components/emailMessenger.js
 
 
 ### Future work
