@@ -33,7 +33,23 @@ scheduledTimeout: 8000 # invoke 8 seconds after start
 scheduledInterval: 45000 # invoke every 45 seconds
 ```
 
-`ComponentFactory` decorates their config using defaults from YAML files, and invokes the component's exported `create` method. The following example is an ExpressJS server:
+Alternatively components can perform their own scheduling as follows:
+```javascript
+async start() {
+   assert(config.interval, 'interval');
+   that.checkIntervalId = setInterval(checkServices, config.interval);
+},
+async end() {
+   if (that.checkIntervalId) {
+      clearInterval(that.checkIntervalId);
+      delete that.checkIntervalId;
+   }
+}
+```
+
+### ExpressJS example
+
+`ComponentFactory` decorates the config using defaults from YAML files, and invokes the component's exported `create` method. The following example is an ExpressJS server:
 
 ```javascript
 export function create(config, logger, components, appState) {
@@ -53,7 +69,7 @@ export function create(config, logger, components, appState) {
          });
          server = app.listen(config.port);
          state.hostname = appState.rootConfig.env.hostname;
-         logger.info('listening', that);
+         logger.info('listening', state);
       },
       async end() {
          if (server) {

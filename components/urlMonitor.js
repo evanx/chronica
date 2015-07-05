@@ -1,7 +1,9 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-export function create(config, logger, components, state) {
+export function create(config, logger, components, appState) {
+
+   let that = {};
 
    logger.debug('config', config);
 
@@ -18,12 +20,12 @@ export function create(config, logger, components, state) {
       if (!service.label) {
          service.label = service.name;
       }
-      state.services.set(service.name, service);
+      appState.services.set(service.name, service);
       logger.debug('service', service);
    });
 
    async function checkServices() {
-      for (const [name, service] of state.services) {
+      for (const [name, service] of appState.services) {
          await checkService(service);
       }
    }
@@ -43,14 +45,14 @@ export function create(config, logger, components, state) {
       async start() {
          assert(config.interval, 'interval');
          assert(!lodash.isEmpty(config.services), 'services');
-         logger.info('started', state.services.size, config.interval);
+         logger.info('started', appState.services.size, config.interval);
          await checkServices();
-         state.checkIntervalId = setInterval(checkServices, config.interval);
+         that.checkIntervalId = setInterval(checkServices, config.interval);
       },
       async end() {
-         if (state.checkIntervalId) {
-            clearInterval(state.checkIntervalId);
-            delete state.checkIntervalId;
+         if (that.checkIntervalId) {
+            clearInterval(that.checkIntervalId);
+            delete that.checkIntervalId;
          }
       }
    };
