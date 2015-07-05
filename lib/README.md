@@ -23,59 +23,6 @@ export async function create(rootConfig) {
       await schedule();
 ```
 
-We initialise the configured components:
-```javascript
-   async function initComponents() {
-      return await* state.componentNames.map(async (name) => {
-```
-
-We start the configured components:
-```javascript
-   async function startComponents() {
-      state.startedNames = await* state.componentNames.map(async (name) => {
-         let component = state.components[name];
-         await Promises.timeout(name, rootConfig.componentStartTimeout,
-                  state.components[name].start());
-            return name;
-      });
-   }
-```
-where we timeout the components' `start()` async functions.
-
-We schedule a timeout and interval on components, if configured.
-```javascript
-function schedule() {
-   for (let [name, config] of state.configs) {
-      if (config.scheduledTimeout) {
-         state.scheduledTimeouts.set(name, setTimeout(() => {
-            state.processors[name].scheduledTimeout();
-         }, config.scheduledTimeout));
-      }
-      let scheduledInterval = config.scheduledInterval;
-      if (scheduledInterval) {
-         state.scheduledIntervals.set(name, setInterval(() => {
-            state.processors[name].scheduledInterval();
-         }, config.scheduledInterval));
-```
-where we record the ids e.g. to cancel in the event of an orderly shutdown.
-
-```javascript
-async end() {
-   for (let [name, id] of state.scheduledIntervals) {
-      clearInterval(id);
-   }
-   for (let [name, id] of state.scheduledTimeouts) {
-      clearTimeout(id);
-   }
-   return lodash(state.startedNames).reverse().map(async (name) => {
-      try {
-         return await Promises.timeout(name, rootConfig.componentEndTimeout,
-            state.components[name].end());
-      } catch (err) {
-         logger.warn('end:', name);
-```
-where we timeout the components' `end()` async functions.
-
 See: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.js
 
 
