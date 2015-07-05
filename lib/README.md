@@ -95,9 +95,9 @@ async sendAlert(subject, message) {
 See: https://github.com/evanx/chronica/blob/master/components/alerter.js
 
 
-##### Slack
+#### Slackbot alerts
 
-See: https://api.slack.com/slackbot
+https://api.slack.com/slackbot
 
 We HTTP POST the message to your Slackbot as follows:
 
@@ -118,7 +118,7 @@ async function sendSlack(bot, subject, message) {
 See: https://github.com/evanx/chronica/blob/master/components/slackMessenger.js
 
 
-##### Email
+#### Email alerts
 
 We use `nodemailer` which works out the box for `@gmail.com` addresses.
 
