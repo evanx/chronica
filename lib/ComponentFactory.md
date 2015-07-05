@@ -26,7 +26,7 @@ For example:
    },
 ```
 
-The scheduled methods are optional. Their intervals can be specified in their config:
+The scheduled methods are optional. The intervals can be specified in the component's config as follows:
 
 ```yaml
 scheduledTimeout: 8000 # invoke 8 seconds after start
