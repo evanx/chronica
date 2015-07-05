@@ -6,20 +6,21 @@ import express from 'express';
 
 import ExpressResponses from '../lib/ExpressResponses';
 
-export function create(config, logger, components, state) {
+export function create(config, logger, components, appState) {
 
-   let app, server, listening;
+   let app, server;
 
    const those = {
       get state() {
-         return { config, listening };
+         return { config };
       },
       async start() {
          app = express();
-         logger.info('listening', config.port);
          app.get(config.location, async (req, res) => {
             res.json(those.state);
          });
+         server = app.listen(config.port);
+         logger.info('listening', config.port, appState.hostname);
       },
       async end() {
          if (server) {
