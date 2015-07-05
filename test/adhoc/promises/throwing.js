@@ -55,7 +55,6 @@ const tests = {
       try {
          await Promise.resolve(name).then(value => {throw value});
       } catch (e) {
-         assert(true, name);
          throw e;
       }
    }
