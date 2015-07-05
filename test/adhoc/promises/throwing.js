@@ -12,11 +12,16 @@ import assert from 'assert';
 import lodash from 'lodash';
 
 /*
-The test harness checks the prefix of the test's key i.e. function name.
-It checks accordingly that the function:
-- returns its key
+The test harness checks the prefix of the test's key (function name)
+This prefix is 'returns' or 'throws.'
+We check accordingly that the function:
+- returns its key, or
 - throws its key
-- swallows the exception
+where we pass the test its key as an argument.
+
+Any test that throws or returns any other object is considered a failure.
+
+Note that the returned promises are await'ed, and so are converted into their resolved values by ES7.
 */
 const tests = {
    returnsSanity(key) { // sanity check
@@ -43,44 +48,49 @@ const tests = {
    async throwsSanityAwaitAsync(key) { // sanity check
       return await Promise.reject(key);
    },
-   swallows(key) { // programmer beware
+   returnsSwallows(key) { // programmer beware
       // any sync function swallows errors in promises
       // so you must have catch() if not returning the promise
       Promise.resolve('any').then(value => {throw value});
+      return key;
    },
-   swallowsBetter(key) { // better programming
+   returnsBetter(key) { // better programming
       Promise.resolve('any').then(value => {throw value})
       .catch(err => {
          if (err !== 'any') {
             console.error('ERROR:', key, err);
          }
       });
+      return key;
    },
-   swallowsCatchThrow(key) { // programmer beware
+   returnsCatchThrow(key) { // programmer beware
       // any sync function swallows errors in catch
       Promise.resolve('any').then(value => {throw value})
       .catch(err => {throw err});
+      return key;
    },
-   async swallowsAsync(key) { // programmer beware
+   async returnsAsync(key) { // programmer beware
       // swallows errors in promises not awaited or returned
       try {
          Promise.resolve('any').then(value => {throw value});
+         return key;
       } catch (e) {
-         assert(false, 'we cannot catch errors without await');
+         throw 'never happens: we cannot catch errors without await';
       }
    },
    async throwsAsync(key) { // good usage: return promise
       try {
         return Promise.resolve(key).then(value => {throw value});
      } catch (e) {
-        assert(false, 'we cannot catch errors without await');
+        throw 'never happens: we cannot catch errors without await';
      }
    },
    async throwsAwaitAsync(key) { // best usage: await promise and catch errors
       try {
          await Promise.resolve(key).then(value => {throw value});
-         assert(false, 'error ocurred above, caught below');
+         throw 'never happens: error happened above, caught below';
       } catch (e) {
+         console.log('caught', key, e);  // yay
          throw e;
       }
    }
@@ -91,30 +101,30 @@ async function run(keys) {
       console.log('start', key);
       try {
          if (/Async/.test(key)) {
-            let returned = await tests[key](key);
+            let returned = await tests[key](key); // if promise returned, resolved by 'await'
             if (/^returns/.test(key)) {
-               assert.equal(returned, key, 'returned: ' + key);
+               assert.equal(returned, key, 'returned: ' + key); // must match key
             }
             console.log('done await', key);
          } else {
             let returned = tests[key](key);
             if (/^returns/.test(key)) {
                console.log('returned sync', key, returned);
-               assert.equal(returned, key, 'returned: ' + key);
+               assert.equal(returned, key, 'returned: ' + key); // must match key
             }
             console.log('done sync', key);
          }
-         assert(!/^throws/.test(key), 'not thrown: ' + key);
+         assert(!/^throws/.test(key), 'not throws: ' + key); // should have thrown an error
       } catch (e) {
          console.log('catch', key, e);
          if (e.stack) {
             console.error(e.stack); // show programming errors
          }
          if (/^throws/.test(key)) {
-            assert.equal(e, key);
+            assert.equal(e, key); // expected an error, but must match the key e.g. not AssertionError
          } else {
             console.error('ERROR: ' + e);
-            throw e;
+            throw e; // should not have thrown an error
          }
       }
       console.log('end', key);
@@ -124,14 +134,10 @@ async function run(keys) {
 
 var keys = Object.keys(tests);
 run(keys).then(results => {
-   assert(results.length, keys.length, 'results count matches tests');
-   console.info('then', results.length, keys.length);
-   let invalidResults = results.filter((result, index) => result !== keys[index]);
-   if (invalidResults.length === 0) {
-      console.info('OK');
-   } else {
-      console.info('INVALID:', invalidResults);
-   }
+   console.info('results:', results.length, results[0], results[results.length - 1]);
+   assert.equal(results.length, keys.length, 'results length matches number of tests');
+   assert.equal(results.filter((result, index) => result !== keys[index]).length, 0, 'all results match');
+   console.info('OK');
 }, reason => {
    console.error('run rejected:', reason);
 }).catch(error => {
@@ -139,50 +145,15 @@ run(keys).then(results => {
 });
 
 /* outputs
-evans@boromir:~/chronica$ babel-node --stage 0 test/adhoc/promises/throwing.js
-start returnsSanity
-returned sync returnsSanity returnsSanity
-done sync returnsSanity
-end returnsSanity
-start returnsSanityAsync
-start returnsPromiseAsync
-start returnsAwaitAsync
-start throwsSanity
-catch throwsSanity throwsSanity
-end throwsSanity
-start throwsSanityAsync
-start throwsSanityPromiseAsync
-start throwsSanityAwaitAsync
-start swallows
-done sync swallows
-end swallows
-start swallowsBetter
-done sync swallowsBetter
-end swallowsBetter
-start swallowsCatchThrow
-done sync swallowsCatchThrow
-end swallowsCatchThrow
-start swallowsAsync
-start throwsAsync
-start throwsAwaitAsync
-done await returnsSanityAsync
-end returnsSanityAsync
-catch throwsSanityAsync throwsSanityAsync
-end throwsSanityAsync
-done await swallowsAsync
-end swallowsAsync
-done await returnsPromiseAsync
-end returnsPromiseAsync
-done await returnsAwaitAsync
-end returnsAwaitAsync
-catch throwsSanityPromiseAsync throwsSanityPromiseAsync
+evans@boromir:~/chronica$ babel-node --stage 0 test/adhoc/promises/throwing.js | tail
 end throwsSanityPromiseAsync
 catch throwsSanityAwaitAsync throwsSanityAwaitAsync
 end throwsSanityAwaitAsync
+caught throwsAwaitAsync throwsAwaitAsync
 catch throwsAsync throwsAsync
 end throwsAsync
 catch throwsAwaitAsync throwsAwaitAsync
 end throwsAwaitAsync
-then 14 14
+results: 14 returnsSanity throwsAwaitAsync
 OK
 */
