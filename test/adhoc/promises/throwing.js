@@ -23,16 +23,16 @@ const tests = {
       throw name;
    },
    swallowSyncBeware(name) { // programmer beware
-      // any sync method will swallow exception in promise
+      // any sync method will swallow errors in promises
       // so you must invoke then() if not returning the promise
       Promise.resolve('any').then(value => {throw value});
    },
    swallowSyncCatchThrowBeware(name) { // programmer beware
-      // any sync method will swallow exception thrown in catch
+      // any sync method will swallow errors in catch
       Promise.resolve('any').then(value => {throw value}).catch(err => {throw err});
    },
    async swallowAsyncBeware(name) { // programmer beware
-      // any async method will swallow exception in promise not awaited or returned
+      // any async method will swallow errors in promises not awaited or returned
       Promise.resolve('any').then(value => {throw value});
    },
    async throwAsyncReturn(name) { // good usage: return promise
