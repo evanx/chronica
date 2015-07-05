@@ -127,8 +127,9 @@ async function run(keys) {
 
 /* Notes:
 
-Source: https://github.com/evanx/chronica/tree/master/test/adhoc/promises/throwing
+Source: https://github.com/evanx/chronica/tree/master/test/adhoc/promises
 
+<!---
 Async functions are an ES7 proposal (stage 0).
 
 The individual test function names are keys from Object.keys(tests)
@@ -171,4 +172,5 @@ catch throwsAwaitAsync throwsAwaitAsync
 end throwsAwaitAsync
 results: 14 returnsSanity throwsAwaitAsync
 OK
+--->
 */
