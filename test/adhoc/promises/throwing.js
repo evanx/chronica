@@ -11,27 +11,6 @@ git clone https://github.com/evanx/chronica.git &&
 import assert from 'assert';
 import lodash from 'lodash';
 
-/*
-Note that async functions are an ES7 proposal (stage 0).
-
-The individual test function names are keys from Object.keys(tests)
-
-The test harness checks the suffix and prefix of the test's key e.g. 'returnsPromiseAync'
-
-The suffix is 'Async' if it is an ES7 async function.
-
-The prefix is 'returns' or 'throws.'
-We check accordingly that the function:
-- returns its key, or
-- throws its key
-where we pass the test its key as an argument.
-
-Any test that throws or returns any other object is considered a failure.
-
-Note that the returned promises are await'ed, and so are converted into their resolved values by ES7.
-
-Note that we throw an error is our promise resolved function to simulate an error therein.
-*/
 const tests = {
    returnsSanity(key) { // sanity check
       return key;
@@ -105,6 +84,18 @@ const tests = {
    }
 }
 
+var keys = Object.keys(tests);
+run(keys).then(results => {
+   console.info('results:', results.length, results[0], results[results.length - 1]);
+   assert.equal(results.length, keys.length, 'results length matches number of tests');
+   assert.equal(results.filter((result, index) => result !== keys[index]).length, 0, 'all results match');
+   console.info('OK');
+}, reason => {
+   console.error('run rejected:', reason);
+}).catch(error => {
+   console.error('run error:', error);
+});
+
 async function run(keys) {
    return await* keys.map(async (key) => {
       console.log('start', key);
@@ -141,19 +132,28 @@ async function run(keys) {
    });
 }
 
-var keys = Object.keys(tests);
-run(keys).then(results => {
-   console.info('results:', results.length, results[0], results[results.length - 1]);
-   assert.equal(results.length, keys.length, 'results length matches number of tests');
-   assert.equal(results.filter((result, index) => result !== keys[index]).length, 0, 'all results match');
-   console.info('OK');
-}, reason => {
-   console.error('run rejected:', reason);
-}).catch(error => {
-   console.error('run error:', error);
-});
+/*
+Note that async functions are an ES7 proposal (stage 0).
 
-/* outputs
+The individual test function names are keys from Object.keys(tests)
+
+The test harness checks the suffix and prefix of the test's key e.g. 'returnsPromiseAync'
+
+The suffix is 'Async' if it is an ES7 async function.
+
+The prefix is 'returns' or 'throws.'
+We check accordingly that the function:
+- returns its key, or
+- throws its key
+where we pass the test its key as an argument.
+
+Any test that throws or returns any other object is considered a failure.
+
+Note that the returned promises are await'ed, and so are converted into their resolved values by ES7.
+
+Note that we throw an error is our promise resolved function to simulate an error therein.
+
+Output:
 evans@boromir:~/chronica$ babel-node --stage 0 test/adhoc/promises/throwing.js | tail
 end throwsSanityPromiseAsync
 catch throwsSanityAwaitAsync throwsSanityAwaitAsync
