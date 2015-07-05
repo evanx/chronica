@@ -120,10 +120,69 @@ and proxy as required via NGINX or other.
 
 ### ComponentFactory
 
+We instantiate components via a factory, which decorates their config using defaults from YAML files.
+
 ```javascript
+export async function create(rootConfig) {
+
+   async function init() {
+      await initComponents();
+      await resolveRequiredComponents();
+      await startComponents();
+      await schedule();
 ```
 
-See:
+```javascript
+async function startComponents() {
+   state.startedNames = await* state.componentNames.map(async (name) => {
+      logger.debug('start', name);
+      let component = state.components[name];
+      logger.debug('start', name, Object.keys(state.components));
+      assert(component, 'component: ' + name);
+      await Promises.timeout('start ' + name, 5000, state.components[name].start());
+      logger.debug('started', name);
+      return name;
+   });
+}
+```
+
+We schedule a timeout and interval on components, if configured.
+```javascript
+function schedule() {
+   for (let [name, config] of state.configs) {
+      if (config.scheduledTimeout) {
+         state.scheduledTimeouts.set(name, setTimeout(() => {
+            state.processors[name].scheduledTimeout();
+         }, config.scheduledTimeout));
+      }
+      let scheduledInterval = config.scheduledInterval;
+      if (scheduledInterval) {
+         state.scheduledIntervals.set(name, setInterval(() => {
+            state.processors[name].scheduledInterval();
+         }, config.scheduledInterval));
+```
+where we record the ids e.g. to cancel in the event of an orderly shutdown.
+
+```javascript
+async end() {
+   for (let [name, id] of state.scheduledIntervals) {
+      clearInterval(id);
+   }
+   for (let [name, id] of state.scheduledTimeouts) {
+      clearTimeout(id);
+   }
+   return lodash(state.startedNames).reverse().map(async (name) => {
+      try {
+         return await Promises.timeout(name, rootConfig.componentEndTimeout,
+            state.components[name].end());
+      } catch (err) {
+         logger.warn('end:', name);
+```
+where we timeout the components' `end()` async functions.
+
+See: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.js
+
+
 #### Checking URLs
 
 We perform an HTTP HEAD request and check that the response has status code 200.
