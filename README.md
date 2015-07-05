@@ -118,11 +118,6 @@ expressServer:
 and proxy as required via NGINX or other.
 
 
-### Implementation
-
-See overview: https://github.com/evanx/chronica/blob/master/lib/readme.md
-
-
 ### Other documentation
 
 Implementation overview: https://github.com/evanx/chronica/blob/master/lib/readme.md
