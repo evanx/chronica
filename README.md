@@ -135,12 +135,9 @@ export async function create(rootConfig) {
 ```javascript
 async function startComponents() {
    state.startedNames = await* state.componentNames.map(async (name) => {
-      logger.debug('start', name);
       let component = state.components[name];
-      logger.debug('start', name, Object.keys(state.components));
-      assert(component, 'component: ' + name);
-      await Promises.timeout('start ' + name, 5000, state.components[name].start());
-      logger.debug('started', name);
+      await Promises.timeout(name, rootConfig.componentStartTimeout,
+         state.components[name].start());
       return name;
    });
 }

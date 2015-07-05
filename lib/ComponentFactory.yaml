@@ -1,5 +1,6 @@
 
 default:
+  componentStartTimeout: 5000
   componentEndTimeout: 5000
   components:
     emailMessenger:
