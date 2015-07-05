@@ -55,7 +55,7 @@ const tests = {
       Promise.resolve('any').then(value => {throw value});
       return key;
    },
-   returnsBetter(key) { // better programming: use promise.catch()
+   returnsBetter(key) { // better practice: use promise.catch()
       Promise.resolve('any').then(value => {throw value})
       .catch(err => {
          if (err !== 'any') {
@@ -80,14 +80,14 @@ const tests = {
          throw 'never happens: we cannot catch errors without await';
       }
    },
-   async throwsAsync(key) { // good usage: return promise
+   async throwsAsync(key) { // good practice: return promise
       try {
         return Promise.resolve(key).then(value => {throw value});
      } catch (e) {
         throw 'never happens: we cannot catch errors without await';
      }
    },
-   async throwsAwaitAsync(key) { // best usage: await promise and catch errors locally
+   async throwsAwaitAsync(key) { // best practice: await promise and catch errors locally
       try {
          await Promise.resolve(key).then(value => {throw value});
          throw 'never happens: error happened above, caught below';
