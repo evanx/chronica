@@ -63,7 +63,7 @@ export function create(config, logger, components, state) {
    return those;
 }
 ```
-where the `state` method is for introspection.
+where the `state` method is for introspection to assist with debugging.
 
 #### Booting
 
