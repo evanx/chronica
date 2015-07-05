@@ -65,6 +65,12 @@ export function create(config, logger, components, state) {
 ```
 where the `state` method is for introspection to assist with debugging.
 
+The `ComponentFactory` provides the component with the following:
+- its configuration, which is decorated with defaults and asserted
+- a logger configured with its name
+- the other components it requires e.g. `reporter` requires the `alerter` singleton.
+- the shared state of the application
+
 #### Booting
 
 We create the factory using our configuration loaded from `~/etc/chronica.yaml` or another config file specified on the command-line.
