@@ -122,6 +122,9 @@ and proxy as required via NGINX or other.
 
 We instantiate components via a factory, which decorates their config using defaults from YAML files.
 
+We read the configuration file e.g. `~/etc/chronica.yaml` and decorate this with `ComponentFactory.yaml` defaults.
+
+We create this factory using this root configuration:
 ```javascript
 export async function create(rootConfig) {
 
@@ -132,16 +135,24 @@ export async function create(rootConfig) {
       await schedule();
 ```
 
+We initialise the configured components:
 ```javascript
-async function startComponents() {
-   state.startedNames = await* state.componentNames.map(async (name) => {
-      let component = state.components[name];
-      await Promises.timeout(name, rootConfig.componentStartTimeout,
-         state.components[name].start());
-      return name;
-   });
-}
+   async function initComponents() {
+      return await* state.componentNames.map(async (name) => {
 ```
+
+We start the configured components:
+```javascript
+   async function startComponents() {
+      state.startedNames = await* state.componentNames.map(async (name) => {
+         let component = state.components[name];
+         await Promises.timeout(name, rootConfig.componentStartTimeout,
+                  state.components[name].start());
+            return name;
+      });
+   }
+```
+where we timeout the components' `start()` async functions.
 
 We schedule a timeout and interval on components, if configured.
 ```javascript
