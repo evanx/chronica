@@ -189,6 +189,8 @@ See: https://github.com/evanx/chronica/blob/master/lib/alerter.js
 
 ##### Slack
 
+See: https://api.slack.com/slackbot
+
 We HTTP POST the message to your Slackbot as follows:
 
 ```javascript
@@ -206,8 +208,6 @@ async function sendSlack(bot, subject, message) {
 ```
 
 See: https://github.com/evanx/chronica/blob/master/lib/slackMessenger.js
-
-See: https://api.slack.com/slackbot
 
 
 ##### Email
