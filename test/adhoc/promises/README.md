@@ -5,6 +5,21 @@ Async functions are an ES7 proposal (stage 0).
 
 The individual test function names are keys from `Object.keys(tests)`
 
+```javascript
+const tests = {
+   throwsSanity(key) { // sanity check
+      throw key;
+   },
+   returnsSwallows(key) { // programmer beware: promises can swallow errors
+      // so you should have promise.catch() if not returning the promise
+      Promise.resolve('any').then(value => {throw value});
+      return key;
+   },
+   async throwsSanityAsync(key) { // sanity check
+      throw key;
+   },
+```
+
 The test harness checks the suffix and prefix of the test's key e.g. `returnsPromiseAync`
 
 The suffix is `Async` if it is an ES7 async function (proposed, stage 0).
@@ -20,6 +35,30 @@ Note that the returned promises are await'ed, and so are converted into their re
 
 Note that we throw an error is our promise resolved function to simulate an error therein.
 
+```javascript
+   async throwsSanityPromiseAsync(key) { // sanity check
+      return Promise.reject(key);
+   },
+   async throwsAsync(key) { // good practice: return promise
+      try {
+        return Promise.resolve(key).then(value => {throw value});
+     } catch (e) {
+        throw 'never happens: we cannot catch errors without await';
+     }
+   },
+   async throwsAwaitAsync(key) { // best practice: await promise and catch errors locally
+      try {
+         await Promise.resolve(key).then(value => {throw value});
+         throw 'never happens: error happened above, caught below';
+      } catch (e) {
+         console.log('caught', key, e);  // yay
+         throw e;
+      }
+   }
+
+```
+
+See: https://github.com/evanx/chronica/blob/master/test/adhoc/promises/throwing.js
 
 ### Running
 
@@ -33,6 +72,8 @@ git clone https://github.com/evanx/chronica.git &&
 ```
 
 #### Output
+
+The tail of the output is as follows:
 
 ```shell
 end throwsSanityPromiseAsync
