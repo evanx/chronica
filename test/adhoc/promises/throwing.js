@@ -12,7 +12,7 @@ import assert from 'assert';
 import lodash from 'lodash';
 
 /*
-The test harness checks the prefix of the test's key (function name)
+The test harness checks the prefix of the test's key (function name e.g. 'returnsPromiseAync).
 This prefix is 'returns' or 'throws.'
 We check accordingly that the function:
 - returns its key, or
