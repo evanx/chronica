@@ -1,8 +1,6 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-// Notes: https://github.com/evanx/chronica/tree/master/test/adhoc/promises/README.md
-
 import assert from 'assert';
 import lodash from 'lodash';
 
@@ -126,3 +124,5 @@ async function run(keys) {
       return key;
    });
 }
+
+// Notes: <a href="https://github.com/evanx/chronica/tree/master/test/adhoc/promises/README.md">README.md</a>
