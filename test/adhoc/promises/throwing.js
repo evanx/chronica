@@ -1,13 +1,6 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-/* we run this test as follows:
-git clone https://github.com/evanx/chronica.git &&
-  cd ~/chronica &&
-  npm install &&
-  node_modules/babel/bin/babel-node --stage 0 test/adhoc/promises/throwing.js
-*/
-
 import assert from 'assert';
 import lodash from 'lodash';
 
@@ -132,8 +125,9 @@ async function run(keys) {
    });
 }
 
-/*
-Note that async functions are an ES7 proposal (stage 0).
+/* Notes:
+
+Async functions are an ES7 proposal (stage 0).
 
 The individual test function names are keys from Object.keys(tests)
 
@@ -153,7 +147,17 @@ Note that the returned promises are await'ed, and so are converted into their re
 
 Note that we throw an error is our promise resolved function to simulate an error therein.
 
-Output:
+### Running
+
+We run this test as follows:
+
+git clone https://github.com/evanx/chronica.git &&
+  cd ~/chronica &&
+  npm install &&
+  node_modules/babel/bin/babel-node --stage 0 test/adhoc/promises/throwing.js
+
+#### Output
+
 evans@boromir:~/chronica$ babel-node --stage 0 test/adhoc/promises/throwing.js | tail
 end throwsSanityPromiseAsync
 catch throwsSanityAwaitAsync throwsSanityAwaitAsync
