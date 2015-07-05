@@ -3,9 +3,9 @@
 
 /* we run this test as follows:
 git clone https://github.com/evanx/chronica.git &&
-cd ~/chronica &&
-npm install &&
-node_modules/babel/bin/babel-node --stage 0 test/adhoc/promises/throwing.js
+  cd ~/chronica &&
+  npm install &&
+  node_modules/babel/bin/babel-node --stage 0 test/adhoc/promises/throwing.js
 */
 
 import assert from 'assert';
@@ -48,7 +48,7 @@ const tests = {
       try {
         return Promise.resolve(name).then(value => {throw value});
      } catch (e) {
-        assert(false, 'but we cannot catch errors when returning promise');
+        assert(true, 'we cann catch errors when returning promise in async function');
      }
    },
    async throwAsyncAwaitBest(name) { // best usage: await promise and catch errors

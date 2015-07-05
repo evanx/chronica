@@ -4,7 +4,8 @@
   "description": "monitor urls with email alerts",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-throwing": "node_modules/babel/bin/babel-node --stage 0 test/adhoc/promises/throwing.js"
   },
   "repository": {
     "type": "git",
