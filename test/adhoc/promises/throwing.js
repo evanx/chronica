@@ -25,7 +25,7 @@ const tests = {
    swallowSyncBeware(name) { // programmer beware
       // any sync method will swallow errors in promises
       // so you must have catch() if not returning the promise
-      Promise.resolve('any').then(value => {throw value}).catch(err => assert.equals(err, 'any'));
+      Promise.resolve('any').then(value => {throw value});
    },
    swallowSyncBetter(name) { // better programming
       Promise.resolve('any').then(value => {throw value}).catch(err => assert.equals(err, 'any'));
