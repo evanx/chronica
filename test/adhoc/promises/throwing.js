@@ -24,7 +24,7 @@ const tests = {
    },
    swallowSyncBeware(name) { // programmer beware
       // any sync method will swallow errors in promises
-      // so you must invoke then() if not returning the promise
+      // so you must have catch() if not returning the promise
       Promise.resolve('any').then(value => {throw value});
    },
    swallowSyncCatchThrowBeware(name) { // programmer beware
