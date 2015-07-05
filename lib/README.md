@@ -23,7 +23,7 @@ export async function create(rootConfig) {
       await schedule();
 ```
 
-See: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.js
+See overview: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.md
 
 
 ### Checking URLs
@@ -144,3 +144,8 @@ async function sendEmail(email, subject, message) {
 ```
 
 See: https://github.com/evanx/chronica/blob/master/components/emailMessenger.js
+
+
+### Learn more
+
+Component factory overview: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.md
