@@ -123,6 +123,13 @@ and proxy as required via NGINX or other.
 See overview: https://github.com/evanx/chronica/blob/master/lib/readme.md
 
 
+### Other documentation
+
+Implementation overview: https://github.com/evanx/chronica/blob/master/lib/readme.md
+
+Component factory overview: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.md
+
+
 ### Future work
 
 We may copy these components into Redex, our modular/CSP project.
