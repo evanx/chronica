@@ -21,6 +21,9 @@ const tests = {
    async returnPromiseAsync(key) { // sanity check
       return Promise.resolve(key);
    },
+   async returnAwaitAsync(key) { // sanity check
+      return await Promise.resolve(key);
+   },
    throwSanity(key) { // sanity check
       throw key;
    },
