@@ -2,9 +2,9 @@
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
 /* we run this test as follows:
-git clone https://github.com/evanx/chronica/blob/master/test/adhoc/promises/throwing.js
-cd ~/chronica
-npm install
+git clone https://github.com/evanx/chronica.git &&
+cd ~/chronica &&
+npm install &&
 node_modules/babel/bin/babel-node --stage 0 test/adhoc/promises/throwing.js
 */
 
