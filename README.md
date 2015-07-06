@@ -1,7 +1,7 @@
 
-## Chronica Active - a microservice to monitor urls
+## Chronica - a Node daemon to monitor urls
 
-This is a simple solution for monitoring of URL status (200 or not).
+This is a minimal solution for monitoring URL status (200 or not).
 
 At a specified interval e.g. 45 seconds, we send an HTTP HEAD request to each URL.
 
@@ -44,7 +44,7 @@ In order to use these scripts, you should install `bunyan` and `pm2` globally:
 
 The `scripts/` are a git submodule: https://github.com/evanx/chronica-scripts
 
-Considering forking the script repo via github and then deploy your own copy. Then you can modifiy the scripts for your own purposes.
+Consider forking the script repo via github and then deploy your own copy. Then you can modifiy the scripts for your own purposes.
 
 If you are a JavaScript developer, fork the main repo, so can make modifications and easily do a pull request via github.
 
