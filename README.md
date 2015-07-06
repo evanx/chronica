@@ -1,5 +1,5 @@
 
-## Chronica - a simple Node server to monitor urls
+## Chronica - a Node daemon to monitor urls
 
 This is a minimal solution for monitoring URL status (200 or not).
 
@@ -47,6 +47,7 @@ The `scripts/` directory is a git submodule: https://github.com/evanx/chronica-s
 Consider forking the `chronica-scripts` repo via github and then deploy your own copy. Then you can modifiy the scripts for your own purposes.
 
 If you are a JavaScript developer, fork the main repo, so can make modifications and easily do a pull request via github.
+
 
 ### Sample config file
 
