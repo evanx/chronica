@@ -3,7 +3,7 @@
 
 import { exec } from 'child_process';
 
-export function create(config, logger, components, state) {
+export function create(config, logger, components, appState) {
 
    const that = {
    };

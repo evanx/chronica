@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-export function create(config, logger, components, state) {
+export function create(config, logger, components, appState) {
 
    const that = {
    };

@@ -1,1 +1,3 @@
 default:
+  port: 8881
+  location: /
