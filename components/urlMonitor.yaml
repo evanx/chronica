@@ -1,0 +1,5 @@
+requiredComponents: [ reporter ]
+asserts:
+- services1
+default:
+  scheduledInterval: 8000
