@@ -1,13 +1,12 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-export function create(config, logger, components, appState) {
+export function create(config, logger, components) {
 
    let that = {};
 
    logger.debug('config', config);
 
-   Maybe.notEmpty(config.services, 'services').value;
    config.services.forEach(service => {
       if (service.url) {
          if (!service.name) {
@@ -20,12 +19,12 @@ export function create(config, logger, components, appState) {
       if (!service.label) {
          service.label = service.name;
       }
-      appState.services.set(service.name, service);
+      components.serviceRegistry.services.set(service.name, service);
       logger.debug('service', service);
    });
 
    async function checkServices() {
-      for (const [name, service] of appState.services) {
+      for (const [name, service] of components.serviceRegistry.services) {
          await checkService(service);
       }
    }
@@ -45,7 +44,7 @@ export function create(config, logger, components, appState) {
       async start() {
          assert(config.interval, 'interval');
          assert(!lodash.isEmpty(config.services), 'services');
-         logger.info('started', appState.services.size, config.interval);
+         logger.info('started', components.serviceRegistry.services.size, config.interval);
          await checkServices();
          that.checkIntervalId = setInterval(checkServices, config.interval);
       },

@@ -1,13 +1,13 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-export function create(config, logger, components, appState) {
+export function create(config, logger, components) {
 
    let that = {};
 
    function formatSlackMessage(bot, subject, alertMessage) {
       logger.debug('', {bot, subject, alertMessage})
-      let slackMessage =  'Chronica@' + appState.hostname + ': *' + subject + '*';
+      let slackMessage =  'Chronica@' + components.environmentRegistry.hostname + ': *' + subject + '*';
       if (!lodash.isEmpty(alertMessage)) {
          slackMessage += '\n```' + alertMessage + '```';
       }

@@ -6,7 +6,7 @@ import express from 'express';
 
 import ExpressResponses from '../lib/ExpressResponses';
 
-export function create(config, logger, components, appState) {
+export function create(config, logger, components) {
 
    let app, server;
    let state = { config };
@@ -21,7 +21,7 @@ export function create(config, logger, components, appState) {
             res.json(those.state);
          });
          server = app.listen(config.port);
-         state.hostname = appState.rootConfig.env.hostname;
+         state.hostname = components.environmentRegistry.hostname;
          logger.info('listening', state);
       },
       async end() {

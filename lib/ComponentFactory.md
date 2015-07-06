@@ -73,7 +73,7 @@ The `ComponentFactory` provides the component with the following:
 The following example is an ExpressJS server:
 
 ```javascript
-export function create(config, logger, components, appState) {
+export function create(config, logger, components) {
    let app, server;
    const state = { config }; // component state
 
@@ -87,7 +87,7 @@ export function create(config, logger, components, appState) {
             res.json(those.state);
          });
          server = app.listen(config.port);
-         state.hostname = appState.rootConfig.env.hostname;
+         state.hostname = components.environmentRegistry.hostname;
       },
       async end() {
          if (server) {
@@ -127,7 +127,7 @@ async function initComponents() {
    state.componentNames = getComponentNames();
    return await* state.componentNames.map(async (name) => {
       let config = getComponentDefaultConfig(name);
-      let componentClassFile = getComponentClassFile(name, config);
+      let componentClassFile = getClassFile('component', name, config);
       config = await YamlDecorator.decorateClass(componentClassFile, config);
       return await startComponent(name, config, componentClassFile);
    });

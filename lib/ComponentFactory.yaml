@@ -1,13 +1,24 @@
 
 default:
+
   componentStartTimeout: 5000
   componentEndTimeout: 5000
+
+  stores:
+
+     environment:
+       description: stores hostname
+
+     service:
+       description: stores services and their status, for alerts and reports
 
   components:
 
     emailMessenger:
+      description: Send email alerts
 
     slackMessenger:
+      description: Send alerts via Slackbot
 
     alerter:
       scheduledTimeout: 8000
@@ -15,8 +26,10 @@ default:
         optionalRequiredComponents: [ emailMessenger, slackMessenger ]
 
     systemReporter:
+      description: Produce short report on the localhost system e.g. load, disk
 
     serviceReporter:
+      description: Produce short report on status of monitored services
 
     reporter:
       requiredComponents: [ alerter, systemReporter, serviceReporter ]
