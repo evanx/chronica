@@ -3,12 +3,12 @@
 
 import nodemailer from 'nodemailer';
 
-export function create(config, logger, required) {
+export function create(config, logger, context) {
 
    let that = {};
 
    function formatMessage(email, subject, message) {
-      return message + '\n\n' + 'Sent by Chronica on ' + required.stores.environment.hostname + ' to ' + email;
+      return message + '\n\n' + 'Sent by Chronica on ' + context.stores.environment.hostname + ' to ' + email;
    }
 
    async function sendEmail(email, subject, message) {
@@ -46,8 +46,8 @@ export function create(config, logger, required) {
          if (lodash.isEmpty(message)) {
             logger.debug('sendAlert empty message', subject);
          }
-         if (lodash.includes(config.disableHostnames, required.stores.environment.hostname)) {
-            logger.info('sendAlert excluded', subject, required.stores.environment.hostname);
+         if (lodash.includes(config.disableHostnames, context.stores.environment.hostname)) {
+            logger.info('sendAlert excluded', subject, context.stores.environment.hostname);
             return;
          }
          return config.admins.map(admin => {

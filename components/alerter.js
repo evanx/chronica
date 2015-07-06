@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-export function create(config, logger, required) {
+export function create(config, logger, context) {
 
    const that = {
    };
@@ -16,18 +16,18 @@ export function create(config, logger, required) {
          if (lodash.isEmpty(message)) {
             logger.debug('sendAlert empty message', subject);
          }
-         if (lodash.includes(config.disableHostnames, required.stores.environment.hostname)) {
-            logger.info('sendAlert excluded', subject, required.stores.environment.hostname);
+         if (lodash.includes(config.disableHostnames, context.stores.environment.hostname)) {
+            logger.info('sendAlert excluded', subject, context.stores.environment.hostname);
             return;
          }
-         if (!required.components.emailMessenger && !required.components.slackMessenger) {
+         if (!context.components.emailMessenger && !context.components.slackMessenger) {
             logger.error('no messengers');
          }
-         if (required.components.emailMessenger) {
-            await required.components.emailMessenger.sendAlert(subject, message);
+         if (context.components.emailMessenger) {
+            await context.components.emailMessenger.sendAlert(subject, message);
          }
-         if (required.components.slackMessenger) {
-            await required.components.slackMessenger.sendAlert(subject, message);
+         if (context.components.slackMessenger) {
+            await context.components.slackMessenger.sendAlert(subject, message);
          }
       }
    };

@@ -73,7 +73,7 @@ The `ComponentFactory` provides the component with the following:
 The following example is an ExpressJS server:
 
 ```javascript
-export function create(config, logger, required) {
+export function create(config, logger, context) {
    let app, server;
    const state = { config }; // component state
 
@@ -87,7 +87,7 @@ export function create(config, logger, required) {
             res.json(those.state);
          });
          server = app.listen(config.port);
-         state.hostname = required.stores.environment.hostname;
+         state.hostname = context.stores.environment.hostname;
       },
       async end() {
          if (server) {

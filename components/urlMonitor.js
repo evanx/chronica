@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-export function create(config, logger, required) {
+export function create(config, logger, context) {
 
    let that = {};
 
@@ -19,12 +19,12 @@ export function create(config, logger, required) {
       if (!service.label) {
          service.label = service.name;
       }
-      required.stores.service.services.set(service.name, service);
+      context.stores.service.services.set(service.name, service);
       logger.debug('service', service);
    });
 
    async function checkServices() {
-      for (const [name, service] of required.stores.service.services) {
+      for (const [name, service] of context.stores.service.services) {
          await checkService(service);
       }
    }
@@ -34,9 +34,9 @@ export function create(config, logger, required) {
       try {
          let content = await Requests.request({url: service.url, method: 'head', timeout: config.timeout});
          assert(lodash.isEmpty(content), 'empty content');
-         required.components.tracker.processStatus(service, 'OK');
+         context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
-         required.components.tracker.processStatus(service, 'CRITICAL', err.message);
+         context.components.tracker.processStatus(service, 'CRITICAL', err.message);
       }
    }
 
@@ -44,7 +44,7 @@ export function create(config, logger, required) {
       async start() {
          assert(config.interval, 'interval');
          assert(!lodash.isEmpty(config.services), 'services');
-         logger.info('started', required.stores.service.services.size, config.interval);
+         logger.info('started', context.stores.service.services.size, config.interval);
          await checkServices();
          that.checkIntervalId = setInterval(checkServices, config.interval);
       },

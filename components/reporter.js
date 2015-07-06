@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-export function create(config, logger, required) {
+export function create(config, logger, context) {
 
    let that = {
       timeoutIds: {},
@@ -9,7 +9,7 @@ export function create(config, logger, required) {
    };
 
    async function formatReport(report) {
-      report = [await required.components.serviceReporter.serviceReport(), report];
+      report = [await context.components.serviceReporter.serviceReport(), report];
       report = lodash.flattenDeep(report);
       report = lodash(report).filter(line => typeof line === 'string')
       .map(line => line.replace(/\s\s+/g, ' ')).value();
@@ -18,36 +18,36 @@ export function create(config, logger, required) {
    }
 
    async function hello() {
-      let report = [await required.components.systemReporter.helloReport()];
-      required.components.alerter.sendAlert('Chronica restarted', await formatReport(report)).catch(err => {
+      let report = [await context.components.systemReporter.helloReport()];
+      context.components.alerter.sendAlert('Chronica restarted', await formatReport(report)).catch(err => {
          logger.error('send hello:', err.stack);
       });
    }
 
    async function daily() {
-      let report = await required.components.systemReporter.dailyReport();
+      let report = await context.components.systemReporter.dailyReport();
       logger.info('daily', time.getHours(), time.getMinutes(), config);
-      required.components.alerter.sendAlert('DAILY', await formatReport(report)).catch(err => {
+      context.components.alerter.sendAlert('DAILY', await formatReport(report)).catch(err => {
          logger.error('send daily:', err);
       });
    }
 
    async function hourly() {
-      let report = await required.components.systemReporter.hourlyReport();
+      let report = await context.components.systemReporter.hourlyReport();
       logger.info('hourly', time.getHours(), time.getMinutes(), config);
-      required.components.alerter.sendAlert('HOURLY', await formatReport(report)).catch(err => {
+      context.components.alerter.sendAlert('HOURLY', await formatReport(report)).catch(err => {
          logger.error('send daily:', err);
       });
    }
 
    async function minutely() {
-      await required.components.systemReporter.minutely();
+      await context.components.systemReporter.minutely();
    }
 
    async function alert() {
-      let report = await required.components.systemReporter.alertReport();
+      let report = await context.components.systemReporter.alertReport();
       logger.info('hourly', time.getHours(), time.getMinutes(), config);
-      required.components.alerter.sendAlert('HOURLY', await formatReport(report)).catch(err => {
+      context.components.alerter.sendAlert('HOURLY', await formatReport(report)).catch(err => {
          logger.error('send daily:', err);
       });
    }
@@ -109,7 +109,7 @@ export function create(config, logger, required) {
          } else {
             message += '\n\n' + report;
          }
-         required.components.alerter.sendAlert(subject, message);
+         context.components.alerter.sendAlert(subject, message);
       }
    }
    return those;
