@@ -28,6 +28,7 @@ Note that we use the `redexutil` promise wrapper to `await` the highly-starred `
 
 See: https://github.com/evanx/chronica/blob/master/components/urlMonitor.js
 
+
 ### Triggering alerts
 
 The URLs are checked every `interval` e.g. 45 seconds, and a `debounceCount` is used for debouncing status changes.

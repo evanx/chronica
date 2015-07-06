@@ -9,7 +9,7 @@ We read the custom configuration file to boot e.g. `~/etc/chronica.yaml`
 
 https://github.com/evanx/chronica/blob/master/etc/sample-config.yaml
 
-and decorate this with `ComponentFactory.yaml` defaults.
+and decorate this with `ComponentFactory.yaml` defaults:
 
 https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.yaml
 
@@ -24,42 +24,11 @@ Components have the following lifecycle methods:
 - `scheduledTimeout`
 - `scheduledInterval`
 
-For example:
-
-```javascript
-   async start() {
-      logger.info('started');
-   },
-   async scheduledTimeout() {
-      logger.info('scheduledTimeout')
-   },
-   async scheduledInterval() {
-      logger.info('scheduledInterval')
-   },
-   async end() {
-      logger.info('end');
-   },
-```
-
-The scheduled methods are optional. The intervals can be specified in the component's config as follows:
+The scheduled methods are only required if their intervals are specified in the component's config, for example:
 
 ```yaml
 scheduledTimeout: 8000 # invoke 8 seconds after start
 scheduledInterval: 45000 # invoke every 45 seconds
-```
-
-Alternatively components can perform their own scheduling as follows:
-```javascript
-async start() {
-   assert(config.interval, 'interval');
-   checkIntervalId = setInterval(checkServices, config.interval);
-},
-async end() {
-   if (checkIntervalId) {
-      clearInterval(checkIntervalId);
-      delete checkIntervalId;
-   }
-}
 ```
 
 ### ExpressJS example
@@ -68,7 +37,7 @@ The `ComponentFactory` provides the component with the following:
 - its configuration, which is decorated with defaults and asserted
 - a logger configured with its name
 - the other components it requires e.g. `reporter` requires the `alerter` singleton.
-- the shared state of the application
+- the context containing required dependencies e.g. other components and "stores"
 
 The following example is an ExpressJS server:
 
@@ -115,6 +84,7 @@ We create the factory using our configuration loaded from `~/etc/chronica.yaml` 
 export async function create(rootConfig) {
 
    async function init() {
+      await createStores();
       await initComponents();
       await resolveRequiredComponents();
       await startComponents();
@@ -144,10 +114,9 @@ If the component is not specified in `~/etc/chronica.yaml` then it will not star
 
 Once all the components' `requireComponents` are resolved, they are initialised via their `create` methods, and then finally started.
 
-
 #### Starting
 
-If all are created without error, then it actually starts the components with their `start` lifecycle method.
+If all components are created without error, then we start the components via their `start` lifecycle method.
 
 We start the configured components:
 ```javascript
@@ -165,9 +134,8 @@ where we timeout the components' `start()` async functions.
 
 #### Scheduler
 
-Besides its `start()` and `end()` lifecycle methods, a component can define `scheduledTimeout()` and `scheduleInterval()` methods. These are configured as follows:
+Besides its `start()` and `end()` lifecycle methods, a component can define `scheduledTimeout()` and `scheduleInterval()` methods. If configured, these are activated as follows:
 
-We schedule a timeout and interval on components, if configured, as follows:
 ```javascript
 function schedule() {
    for (let [name, config] of state.configs) {
@@ -219,7 +187,7 @@ See: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.js
 
 Redex utils git submodule: https://github.com/evanx/redexutil
 
-Chronica builtin components implementation:
+Builtin components implementation:
 https://github.com/evanx/chronica/blob/master/components/
 
 See our other project which has a similar component model, but for communating sequential processors (CSP):
