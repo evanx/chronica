@@ -3,6 +3,21 @@
 
 We instantiate components via `ComponentFactory.`
 
+#### Configuration
+
+We read the custom configuration file to boot e.g. `~/etc/chronica.yaml`
+
+https://github.com/evanx/chronica/blob/master/etc/sample-config.yaml
+
+and decorate this with `ComponentFactory.yaml` defaults.
+
+https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.yaml
+
+and finally with the components own default YAML file e.g. `components/expressServer.yaml`
+
+
+#### Lifecycle
+
 Components have the following lifecycle methods:
 - `start`
 - `end`
@@ -37,18 +52,15 @@ Alternatively components can perform their own scheduling as follows:
 ```javascript
 async start() {
    assert(config.interval, 'interval');
-   that.checkIntervalId = setInterval(checkServices, config.interval);
+   checkIntervalId = setInterval(checkServices, config.interval);
 },
 async end() {
-   if (that.checkIntervalId) {
-      clearInterval(that.checkIntervalId);
-      delete that.checkIntervalId;
+   if (checkIntervalId) {
+      clearInterval(checkIntervalId);
+      delete checkIntervalId;
    }
 }
 ```
-
-However this is unnecessary effort that can be handled automatically via the `ComponentFactory` scheduler.
-
 
 ### ExpressJS example
 
@@ -112,18 +124,6 @@ export async function create(rootConfig) {
       await startComponents();
       await schedule();
 ```
-
-#### Configuration
-
-We read the custom configuration file to boot e.g. `~/etc/chronica.yaml`
-
-https://github.com/evanx/chronica/blob/master/etc/sample-config.yaml
-
-and decorate this with `ComponentFactory.yaml` defaults.
-
-https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.yaml
-
-#### Configuration
 
 We initialise the configured components:
 ```javascript
