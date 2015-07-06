@@ -49,7 +49,13 @@ async end() {
 
 ### ExpressJS example
 
-`ComponentFactory` decorates the config using defaults from YAML files, and invokes the component's exported `create` method. The following example is an ExpressJS server:
+The `ComponentFactory` provides the component with the following:
+- its configuration, which is decorated with defaults and asserted
+- a logger configured with its name
+- the other components it requires e.g. `reporter` requires the `alerter` singleton.
+- the shared state of the application
+
+The following example is an ExpressJS server:
 
 ```javascript
 export function create(config, logger, components, appState) {
@@ -83,18 +89,12 @@ export function create(config, logger, components, appState) {
    return those;
 }
 ```
-where the readable `state` property is for introspection to assist with debugging.
 
----
+The readable `state` property is for introspection to assist with debugging.
+
 <img src='https://raw.githubusercontent.com/evanx/evanx.github.io/master/images/chronica/chronica-express.png' width=600 alt=''/>
 
 ---
-
-The `ComponentFactory` provides the component with the following:
-- its configuration, which is decorated with defaults and asserted
-- a logger configured with its name
-- the other components it requires e.g. `reporter` requires the `alerter` singleton.
-- the shared state of the application
 
 #### Booting
 
@@ -142,6 +142,8 @@ The priority of configuration for each component is:
 - its own YAML file e.g. `component/alerter.yaml`
 
 If the component is not specified in `~/etc/chronica.yaml` then it will not started - nor any components that require it.
+
+If all the components initialise without error via their `create` methods, then it starts all the components i.e. invokes their `start` lifecycle method.
 
 
 #### Starting
