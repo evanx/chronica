@@ -6,7 +6,7 @@ const logger = Loggers.create(module.filename);
 export function create() {
 
    const state = {
-      services: new Map();
+      services: new Map()
    };
 
    const those = {

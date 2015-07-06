@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-export function create(config, logger, components) {
+export function create(config, logger, required) {
 
    const that = {
    };
@@ -23,8 +23,8 @@ export function create(config, logger, components) {
       },
       async serviceReport() {
          let lines = [], ok = [], critical = [], other = [];
-         logger.info('services', components.serviceRegistry.services.size);
-         for (let [name, service] of components.serviceRegistry.services) {
+         logger.info('services', required.stores.service.services.size);
+         for (let [name, service] of required.stores.service.services) {
             if (service.status === 'OK') {
                ok.push(service.name)
             } else if (service.status === 'CRITICAL') {

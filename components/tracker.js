@@ -1,7 +1,7 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-export function create(config, logger, components) {
+export function create(config, logger, required) {
 
    function getEventType(service, status) {
       if (!service.status) { // no status i.e. app restarted
@@ -58,7 +58,7 @@ export function create(config, logger, components) {
          if (isAlertableEvent(eventType)) {
             if (service.alertedStatus !== service.status) {
                service.alertedStatus = service.status;
-               components.reporter.sendAlert(status + ' ' + service.name, message);
+               required.components.reporter.sendAlert(status + ' ' + service.name, message);
             } else {
                log.debug('equals alertedStatus:', service.alertedStatus, eventType);
             }

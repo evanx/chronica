@@ -16,9 +16,9 @@ async function checkService(service) {
       let content = await Requests.request({url: service.url, method: 'HEAD',
             timeout: config.timeout});
       assert(lodash.isEmpty(content), 'empty content'); // since HEAD, no content
-      components.tracker.processStatus(service, 'OK');
+      required.components.tracker.processStatus(service, 'OK');
    } catch (err) {
-      components.tracker.processStatus(service, 'CRITICAL', err.message);
+      required.components.tracker.processStatus(service, 'CRITICAL', err.message);
    }
 }
 ```
@@ -63,11 +63,11 @@ We configure an email and Slack messengers for alerts.
 
 ```javascript
 async sendAlert(subject, message) {
-   if (components.emailMessenger) {
-      await components.emailMessenger.sendAlert(subject, message);
+   if (required.components.emailMessenger) {
+      await required.components.emailMessenger.sendAlert(subject, message);
    }
-   if (components.slackMessenger) {
-      await components.slackMessenger.sendAlert(subject, message);
+   if (required.components.slackMessenger) {
+      await required.components.slackMessenger.sendAlert(subject, message);
    }
 }
 ```

@@ -11,7 +11,7 @@ export function create(rootConfig) {
 
    const those = {
       get hostname() {
-         return hostname;
+         return that.hostname;
       }
    };
 
