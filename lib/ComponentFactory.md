@@ -47,6 +47,9 @@ async end() {
 }
 ```
 
+However this is unnecessary effort that can be handled automatically via the `ComponentFactory` scheduler.
+
+
 ### ExpressJS example
 
 The `ComponentFactory` provides the component with the following:
@@ -143,10 +146,12 @@ The priority of configuration for each component is:
 
 If the component is not specified in `~/etc/chronica.yaml` then it will not started - nor any components that require it.
 
-If all the components initialise without error via their `create` methods, then it starts all the components i.e. invokes their `start` lifecycle method.
+If all the components' `requireComponents` are resolved, they are initialised via `create` methods.
 
 
 #### Starting
+
+If all are created without error, then it actually starts the components with their `start` lifecycle method.
 
 We start the configured components:
 ```javascript
@@ -161,11 +166,10 @@ We start the configured components:
 ```
 where we timeout the components' `start()` async functions.
 
+
 #### Scheduler
 
 Besides its `start()` and `end()` lifecycle methods, a component can define `scheduledTimeout()` and `scheduleInterval()` methods. These are configured as follows:
-
-
 
 We schedule a timeout and interval on components, if configured, as follows:
 ```javascript
