@@ -1,15 +1,13 @@
 // Copyright (c) 2015, Evan Summers (twitter.com/evanxsummers)
 // ISC license, see http://github.com/evanx/redex/LICENSE
 
-import nodemailer from 'nodemailer';
-
-export function create(config, logger, components, state) {
+export function create(config, logger, components, appState) {
 
    let that = {};
 
    function formatSlackMessage(bot, subject, alertMessage) {
       logger.debug('', {bot, subject, alertMessage})
-      let slackMessage =  'Chronica@' + state.hostname + ': *' + subject + '*';
+      let slackMessage =  'Chronica@' + appState.hostname + ': *' + subject + '*';
       if (!lodash.isEmpty(alertMessage)) {
          slackMessage += '\n```' + alertMessage + '```';
       }
