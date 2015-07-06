@@ -74,9 +74,7 @@ The following example is an ExpressJS server:
 
 ```javascript
 export function create(config, logger, components, appState) {
-
    let app, server;
-
    const state = { config }; // component state
 
    const those = { // exported functions including lifecycle
@@ -90,7 +88,6 @@ export function create(config, logger, components, appState) {
          });
          server = app.listen(config.port);
          state.hostname = appState.rootConfig.env.hostname;
-         logger.info('listening', state);
       },
       async end() {
          if (server) {
@@ -100,7 +97,6 @@ export function create(config, logger, components, appState) {
          }
       },
    };
-
    return those;
 }
 ```
