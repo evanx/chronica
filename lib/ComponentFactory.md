@@ -217,12 +217,13 @@ See: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.js
 
 ### Other resources
 
-Components implementation:
+Redex utils git submodule: https://github.com/evanx/redexutil
+
+Chronica builtin components implementation:
 https://github.com/evanx/chronica/blob/master/components/
 
 See our other project which has a similar component model, but for communating sequential processors (CSP):
 http://github.com/evanx/redex
-
 
 
 ### Other documentation
