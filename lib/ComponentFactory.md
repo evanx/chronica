@@ -215,6 +215,16 @@ where we timeout the components' `end()` async functions.
 See: https://github.com/evanx/chronica/blob/master/lib/ComponentFactory.js
 
 
+### Other resources
+
+Components implementation:
+https://github.com/evanx/chronica/blob/master/components/
+
+See our other project which has a similar component model, but for communating sequential processors (CSP):
+http://github.com/evanx/redex
+
+
+
 ### Other documentation
 
 Implementation overview: https://github.com/evanx/chronica/blob/master/lib/readme.md
