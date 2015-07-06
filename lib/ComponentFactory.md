@@ -142,7 +142,7 @@ The priority of configuration for each component is:
 
 If the component is not specified in `~/etc/chronica.yaml` then it will not started - nor any components that require it.
 
-If all the components' `requireComponents` are resolved, they are initialised via `create` methods.
+Once all the components' `requireComponents` are resolved, they are initialised via their `create` methods, and then finally started.
 
 
 #### Starting
