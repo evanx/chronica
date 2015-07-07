@@ -5,7 +5,7 @@ We instantiate components via `ComponentFactory.`
 
 #### Configuration
 
-We read the custom configuration file to boot e.g. `~/etc/chronica.yaml`
+We read the custom configuration file to boot e.g. `~/.chronica.yaml`
 
 https://github.com/evanx/chronica/blob/master/etc/sample-config.yaml
 
@@ -78,7 +78,7 @@ The readable `state` property is for introspection to assist with debugging.
 
 #### Booting
 
-We create the factory using our configuration loaded from `~/etc/chronica.yaml` or another config file specified on the command-line.
+We create the factory using our configuration loaded from `~/.chronica.yaml` or another config file specified on the command-line.
 
 ```javascript
 export async function create(rootConfig) {
@@ -106,11 +106,11 @@ async function initComponents() {
 where we decorate the component configuration using a further individual default configuration which be specified for each component e.g. `components/alerter.yaml.` Therefore having the default configuration in `ComponentFactory.yaml` is optional.
 
 The priority of configuration for each component is:
-- its section in the custom config e.g. `~/etc/chronica.yaml`
+- its section in the custom config e.g. `~/.chronica.yaml`
 - its section in `lib/ComponentFactory.yaml`
 - its own YAML file e.g. `component/alerter.yaml`
 
-If the component is not specified in `~/etc/chronica.yaml` then it will not started - nor any components that require it.
+If the component is not specified in `~/.chronica.yaml` then it will not started - nor any components that require it.
 
 Once all the components' `requireComponents` are resolved, they are initialised via their `create` methods, and then finally started.
 

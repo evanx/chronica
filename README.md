@@ -82,22 +82,22 @@ See https://github.com/evanx/chronica/blob/master/sample-config.yaml
 
 ### Running
 
-You must create your own configuration file e.g. `~/etc/chronica.yaml.`
+You must create your own configuration file e.g. `~/.chronica.yaml.`
 
 The `scripts/` are just a guide and won't work as in unless:
 - `~/chronica` exists
-- `~/etc/chronica.yaml` exists
+- `~/.chronica.yaml` exists
 
 See `scripts/run.sh`
 ```shell
-  node index.js ~/etc/chronica.yaml debug | bunyan -o short
+  node index.js ~/.chronica.yaml debug | bunyan -o short
 ```
 where we specify the config file.
 
 Also see `scripts/restart.pm2.sh` which includes the following command:
 ```shell
 cd ~/chronica
-pm2 start index.js --name chronica -- ~/etc/chronica.yaml
+pm2 start index.js --name chronica -- ~/.chronica.yaml
 ```
 
 You can `tail -f` the log file as follows:
