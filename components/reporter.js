@@ -71,7 +71,7 @@ export function create(config, logger, context) {
             that.dailyTime = time.getTime();
             daily();
          }
-      } else if (config.hourly && time.getMinutes() === config.hourly.hinute) {
+      } else if (config.hourly && time.getMinutes() === config.hourly.minute) {
          if (!that.hourlyTime || that.hourlyTime < time.getTime() - Millis.fromMinutes(1)) {
             that.hourlyTime = time.getTime();
             hourly();
@@ -86,7 +86,13 @@ export function create(config, logger, context) {
          if (config.helloDelay) {
             scheduleHello();
          }
-         that.intervalIds.minutely = setInterval(() => monitor(), 55000);
+         that.intervalIds.minutely = setInterval(() => {
+            try {
+               monitor();
+            } catch (err) {
+               logger.error('minutely:', err);
+            }
+         }, 55000);
          logger.info('started');
       },
       async end() {

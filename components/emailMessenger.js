@@ -15,7 +15,7 @@ export function create(config, logger, context) {
       let options = {
          from: config.fromEmail,
          to: email,
-         subject: 'Chronica ' + subject
+         subject: 'Chronica/' + context.stores.environment.hostname + ' ' + subject
       };
       if (message) {
          options.text = formatMessage(email, subject, message);
