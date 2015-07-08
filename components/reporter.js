@@ -44,12 +44,9 @@ export function create(config, logger, context) {
       await context.components.systemReporter.minutely();
    }
 
-   async function alert() {
+   async function alertReport() {
       let report = await context.components.systemReporter.alertReport();
-      logger.info('hourly', time.getHours(), time.getMinutes(), config);
-      context.components.alerter.sendAlert('HOURLY', await formatReport(report)).catch(err => {
-         logger.error('send daily:', err);
-      });
+      return formatReport(report);
    }
 
    function scheduleHello() {
@@ -103,6 +100,7 @@ export function create(config, logger, context) {
          });
       },
       async sendAlert(subject, message) {
+         logger.info('sendAlert', subject);
          let report = await alertReport();
          if (lodash.isEmpty(message)) {
             message = report;

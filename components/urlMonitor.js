@@ -30,12 +30,14 @@ export function create(config, logger, context) {
    }
 
    async function checkService(service) {
-      let log = logger.method('checkUrl', service.name);
       try {
          let content = await Requests.request({url: service.url, method: 'head', timeout: config.timeout});
-         assert(lodash.isEmpty(content), 'empty content');
+         assert(lodash.isEmpty(content), 'empty content'); // HEAD request has empty content
          context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
+         if (err.code !== 'ECONNREFUSED') {
+            logger.warn('checkService', err);
+         }
          context.components.tracker.processStatus(service, 'CRITICAL', err.message);
       }
    }
@@ -53,6 +55,10 @@ export function create(config, logger, context) {
             clearInterval(that.checkIntervalId);
             delete that.checkIntervalId;
          }
+      },
+      async scheduledTimeout() {
+      },
+      async scheduledInterval() {
       }
    };
 

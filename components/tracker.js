@@ -30,7 +30,7 @@ export function create(config, logger, context) {
          service.statusCount = 0;
          service.status = status;
       } else {
-         assert(service.status == status, 'status unchanged');
+         assert(service.status == status, 'status unchanged', service.statusCount);
          service.statusCount += 1;
       }
    }
@@ -52,7 +52,7 @@ export function create(config, logger, context) {
       async end() {
       },
       async processStatus(service, status, message) {
-         const log = logger.method('processStatus', service.name + ' ' + status);
+         logger.verbose('processStatus', service.name, status);
          let eventType = getEventType(service, status);
          setServiceStatus(service, status, eventType);
          if (isAlertableEvent(eventType)) {
@@ -60,10 +60,10 @@ export function create(config, logger, context) {
                service.alertedStatus = service.status;
                context.components.reporter.sendAlert(status + ' ' + service.name, message);
             } else {
-               log.debug('equals alertedStatus:', service.alertedStatus, eventType);
+               logger.debug('equals alertedStatus:', service.alertedStatus, eventType);
             }
          } else {
-            log.debug('not alertable eventType:', eventType);
+            logger.debug('not alertable eventType:', eventType, service.alertedStatus, service.status);
          }
       }
    };

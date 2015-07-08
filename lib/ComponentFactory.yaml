@@ -21,7 +21,7 @@ default:
       description: Send alerts via Slackbot
 
     alerter:
-      scheduledTimeout: 8000
+      scheduledTimeout: 2000
       default:
         optionalRequiredComponents: [ emailMessenger, slackMessenger ]
 
