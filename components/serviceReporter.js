@@ -44,7 +44,7 @@ export function create(config, logger, context) {
          if (none.length) {
             none.forEach(name => {
                lines.push('Unchecked: ' + none.join(' '));
-            }
+            });
          }
          return lines;
       }
