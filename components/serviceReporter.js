@@ -22,15 +22,17 @@ export function create(config, logger, context) {
       async end() {
       },
       async serviceReport() {
-         let lines = [], ok = [], critical = [], other = [];
+         let lines = [], none = [], ok = [], critical = [], other = [];
          logger.info('services', context.stores.service.services.size);
          for (let [name, service] of context.stores.service.services) {
-            if (service.status === 'OK') {
-               ok.push(service.name)
+            if (!service.status) {
+               none.push(service.name);
+            } else if (service.status === 'OK') {
+               ok.push(service.name);
             } else if (service.status === 'CRITICAL') {
-               critical.push(service.name)
+               critical.push(service.name);
             } else {
-               lines.push(serviceLine(service));
+               lines.push(serverLine(service));
             }
          }
          if (critical.length) {
@@ -38,6 +40,11 @@ export function create(config, logger, context) {
          }
          if (ok.length) {
             lines.push('OK: ' + ok.join(' '));
+         }
+         if (none.length) {
+            none.forEach(name => {
+               lines.push('Unchecked: ' + none.join(' '));
+            }
          }
          return lines;
       }
