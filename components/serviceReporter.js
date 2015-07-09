@@ -42,7 +42,7 @@ export function create(config, logger, context) {
       },
       async serviceReport() {
          let lines = [];
-         let report = getReport();
+         let report = await getReport();
          if (report.critical.length) {
             lines.push('WARN: ' + report.critical.join(' '));
          }
