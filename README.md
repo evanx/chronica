@@ -121,9 +121,11 @@ and proxy as required via NGINX or other.
 
 ---
 
-<img src="http://evanx.github.io/images/chronica/chronica-remote.png" width="600" border="1"/>
+<img src="http://evanx.github.io/images/chronica/chronica-remote.png" width="400" border="1"/>
 
 ---
+
+In the `systemReport` above, the `disk` is a percentage value, `load` is the current load average, and the `redis` is the current Redis memory usage in megs.
 
 ### Other documentation
 
