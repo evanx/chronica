@@ -40,9 +40,9 @@ export function create(config, logger, context) {
    const those = {
       async getPublic() {
          return {
-            disk: await formatLoad(),
-            cpu: await formatCpu(),
-            redis: await formatCpu()
+            disk: await formatDisk(),
+            load: await formatLoad(),
+            redis: await formatRedis()
          };
       },
       async start() {

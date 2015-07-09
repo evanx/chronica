@@ -11,7 +11,7 @@ export function create() {
 
    const those = {
       async getPublic() {
-         return state;
+         return state.services;
       },
       get services() {
          return state.services;

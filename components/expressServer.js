@@ -48,7 +48,7 @@ export function create(config, logger, context) {
 
    const those = {
       async getPublic() {
-         return { paths: getPaths() };
+         return null;
       },
       async start() {
          app = express();

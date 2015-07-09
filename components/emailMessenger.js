@@ -35,7 +35,7 @@ export function create(config, logger, context) {
 
    const those = {
       async getPublic() {
-         return {};
+         return null;
       },
       async start() {
          assert(config.fromEmail, 'fromEmail');
