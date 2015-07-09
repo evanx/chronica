@@ -30,6 +30,7 @@ export function create(config, logger, context) {
       });
       return report;
    }
+
    const those = {
       get state() {
          return { state };
