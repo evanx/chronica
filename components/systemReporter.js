@@ -3,7 +3,7 @@
 
 import { exec } from 'child_process';
 
-export function create(config, logger, srores, components) {
+export function create(config, logger, context) {
 
    const that = {
    };
@@ -28,6 +28,7 @@ export function create(config, logger, srores, components) {
 
    async function systemReport() {
       let fields = [];
+      fields.push(context.stores.environment.hostname);
       fields.push(await formatLoad());
       fields.push(await formatDisk());
       if (config.redis) {
