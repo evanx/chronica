@@ -24,6 +24,7 @@ Cons:
 
 ---
 
+
 ### Installing
 
 ```shell
@@ -114,10 +115,15 @@ In order to monitor Chronica remotely, include the following in its config file:
 ```yaml
 expressServer:
    location: /chronica
-   port: 8881
+   port: 8882
 ```
 and proxy as required via NGINX or other.
 
+---
+
+<img src="http://evanx.github.io/images/chronica/chronica-remote.png" width="600" border="1"/>
+
+---
 
 ### Other documentation
 
