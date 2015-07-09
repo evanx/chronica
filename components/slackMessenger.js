@@ -30,6 +30,9 @@ export function create(config, logger, context) {
    }
 
    const those = {
+      async getPublic() {
+         return {};
+      },
       async start() {
          assert(config.bots, 'bots');
          config.bots = config.bots.map(bot => {

@@ -7,11 +7,15 @@ export function create(config, logger, context) {
    };
 
    const those = {
+      async getPublic() {
+         return that;
+      },
       async start() {
       },
       async end() {
       },
       async sendAlert(subject, message) {
+         that.alertTime = new Date();
          logger.info('sendAlert', {subject, message});
          if (lodash.isEmpty(message)) {
             logger.debug('sendAlert empty message', subject);

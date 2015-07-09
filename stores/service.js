@@ -10,6 +10,9 @@ export function create() {
    };
 
    const those = {
+      async getPublic() {
+         return state;
+      },
       get services() {
          return state.services;
       },

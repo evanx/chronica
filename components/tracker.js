@@ -46,6 +46,9 @@ export function create(config, logger, context) {
    }
 
    const those = {
+      async getPublic() {
+         return null;
+      },
       async start() {
          logger.info('started');
       },

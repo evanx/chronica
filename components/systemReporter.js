@@ -38,6 +38,13 @@ export function create(config, logger, context) {
    }
 
    const those = {
+      async getPublic() {
+         return {
+            disk: await formatLoad(),
+            cpu: await formatCpu(),
+            redis: await formatCpu()
+         };
+      },
       async start() {
          logger.info('started');
       },

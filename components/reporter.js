@@ -82,6 +82,9 @@ export function create(config, logger, context) {
    }
 
    const those = {
+      get state() {
+         return { config };
+      },
       async start() {
          if (config.helloDelay) {
             scheduleHello();

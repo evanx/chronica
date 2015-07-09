@@ -43,6 +43,9 @@ export function create(config, logger, context) {
    }
 
    const those = {
+      async getPublic() {
+         return config;
+      },
       async start() {
          assert(config.interval, 'interval');
          assert(!lodash.isEmpty(config.services), 'services');

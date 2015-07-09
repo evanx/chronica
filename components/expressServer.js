@@ -12,18 +12,23 @@ export function create(config, logger, context) {
    let app, server;
    let state = { config };
 
-   function getReport() {
+   async function getReport() {
       let report = {};
-      Object.keys(context.stores).forEach(name => {
+      Object.keys(context.stores).forEach(async (name) => {
+         logger.debug('getReport', name);
          try {
-            report[name] = context.stores[name].state;
+            report[name] = await context.stores[name].getPublic();
          } catch (err) {
             logger.warn('getReport store', name, err);
          }
       });
-      Object.keys(context.components).forEach(name => {
+      Object.keys(context.components).forEach(async (name) => {
+         logger.debug('getReport', name);
          try {
-            report[name] = context.components[name].state;
+            let publishableData = await context.components[name].getPublic();
+            if (publishableData) {
+               report[name] = publishableData;
+            }
          } catch (err) {
             logger.warn('getReport store', name, err);
          }
@@ -31,19 +36,27 @@ export function create(config, logger, context) {
       return report;
    }
 
+   function getPaths() {
+      let paths = [];
+      app._router.stack.forEach(middleware => {
+         if (middleware.route) {
+            paths.push(middleware.route.path);
+         }
+      });
+      return paths;
+   }
+
    const those = {
-      get state() {
-         return { state };
+      async getPublic() {
+         return { paths: getPaths() };
       },
       async start() {
          app = express();
          app.get(config.location, async (req, res) => {
-            logger.debug('req', req.url, getReport());
-            res.json(getReport());
+            res.json(await getReport());
          });
          app.get('/', async (req, res) => {
-            logger.debug('req', req.url, getReport());
-            res.json(getReport());
+            res.json(await getReport());
          });
          server = app.listen(config.port);
          state.hostname = context.stores.environment.hostname;

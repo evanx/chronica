@@ -16,6 +16,9 @@ export function create(config, logger, context) {
    }
 
    const those = {
+      async getPublic() {
+         return { config, report: those.systemReport() };
+      },
       async start() {
          logger.info('started');
       },
