@@ -125,7 +125,7 @@ and proxy as required via NGINX or other.
 
 ---
 
-In the `systemReport` above, the `disk` is a percentage value, `load` is the current load average, and the `redis` is the current Redis memory usage in megs.
+In the `systemReporter` above, the `disk` is a percentage value, `load` is the current load average, and the `redis` is the current Redis memory usage in megs.
 
 ### Other documentation
 
