@@ -14,25 +14,26 @@ export function create(config, logger, context) {
 
    async function getReport() {
       let report = {};
-      Object.keys(context.stores).forEach(async (name) => {
+      for (let name in context.stores) {
          logger.debug('getReport', name);
          try {
             report[name] = await context.stores[name].getPublic();
          } catch (err) {
             logger.warn('getReport store', name, err);
          }
-      });
-      Object.keys(context.components).forEach(async (name) => {
+      }
+      for (let name in context.components) {
          logger.debug('getReport', name);
          try {
             let publishableData = await context.components[name].getPublic();
             if (publishableData) {
                report[name] = publishableData;
+               logger.debug('getReport', name, publishableData);
             }
          } catch (err) {
             logger.warn('getReport store', name, err);
          }
-      });
+      }
       return report;
    }
 

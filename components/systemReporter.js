@@ -8,22 +8,48 @@ export function create(config, logger, context) {
    const that = {
    };
 
-   async function formatLoad() {
+   async function getLoad() {
       let loadavg = await Files.readFile('/proc/loadavg');
-      return 'cpu:' + lodash.trim(loadavg.toString()).split(' ')[0];
+      return lodash.trim(loadavg.toString()).split(' ')[0];
+   }
+
+   async function getRedis() {
+      let out = await execPromise('redis-cli info');
+      let used = lodash(out.toString().split('\n')).find(line => {
+         return lodash.startsWith(line, 'used_memory_human');
+      }).split(':')[1].replace(/\.[0-9]+M/, '');
+      return lodash.trim(used);
+   }
+
+   async function getDisk() {
+      let rootDisk = await execPromise('df -h');
+      return lodash.find(rootDisk.toString().split('\n'), line =>
+         lodash.endsWith(line, ' /')).split(/\s+/)[4].replace(/%$/, '');
+   }
+
+   async function formatLoad() {
+      return 'cpu:' + await getLoad();
    }
 
    async function formatRedis() {
-      let out = await execPromise('redis-cli info');
-      return 'redis:' + lodash(out.toString().split('\n')).find(line => {
-         return lodash.startsWith(line, 'used_memory_human');
-      }).split(':')[1].replace(/\.[0-9]+/, '');
+      return 'redis:' + await getRedis() + 'M';
    }
 
    async function formatDisk() {
-      let rootDisk = await execPromise('df -h');
-      return 'disk:' + lodash.find(rootDisk.toString().split('\n'), line =>
-      lodash.endsWith(line, ' /')).split(/\s+/)[4];
+      let disk = await getDisk();
+      return 'disk:' + disk + '%';
+   }
+
+   async function getReport() {
+      let report = {};
+      report.hostname = context.stores.environment.hostname;
+      report.load = parseInt(await getLoad());
+      report.disk = parseInt(await getDisk());
+      if (config.redis) {
+         report.redis = parseInt(await getRedis());
+      }
+      logger.info('getReport', report);
+      return report;
    }
 
    async function systemReport() {
@@ -39,11 +65,7 @@ export function create(config, logger, context) {
 
    const those = {
       async getPublic() {
-         return {
-            disk: await formatDisk(),
-            load: await formatLoad(),
-            redis: await formatRedis()
-         };
+         return await getReport();
       },
       async start() {
          logger.info('started');

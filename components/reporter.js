@@ -82,8 +82,8 @@ export function create(config, logger, context) {
    }
 
    const those = {
-      get state() {
-         return { config };
+      async getPublic() {
+         return { daily: config.daily, hourly: config.hourly };
       },
       async start() {
          if (config.helloDelay) {
