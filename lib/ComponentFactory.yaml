@@ -44,5 +44,5 @@ default:
 
     expressServer:
       default:
-        port: 8881
-        location: /
+        port: 8882
+        location: /chronica
