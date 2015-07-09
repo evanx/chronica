@@ -12,6 +12,24 @@ export function create(config, logger, context) {
    let app, server;
    let state = { config };
 
+   function getReport() {
+      let report = {};
+      Object.keys(context.stores).forEach(name => {
+         try {
+            report[name] = context.stores[name].state;
+         } catch (err) {
+            logger.warn('getReport store', name, err);
+         }
+      });
+      Object.keys(context.components).forEach(name => {
+         try {
+            report[name] = context.components[name].state;
+         } catch (err) {
+            logger.warn('getReport store', name, err);
+         }
+      });
+      return report;
+   }
    const those = {
       get state() {
          return { state };
@@ -19,7 +37,7 @@ export function create(config, logger, context) {
       async start() {
          app = express();
          app.get(config.location, async (req, res) => {
-            res.json(those.state);
+            res.json(getReport());
          });
          server = app.listen(config.port);
          state.hostname = context.stores.environment.hostname;
