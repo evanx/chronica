@@ -15,9 +15,25 @@ export function create(config, logger, context) {
       }
    }
 
+   async getReport() {
+      let none = [], ok = [], critical = [], other = [];
+      for (let [name, service] of context.stores.service.services) {
+         if (!service.status) {
+            none.push(service.name);
+         } else if (service.status === 'OK') {
+            ok.push(service.name);
+         } else if (service.status === 'WARN') {
+            critical.push(service.name);
+         } else {
+            lines.push(serverLine(service));
+         }
+      }
+      return { none, ok, critical, other };
+   }
+
    const those = {
       async getPublic() {
-         return await those.serviceReport();
+         return await getReport();
       },
       async start() {
          logger.info('started');
@@ -25,28 +41,17 @@ export function create(config, logger, context) {
       async end() {
       },
       async serviceReport() {
-         let lines = [], none = [], ok = [], critical = [], other = [];
-         logger.info('services', context.stores.service.services.size);
-         for (let [name, service] of context.stores.service.services) {
-            if (!service.status) {
-               none.push(service.name);
-            } else if (service.status === 'OK') {
-               ok.push(service.name);
-            } else if (service.status === 'WARN') {
-               critical.push(service.name);
-            } else {
-               lines.push(serverLine(service));
-            }
+         let lines = [];
+         let report = getReport();
+         if (report.critical.length) {
+            lines.push('WARN: ' + report.critical.join(' '));
          }
-         if (critical.length) {
-            lines.push('WARN: ' + critical.join(' '));
+         if (report.ok.length) {
+            lines.push('OK: ' + report.ok.join(' '));
          }
-         if (ok.length) {
-            lines.push('OK: ' + ok.join(' '));
-         }
-         if (none.length) {
-            none.forEach(name => {
-               lines.push('Unchecked: ' + none.join(' '));
+         if (report.none.length) {
+            report.none.forEach(name => {
+               lines.push('Unchecked: ' + report.none.join(' '));
             });
          }
          return lines;
