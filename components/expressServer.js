@@ -38,6 +38,11 @@ export function create(config, logger, context) {
       async start() {
          app = express();
          app.get(config.location, async (req, res) => {
+            logger.debug('req', req.url, getReport());
+            res.json(getReport());
+         });
+         app.get('/', async (req, res) => {
+            logger.debug('req', req.url, getReport());
             res.json(getReport());
          });
          server = app.listen(config.port);
