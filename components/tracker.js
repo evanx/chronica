@@ -60,10 +60,10 @@ export function create(config, logger, context) {
                service.alertedStatus = service.status;
                context.components.reporter.sendAlert(status + ' ' + service.name, message);
             } else {
-               logger.debug('equals alertedStatus:', service.alertedStatus, eventType);
+               logger.debug('equals alertedStatus:', service.serviceName, service.alertedStatus, eventType);
             }
          } else {
-            logger.debug('not alertable eventType:', eventType, service.alertedStatus, service.status);
+            logger.debug('not alertable eventType:', service.serviceName, eventType, service.alertedStatus, service.status);
          }
       }
    };
