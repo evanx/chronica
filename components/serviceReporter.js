@@ -15,7 +15,7 @@ export function create(config, logger, context) {
       }
    }
 
-   async getReport() {
+   async function getReport() {
       let none = [], ok = [], critical = [], other = [];
       for (let [name, service] of context.stores.service.services) {
          if (!service.status) {
