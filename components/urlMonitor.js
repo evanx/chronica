@@ -44,7 +44,7 @@ export function create(config, logger, context) {
 
    const those = {
       async getPublic() {
-         return config;
+         return null;
       },
       async start() {
          assert(config.interval, 'interval');
