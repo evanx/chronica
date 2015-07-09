@@ -38,7 +38,7 @@ export function create(config, logger, context) {
          if (err.code !== 'ECONNREFUSED') {
             logger.warn('checkService', err);
          }
-         context.components.tracker.processStatus(service, 'CRITICAL', err.message);
+         context.components.tracker.processStatus(service, 'WARN', err.message);
       }
    }
 

@@ -29,14 +29,14 @@ export function create(config, logger, context) {
                none.push(service.name);
             } else if (service.status === 'OK') {
                ok.push(service.name);
-            } else if (service.status === 'CRITICAL') {
+            } else if (service.status === 'WARN') {
                critical.push(service.name);
             } else {
                lines.push(serverLine(service));
             }
          }
          if (critical.length) {
-            lines.push('CRITICAL: ' + critical.join(' '));
+            lines.push('WARN: ' + critical.join(' '));
          }
          if (ok.length) {
             lines.push('OK: ' + ok.join(' '));

@@ -15,7 +15,7 @@ export function create(config, logger, context) {
    }
 
    async function sendSlack(bot, subject, message) {
-      let log = logger.method('sendSlack', bot.name, subject, message);
+      let log = logger.child('sendSlack', bot.name, subject, message);
       let slackMessage = formatSlackMessage(bot, subject, message);
       log.debug('slackMessage', slackMessage);
       try {

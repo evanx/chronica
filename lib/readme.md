@@ -18,7 +18,7 @@ async function checkService(service) {
       assert(lodash.isEmpty(content), 'empty content'); // since HEAD, no content
       context.components.tracker.processStatus(service, 'OK');
    } catch (err) {
-      context.components.tracker.processStatus(service, 'CRITICAL', err.message);
+      context.components.tracker.processStatus(service, 'WARN', err.message);
    }
 }
 ```

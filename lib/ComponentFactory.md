@@ -18,13 +18,13 @@ and finally with the components own default YAML file e.g. `components/expressSe
 
 #### Lifecycle
 
-Components have the following lifecycle methods:
+Components have the following lifecycle functions:
 - `start`
 - `end`
 - `scheduledTimeout`
 - `scheduledInterval`
 
-The scheduled methods are only required if their intervals are specified in the component's config, for example:
+The scheduled functions are only required if their intervals are specified in the component's config, for example:
 
 ```yaml
 scheduledTimeout: 8000 # invoke 8 seconds after start
@@ -112,11 +112,11 @@ The priority of configuration for each component is:
 
 If the component is not specified in `~/.chronica.yaml` then it will not started - nor any components that require it.
 
-Once all the components' `requireComponents` are resolved, they are initialised via their `create` methods, and then finally started.
+Once all the components' `requireComponents` are resolved, they are initialised via their `create` function, and then finally started.
 
 #### Starting
 
-If all components are created without error, then we start the components via their `start` lifecycle method.
+If all components are created without error, then we start the components via their `start` lifecycle function.
 
 We start the configured components:
 ```javascript
@@ -134,7 +134,7 @@ where we timeout the components' `start()` async functions.
 
 #### Scheduler
 
-Besides its `start()` and `end()` lifecycle methods, a component can define `scheduledTimeout()` and `scheduleInterval()` methods. If configured, these are activated as follows:
+Besides its `start()` and `end()` lifecycle function, a component can define `scheduledTimeout()` and `scheduleInterval()` function. If configured, these are activated as follows:
 
 ```javascript
 function schedule() {

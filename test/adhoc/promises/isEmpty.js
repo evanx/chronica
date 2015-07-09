@@ -8,7 +8,7 @@ import assert from 'assert';
 import lodash from 'lodash';
 
 const Promises = {
-   // convenient method for conditional evaluation on empty value
+   // convenient function for conditional evaluation on empty value
    isEmpty(value, reason) {
       if (lodash.isEmpty(value)) {
          return Promise.resolve(value);
@@ -16,7 +16,7 @@ const Promises = {
          return Promise.reject(reason || 'isEmpty');
       }
    },
-   // convenient method for conditional evaluation on non-empty value
+   // convenient function for conditional evaluation on non-empty value
    notEmpty(value, reason) {
       if (!lodash.isEmpty(value)) {
          return Promise.resolve(value);
@@ -38,11 +38,11 @@ const tests = {
       throw name;
    },
    swallowSyncDangerously(name) {
-      // BEWARE: any sync method will swallow exception in promise
+      // BEWARE: any sync function will swallow exception in promise
       Promise.resolve('any').then(value => {throw value});
    }
    async swallowAsyncDangerously(name) {
-      // BEWARE: any async method will swallow exception in promise
+      // BEWARE: any async function will swallow exception in promise
       Promise.resolve('any').then(value => {throw value});
    },
    async throwAsyncReturn(name) {
