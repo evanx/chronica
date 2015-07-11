@@ -23,7 +23,7 @@ export function create(config, logger, context) {
          let peerTime = peerTimes[peerTimes.length - 1];
          let elapsedDuration = new Date().getTime() - new Date(peerTime).getTime();
          logger.debug('peer elapsed', elapsedDuration);
-         return elapsedDuration < config.peerDurationLimit;
+         return elapsedDuration < config.elapsedThreshold;
       } catch (err) {
          logger.warn('peer', err.stack);
          return false;
@@ -39,27 +39,24 @@ export function create(config, logger, context) {
       async end() {
       },
       async sendAlert(subject, message) {
-         logger.warn('sendAlert', {subject, message});
-         that.alertTime = new Date();
-         if (await isPeerAlert()) {
-            logger.warn('peer alerted');
-            return;
-         }
-         if (lodash.isEmpty(message)) {
-            logger.debug('sendAlert empty message', subject);
-         }
-         if (lodash.includes(config.disableHostnames, context.stores.environment.hostname)) {
+         if (that.alertTime &&
+               new Date().getTime() - that.alertTime().getTime() < config.elapsedThreshold) {
+            logger.warn('not elapsed:', {subject, message});
+         } else if (await isPeerAlert()) {
+            logger.warn('peer alert not elapsed:', {subject, message});
+         } else if (lodash.includes(config.disableHostnames, context.stores.environment.hostname)) {
             logger.info('sendAlert excluded', subject, context.stores.environment.hostname);
-            return;
-         }
-         if (!context.components.emailMessenger && !context.components.slackMessenger) {
+         } else if (!context.components.emailMessenger && !context.components.slackMessenger) {
             logger.error('no messengers');
-         }
-         if (context.components.emailMessenger) {
-            await context.components.emailMessenger.sendAlert(subject, message);
-         }
-         if (context.components.slackMessenger) {
-            await context.components.slackMessenger.sendAlert(subject, message);
+         } else {
+            logger.warn('sendAlert', {subject, message});
+            that.alertTime = new Date();
+            if (context.components.emailMessenger) {
+               await context.components.emailMessenger.sendAlert(subject, message);
+            }
+            if (context.components.slackMessenger) {
+               await context.components.slackMessenger.sendAlert(subject, message);
+            }
          }
       }
    };
