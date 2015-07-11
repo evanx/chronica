@@ -82,7 +82,7 @@ export function create(config, logger, context) {
    }
 
    const those = {
-      async getPublic() {
+      async pub() {
          return { daily: config.daily, hourly: config.hourly };
       },
       async start() {

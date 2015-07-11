@@ -10,7 +10,7 @@ export function create() {
    };
 
    const those = {
-      async getPublic() {
+      async pub() {
          return state.services;
       },
       get services() {

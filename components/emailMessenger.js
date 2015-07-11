@@ -34,7 +34,7 @@ export function create(config, logger, context) {
    }
 
    const those = {
-      async getPublic() {
+      async pub() {
          return null;
       },
       async start() {

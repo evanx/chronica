@@ -10,7 +10,7 @@ export function create(rootConfig) {
    };
 
    const those = {
-      async getPublic() {
+      async pub() {
          return that;
       },
       get hostname() {

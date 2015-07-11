@@ -17,7 +17,7 @@ export function create(config, logger, context) {
       for (let name in context.stores) {
          logger.debug('getReport', name);
          try {
-            report[name] = await context.stores[name].getPublic();
+            report[name] = await context.stores[name].pub();
          } catch (err) {
             logger.warn('getReport store', name, err);
          }
@@ -25,7 +25,7 @@ export function create(config, logger, context) {
       for (let name in context.components) {
          logger.debug('getReport', name);
          try {
-            let publishableData = await context.components[name].getPublic();
+            let publishableData = await context.components[name].pub();
             if (publishableData) {
                report[name] = publishableData;
                logger.debug('getReport', name, publishableData);
@@ -48,7 +48,7 @@ export function create(config, logger, context) {
    }
 
    const those = {
-      async getPublic() {
+      async pub() {
          return null;
       },
       async start() {
