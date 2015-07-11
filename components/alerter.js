@@ -6,7 +6,7 @@ export function create(config, logger, context) {
    const that = {
    };
 
-   logger.warn('peers', typeof config.peers);
+   assert(lodash.isArray(config.peers), 'peers');
 
    async function getPeers() {
       return await* Object.keys(config.peers).map(async (name) => {
