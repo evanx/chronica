@@ -37,7 +37,7 @@ export function create(config, logger, context) {
       async end() {
       },
       async sendAlert(subject, message) {
-         logger.info('sendAlert', {subject, message});
+         logger.warn('sendAlert', {subject, message});
          that.alertTime = new Date();
          if (await isPeerAlert()) {
             logger.warn('peer alerted');
