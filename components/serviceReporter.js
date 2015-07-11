@@ -25,7 +25,7 @@ export function create(config, logger, context) {
          } else if (service.status === 'WARN') {
             critical.push(service.name);
          } else {
-            lines.push(serverLine(service));
+            other.push(serverLine(service));
          }
       }
       return { none, ok, critical, other };
@@ -50,10 +50,11 @@ export function create(config, logger, context) {
             lines.push('OK: ' + report.ok.join(' '));
          }
          if (report.none.length) {
-            report.none.forEach(name => {
-               lines.push('Unchecked: ' + report.none.join(' '));
-            });
+            lines.push('Unchecked: ' + report.none.join(' '));
          }
+         report.other.forEach(line => {
+            lines.push(line);
+         });
          return lines;
       }
    };
