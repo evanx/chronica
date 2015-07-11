@@ -23,7 +23,7 @@ export function create(config, logger, context) {
          logger.debug('peer elapsed', elapsedDuration);
          return elapsedDuration < config.peerDurationLimit;
       } catch (err) {
-         logger.error(err);
+         logger.warn('peer', err);
          return false;
       }
    }
