@@ -1,2 +1,3 @@
 default:
+   peers:
    peerDurationLimit: 120000
