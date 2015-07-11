@@ -36,7 +36,7 @@ export function create(config, logger, context) {
          context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
          if (err.code !== 'ECONNREFUSED') {
-            logger.warn('checkService', err);
+            logger.warn('checkService', service.name, err);
          }
          context.components.tracker.processStatus(service, 'WARN', err.message);
       }
