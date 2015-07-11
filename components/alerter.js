@@ -19,7 +19,7 @@ export function create(config, logger, context) {
    async function isPeerAlert() {
       try {
          let peers = await getPeers();
-         let peerTimes = peers.map(peer => peer.alertTime).filter(time => time).sort();
+         let peerTimes = peers.map(peer => peer.alertedTime).filter(time => time).sort();
          let peerTime = peerTimes[peerTimes.length - 1];
          let elapsedDuration = new Date().getTime() - new Date(peerTime).getTime();
          logger.debug('peer elapsed', elapsedDuration);
@@ -39,8 +39,9 @@ export function create(config, logger, context) {
       async end() {
       },
       async sendAlert(subject, message) {
-         if (that.alertTime &&
-               new Date().getTime() - that.alertTime().getTime() < config.elapsedThreshold) {
+         that.alertTime = new Date();
+         if (that.alertedTime &&
+               new Date().getTime() - that.alertedTime().getTime() < config.elapsedThreshold) {
             logger.warn('not elapsed:', {subject, message});
          } else if (await isPeerAlert()) {
             logger.warn('peer alert not elapsed:', {subject, message});
@@ -50,7 +51,7 @@ export function create(config, logger, context) {
             logger.error('no messengers');
          } else {
             logger.warn('sendAlert', {subject, message});
-            that.alertTime = new Date();
+            that.alertedTime = new Date();
             if (context.components.emailMessenger) {
                await context.components.emailMessenger.sendAlert(subject, message);
             }
