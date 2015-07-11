@@ -6,6 +6,8 @@ export function create(config, logger, context) {
    const that = {
    };
 
+   logger.warn('peers', typeof config.peers);
+
    async function getPeers() {
       return await* Object.keys(config.peers).map(async (name) => {
          let peer = config.peers[name];
