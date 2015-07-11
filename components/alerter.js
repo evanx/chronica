@@ -20,9 +20,11 @@ export function create(config, logger, context) {
          let peerTimes = peers.map(peer => peer.alertTime).filter(time => time).sort();
          let peerTime = peerTimes[peerTimes.length - 1];
          let elapsedDuration = new Date().getTime() - new Date(peerTime).getTime();
+         logger.debug('peer elapsed', elapsedDuration);
          return elapsedDuration < config.peerDurationLimit;
       } catch (err) {
          logger.error(err);
+         return false;
       }
    }
 
