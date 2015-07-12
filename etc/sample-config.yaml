@@ -4,11 +4,11 @@ urlMonitor:
   interval: 45000 # check status of URLs every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
-  - url: http://myserver1.com/endpoint1
-    name: endpoint1 # default name and label taken from URL
-    label: endpoint1 on myserver1
-  - url: http://myserver2.com/endpoint2
-    name: endpoint2 # default name and label taken from URL
+    endpoint1: # label taken from URL
+      url: http://myserver1.com/endpoint1
+    endpoint2:
+      label: endpoint1 on myserver1
+      url: http://myserver2.com/endpoint2
 
 expressServer: # for debugging and monitoring by peers
   location: /chronica
