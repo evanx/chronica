@@ -10,9 +10,14 @@ export function create(config, logger, context) {
 
    async function getPeers() {
       return await* Object.keys(config.peers).map(async (name) => {
-         let peer = config.peers[name];
-         let data = await Requests.request({url: peer.url, json: true});
-         return data.alerter;
+         try {
+            let peer = config.peers[name];
+            let data = await Requests.request({url: peer.url, json: true});
+            return data.alerter;
+         } catch (err) {
+            logger.warn('peer', name, err);
+            return null;
+         }
       }).filter(peer => peer);
    }
 
