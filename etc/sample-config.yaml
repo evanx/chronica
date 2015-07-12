@@ -1,26 +1,44 @@
 loggerLevel: info
+
+expressServer: # for debugging and monitoring by peers
+   location: /chronica
+   port: 8882
+   publishLoggers: [info, warn, error]
+
 alerter:
-  messengers:
-    slack:
-      bots: # see: https://api.slack.com/slackbot
-      - url: https://<ACCOUNT>.slack.com/services/hooks/slackbot?token=<TOKEN>&channel=%23<CHANNEL>
-    email:
-      fromEmail: chronica-alerts@my.com
-      admins: # email recipients for alerts
-      - email: me@my.com
-      - email: other@my.com
+  elapsedThreshold: 600000 # suppress alerts for 10 minutes (self or peer)
+  peers: # suppress alert if any peer alerted in past 10 minutes
+  - name: mypeer1
+    url: http://chronica.mypeer1.com/chronica
+
+slackMessenger:
+   bots: # see: https://api.slack.com/slackbot
+   - url: https://<ACCOUNT>.slack.com/services/hooks/slackbot?token=<TOKEN>&channel=%23<CHANNEL>
+
+emailMessenger: # uses node-mailer which works out the box for @gmail.com and @googlegroups.com
+   fromEmail: chronica-alerts@my.com
+   admins: # email recipients for alerts
+   - email: me@my.com
+   - email: other@my.com
+
 tracker: # tracks the status and decides if and when the send an email alert
-  debounceCount: 2 # status must stay changed during multiple iterations before alert
+   debounceCount: 2 # status must stay changed during multiple iterations before alert
+
 reporter:
-  helloDelay: 16000 # send an email 16 seconds after starting
-  daily: # send a daily digest of current status of all services
-    hour: 16 # 16:10 (pm)
-    minute: 10
+   helloDelay: 16000 # send an email 16 seconds after starting
+   daily: # send a daily digest of current status of all services
+      hour: 16 # 16:10 (pm)
+      minute: 10
+   hourly:
+      hours: [8, 12, 16, 20]
+      minute: 45 # hourly report at 45th minute of every hour
+
 urlMonitor:
-  interval: 45000 # check status every 45 seconds
+  interval: 45000 # check status of URLs every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
-  - url: http://google.com
-    label: Google Inc # default name and label taken from URL
-  - url: http://facebook.com
-    name: fb # default name and label taken from URL
+  - url: http://myserver1.com/endpoint1
+    name: endpoint1 # default name and label taken from URL
+    label: endpoint1 on myserver1
+  - url: http://myserver2.com/endpoint2
+    name: endpoint2 # default name and label taken from URL
