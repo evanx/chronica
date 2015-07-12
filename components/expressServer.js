@@ -14,6 +14,7 @@ export function create(config, logger, context) {
 
    async function getReport() {
       let report = {};
+      logger.warn('publishComponents', config.publishComponents);
       config.publishComponents.forEach(async (name) => {
          logger.debug('getReport', name);
          if (config.publishComponents)
@@ -27,6 +28,7 @@ export function create(config, logger, context) {
             logger.warn('getReport store', name, err);
          }
       });
+      logger.warn('publishStores', config.publishStores);
       config.publishStores.forEach(async (name) => {
          logger.debug('getReport', name);
          try {
@@ -35,9 +37,12 @@ export function create(config, logger, context) {
             logger.warn('getReport store', name, err);
          }
       });
-      if (config.publishingLogging) {
-         report.logging = Loggers.pub();
-      }
+      logger.warn('publishLoggers', config.publishLoggers);
+      let logging = Loggers.pub();
+      report.logging = {};
+      config.publishLoggers.forEach(name => {
+         report.logging[name] = logging[name];
+      });
       return report;
    }
 
@@ -58,7 +63,11 @@ export function create(config, logger, context) {
       async start() {
          app = express();
          app.get(config.location, async (req, res) => {
-            res.json(await getReport());
+            try {
+               res.json(await getReport());
+            } catch (err) {
+               res.status(500).send(err);
+            }
          });
          app.get('/', async (req, res) => {
             res.json(await getReport());
