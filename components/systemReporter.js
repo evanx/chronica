@@ -16,8 +16,8 @@ export function create(config, logger, context) {
    async function getRedis() {
       let out = await execPromise('redis-cli info');
       let used = lodash(out.toString().split('\n')).find(line => {
-         return lodash.startsWith(line, 'used_memory_human');
-      }).split(':')[1].replace(/\.[0-9]+M/, '');
+         return lodash.startsWith(line, 'used_memory');
+      }).split(':')[1]/1024/1024;
       return lodash.trim(used);
    }
 
