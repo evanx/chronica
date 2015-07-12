@@ -18,7 +18,7 @@ export function create(config, logger, context) {
       let used = lodash(out.toString().split('\n')).find(line => {
          return lodash.startsWith(line, 'used_memory');
       }).split(':')[1]/1024/1024;
-      return lodash.trim(used);
+      return used.toFixed(3);
    }
 
    async function getDisk() {
