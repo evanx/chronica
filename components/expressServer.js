@@ -12,9 +12,12 @@ export function create(config, logger, context) {
    let app, server;
    let state = { config };
 
+   logger.info('publishComponents', config.publishComponents);
+   logger.info('publishStores', config.publishStores);
+   logger.info('publishLogging', config.publishLogging);
+
    async function getReport() {
       let report = {};
-      logger.warn('publishComponents', config.publishComponents);
       config.publishComponents.forEach(async (name) => {
          logger.debug('getReport', name);
          if (config.publishComponents)
@@ -28,7 +31,6 @@ export function create(config, logger, context) {
             logger.warn('getReport store', name, err);
          }
       });
-      logger.warn('publishStores', config.publishStores);
       config.publishStores.forEach(async (name) => {
          logger.debug('getReport', name);
          try {
@@ -37,7 +39,6 @@ export function create(config, logger, context) {
             logger.warn('getReport store', name, err);
          }
       });
-      logger.warn('publishLogging', config.publishLogging);
       let logging = Loggers.pub();
       report.logging = {};
       config.publishLogging.forEach(name => {
