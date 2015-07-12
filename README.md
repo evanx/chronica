@@ -130,7 +130,7 @@ In the `systemReporter` above, the `disk` is a percentage value, `load` is the c
 
 #### Alerting peers
 
-It is possible to deploy multiple instances and avoid duplicate alerts as follows:
+It is possible to deploy multiple instances monitoring the same endpoints, and still avoid duplicate alerts via the following configuration:
 
 ```yaml
 alerter:
@@ -140,7 +140,7 @@ alerter:
     url: http://chronica.other.domain.com/chronica
 ```
 
-In this case, Chronica will check its peers. If they have sent any alerts e.g. in the past 5 minutes, then it will suppress its own alert.
+In this case, Chronica will check its peers before sending an alert. If any of its peers have sent any alerts in the past 5 minutes, then it will suppress the alert.
 
 The `elapsedThreshold` is used for both itself and its remote peers, to suppress alerts for the configured duration after an alert is sent.
 
