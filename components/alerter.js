@@ -57,8 +57,8 @@ export function create(config, logger, context) {
          } else if (!context.components.emailMessenger && !context.components.slackMessenger) {
             logger.error('no messengers');
          } else {
-            logger.warn('sendAlert', {subject, message});
             that.alertedTime = new Date();
+            logger.warn('sendAlert', that.alertedTime, {subject, message});
             if (context.components.emailMessenger) {
                await context.components.emailMessenger.sendAlert(subject, message);
             }
