@@ -7,12 +7,10 @@ export function create(config, logger, context) {
 
    logger.debug('config', config);
 
-   config.services.forEach(service => {
+   for (name in config.services) {
       assert(service.url, 'service.url');
-      if (!service.name) {
-         service.name = service.url.replace(/^https?:\/\//, '');
-         logger.warn('service name from url:', service);
-      }
+      let service = config.services[name];
+      service.name = name;
       service.type = 'url';
       context.stores.service.add(service);
       logger.debug('service', service);

@@ -9,9 +9,9 @@ export function create(config, logger, context) {
    assert(config.peers, 'peers');
    for (let name in config.peers) {
       let peer = config.peers[name];
-      peer.name = name;
       logger.debug('peer', peer);
       let service = Object.assign({}, peer);
+      service.name = name;
       service.type = 'peer';
       context.stores.service.add(service);
    }
