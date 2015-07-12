@@ -7,14 +7,14 @@ export function create(config, logger, context) {
 
    logger.debug('config', config);
 
-   for (name in config.services) {
-      assert(service.url, 'service.url');
+   for (let name in config.services) {
       let service = config.services[name];
+      assert(service.url, 'url: ' + name);
       service.name = name;
       service.type = 'url';
       context.stores.service.add(service);
       logger.debug('service', service);
-   });
+   }
 
    async function checkServices() {
       for (const [name, service] of context.stores.service.services) {
