@@ -60,7 +60,7 @@ See: https://github.com/evanx/chronica/blob/master/components/tracker.js
 
 ### Sending alerts
 
-We configure an email and Slack messengers for alerts.
+We configure email and/or Slack messengers for alerts.
 
 ```javascript
 async sendAlert(subject, message) {
