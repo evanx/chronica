@@ -1,5 +1,15 @@
 loggerLevel: info
 
+urlMonitor:
+  interval: 45000 # check status of URLs every 45 seconds
+  timeout: 8000 # HTTP connection timeout after 8 seconds
+  services:
+  - url: http://myserver1.com/endpoint1
+    name: endpoint1 # default name and label taken from URL
+    label: endpoint1 on myserver1
+  - url: http://myserver2.com/endpoint2
+    name: endpoint2 # default name and label taken from URL
+
 expressServer: # for debugging and monitoring by peers
    location: /chronica
    port: 8882
@@ -32,13 +42,3 @@ reporter:
    hourly:
       hours: [8, 12, 16, 20]
       minute: 45 # hourly report at 45th minute of every hour
-
-urlMonitor:
-  interval: 45000 # check status of URLs every 45 seconds
-  timeout: 8000 # HTTP connection timeout after 8 seconds
-  services:
-  - url: http://myserver1.com/endpoint1
-    name: endpoint1 # default name and label taken from URL
-    label: endpoint1 on myserver1
-  - url: http://myserver2.com/endpoint2
-    name: endpoint2 # default name and label taken from URL
