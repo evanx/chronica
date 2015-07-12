@@ -1,0 +1,4 @@
+asserts:
+   name: string
+   label: string
+   type: string

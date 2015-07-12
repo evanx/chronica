@@ -42,6 +42,11 @@ export function create(config, logger, context) {
       async pub() {
          return that;
       },
+      async init() {
+         Object.keys(config.peers).map(name => {
+            
+         });
+      },
       async start() {
       },
       async end() {

@@ -8,17 +8,12 @@ export function create(config, logger, context) {
    logger.debug('config', config);
 
    config.services.forEach(service => {
-      if (service.url) {
-         if (!service.name) {
-            service.name = service.url.replace(/^https?:\/\//, '');
-            logger.debug('service.name', service.name);
-         }
-      }
       assert(service.url, 'service.url');
-      assert(service.name, 'service.name');
-      if (!service.label) {
-         service.label = service.name;
+      if (!service.name) {
+         service.name = service.url.replace(/^https?:\/\//, '');
+         logger.warn('service name from url:', service);
       }
+      service.type = 'url';
       context.stores.service.services.set(service.name, service);
       logger.debug('service', service);
    });

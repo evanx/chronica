@@ -17,6 +17,16 @@ export function create() {
          return state.services;
       },
       setService(key, service) {
+         if (!service.name) {
+            if (service.url) {
+               service.name = service.url.replace(/^https?:\/\//, '');
+               logger.debug('service.name', service.name);
+            }
+         }
+         assert(service.name, 'name');
+         if (!service.label) {
+            service.label = service.name;
+         }
          state.services.set(key, service);
       }
    };
