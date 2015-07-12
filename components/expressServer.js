@@ -37,10 +37,10 @@ export function create(config, logger, context) {
             logger.warn('getReport store', name, err);
          }
       });
-      logger.warn('publishLoggers', config.publishLoggers);
+      logger.warn('publishLogging', config.publishLogging);
       let logging = Loggers.pub();
       report.logging = {};
-      config.publishLoggers.forEach(name => {
+      config.publishLogging.forEach(name => {
          report.logging[name] = logging[name];
       });
       return report;

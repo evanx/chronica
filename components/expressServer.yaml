@@ -1,6 +1,6 @@
 default:
   port: 8882
   location: /chronica
-  publishLoggers: [info, warn, error]
+  publishLogging: [info, warn, error]
   publishStores: []
   publishComponents: [alerter]
