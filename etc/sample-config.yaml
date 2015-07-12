@@ -11,15 +11,15 @@ urlMonitor:
     name: endpoint2 # default name and label taken from URL
 
 expressServer: # for debugging and monitoring by peers
-   location: /chronica
-   port: 8882
-   publishLoggers: [info, warn, error]
+  location: /chronica
+  port: 8882
+  publishLoggers: [info, warn, error]
 
 alerter:
-  elapsedThreshold: 600000 # suppress alerts for 10 minutes (self or peer)
-  peers: # suppress alert if any peer alerted in past 10 minutes
-  - name: mypeer1
-    url: http://chronica.mypeer1.com/chronica
+   elapsedThreshold: 600000 # suppress alerts for 10 minutes (self or peer)
+   peers: # suppress alert if any peer alerted in past 10 minutes
+   mypeer1:
+      url: http://chronica.mypeer1.com/chronica
 
 slackMessenger:
    bots: # see: https://api.slack.com/slackbot

@@ -7,6 +7,14 @@ export function create(config, logger, context) {
    };
 
    assert(config.peers, 'peers');
+   for (let name in config.peers) {
+      let peer = config.peers[name];
+      peer.name = name;
+      logger.debug('peer', peer);
+      let service = Object.assign({}, peer);
+      service.type = 'peer';
+      context.stores.service.add(service);
+   }
 
    async function getPeers() {
       return await* Object.keys(config.peers).map(async (name) => {
@@ -41,13 +49,6 @@ export function create(config, logger, context) {
    const those = {
       async pub() {
          return that;
-      },
-      async init() {
-         config.peers.map(peer => {
-            let service = Object.assing({}, peer);
-            service.type = 'peer';
-            context.stores.service.services.add(service);
-         });
       },
       async start() {
       },

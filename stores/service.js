@@ -17,13 +17,7 @@ export function create() {
          return state.services;
       },
       add(service) {
-         if (!service.name) {
-            if (service.url) {
-               service.name = service.url.replace(/^https?:\/\//, '');
-               logger.debug('service.name', service.name);
-            }
-         }
-         assert(service.name, 'name');
+         assert(service.name, 'name: ' + Object.keys(service).join(', '));
          if (!service.label) {
             service.label = service.name;
          }

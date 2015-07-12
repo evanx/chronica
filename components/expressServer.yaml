@@ -2,6 +2,6 @@ requiredComponents: []
 defaults:
    port: 8882
    location: /chronica
-   publishLogging: [info, warn, error]
+   publishLogging: []
    publishStores: []
    publishComponents: [alerter]
