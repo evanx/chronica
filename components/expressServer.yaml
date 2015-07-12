@@ -1,3 +1,4 @@
+requiredComponents: []
 defaults:
   port: 8882
   location: /chronica
