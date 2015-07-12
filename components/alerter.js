@@ -16,17 +16,18 @@ export function create(config, logger, context) {
             return data.alerter;
          } catch (err) {
             logger.warn('peer', name, err);
-            return null;
+            return [];
          }
-      }).filter(peer => peer);
+      });;
    }
 
    async function isPeerAlert() {
       try {
          let peers = await getPeers();
-         let peerTimes = peers.map(peer => peer.alertedTime).filter(time => time).sort();
-         if (peerTimes.length) {
-            let peerTime = peerTimes[peerTimes.length - 1];
+         let peerTime = lodash(peers).compact()
+            .map(peer => peer.alertedTime).compact()
+            .filter(time => time).sort().last();
+         if (peerTime) {
             let elapsedDuration = new Date().getTime() - new Date(peerTime).getTime();
             logger.warn('peer elapsed', elapsedDuration);
             return elapsedDuration < config.elapsedThreshold;
