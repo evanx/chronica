@@ -74,8 +74,8 @@ urlMonitor:
   interval: 45000 # check status every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
-  - url: http://myserver.com
-  - url: http://myotherserver.com
+    myserver1: http://myserver1.com
+    myserver2: http://myserver2.com
 ```
 
 See https://github.com/evanx/chronica/blob/master/sample-config.yaml

@@ -9,6 +9,9 @@ export function create(config, logger, context) {
 
    for (let name in config.services) {
       let service = config.services[name];
+      id (typeof service === 'string') {
+         service = {url: service};
+      }
       assert(service.url, 'url: ' + name);
       service.name = name;
       service.type = 'url';
