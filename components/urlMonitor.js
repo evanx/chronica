@@ -21,7 +21,9 @@ export function create(config, logger, context) {
 
    async function checkServices() {
       for (const [name, service] of context.stores.service.services) {
-         await checkService(service);
+         if (service.type === 'url') {
+            await checkService(service);
+         }
       }
    }
 

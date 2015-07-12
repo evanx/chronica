@@ -1,40 +1,19 @@
 
-defaults:
+stores:
 
+   environment:
+      description: stores hostname
+
+   service:
+      description: stores services and their status, for alerts and reports
+
+
+concat:
+   packages:
+
+defaults:
   componentStartTimeout: 5000
   componentEndTimeout: 5000
-
-  stores:
-
-     environment:
-       description: stores hostname
-
-     service:
-       description: stores services and their status, for alerts and reports
-
-  components:
-
-    emailMessenger:
-      description: Send email alerts
-
-    slackMessenger:
-      description: Send alerts via Slackbot
-
-    alerter:
-
-    systemReporter:
-      description: Produce short report on the localhost system e.g. load, disk
-
-    serviceReporter:
-      description: Produce short report on status of monitored services
-
-    reporter:
-
-    tracker:
-
-    urlMonitor:
-
-    expressServer:
-      defaults:
-        port: 8882
-        location: /chronica
+  loggerLevel: info
+  test: {}
+  env: {}

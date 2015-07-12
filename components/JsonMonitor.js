@@ -4,22 +4,24 @@
 export default class JsonMonitor {
 
    constructor(config, logger, context) {
-      Object.assign(this, {config, logger, context});
-      config.services.forEach(service => {
-         if (service.url) {
-            if (!service.name) {
-               service.name = service.url.replace(/^https?:\/\//, '');
-               logger.debug('service.name', service.name);
-            }
-         }
+      this.config = config;
+      this.logger = logger;
+      this.context = context;
+   }
+
+   init() {
+      for (let name in this.config.services) {
+         let service = this.config.services[name];
+         service.name = name;
+         service.type = 'json';
          assert(service.url, 'service.url');
          assert(service.name, 'service.name');
          if (!service.label) {
-            service.label = service.name;
          }
-         context.stores.service.add(service);
-         logger.debug('service', service);
-      });
+         service.label = service.name;
+         this.context.stores.service.add(service);
+         this.logger.debug('service', service);
+      }
    }
 
    async checkServices() {
@@ -28,7 +30,7 @@ export default class JsonMonitor {
       }
    }
 
-   async function checkService(service) {
+   async checkService(service) {
       try {
          let content = await Requests.request({url: service.url, method: 'get', timeout: this.config.timeout});
          assert(!lodash.isEmpty(content), 'content length');
@@ -43,6 +45,7 @@ export default class JsonMonitor {
    }
 
    async start() {
+      this.logger.info('started');
    }
 
    async end() {
