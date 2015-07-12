@@ -1,5 +1,5 @@
 optionalRequiredComponents: [ emailMessenger, slackMessenger ]
 requiredComponents: []
 defaults:
-   peers: {}
-   elapsedThreshold: 300000
+  peers: {}
+  elapsedThreshold: 300000
