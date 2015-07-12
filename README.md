@@ -109,7 +109,7 @@ ls --sort=time ~/.pm2/logs/chronica-out-*.log |
 
 ### Recommended deployment configuration
 
-Note that if you use multiple instances with the same config file i.e. monitoring the same endpoints, you can expect duplicate alerts. Rather use one instance to monitor all your endpoints, and another remote instance to monitor the monitor ;)
+Note that if you use multiple instances with the same config file i.e. monitoring the same endpoints, you can expect duplicate alerts by default. Perhaps use one instance to monitor all your endpoints, and another remote instance to monitor the monitor ;)
 
 In order to monitor Chronica remotely, include the following in its config file:
 ```yaml
@@ -126,6 +126,24 @@ and proxy as required via NGINX or other.
 ---
 
 In the `systemReporter` above, the `disk` is a percentage value, `load` is the current load average, and the `redis` is the current Redis memory usage in megs.
+
+
+#### Alerting peers
+
+It is possible to deploy multiple instances and avoid duplicate alerts as follows:
+
+```yaml
+alerter:
+  elapsedThreshold: 300000
+  peers:
+  - name: other-chronica
+    url: http://chronica.other.domain.com/chronica
+```
+
+In this case, Chronica will check its peers. If they have sent any alerts e.g. in the past 5 minutes, then it will suppress its own alert.
+
+The `elapsedThreshold` is used for both itself and its remote peers, to suppress alerts for the configured duration after an alert is sent.
+
 
 ### Other documentation
 
