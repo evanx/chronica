@@ -1,6 +1,6 @@
 requiredComponents: [ reporter ]
 asserts:
    services: array
-default:
+defaults:
   timeout: 4000
   scheduledInterval: 45000

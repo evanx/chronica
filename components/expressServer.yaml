@@ -1,4 +1,4 @@
-default:
+defaults:
   port: 8882
   location: /chronica
   publishLogging: [info, warn, error]

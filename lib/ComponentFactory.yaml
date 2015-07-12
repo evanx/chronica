@@ -43,6 +43,6 @@ defaults:
         scheduledInterval: 8000
 
     expressServer:
-      default:
+      defaults:
         port: 8882
         location: /chronica
