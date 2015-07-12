@@ -14,8 +14,9 @@ export function create(config, logger, context) {
 
    async function getReport() {
       let report = {};
-      for (let name in context.components) {
+      config.publishComponents.forEach(async (name) => {
          logger.debug('getReport', name);
+         if (config.publishComponents)
          try {
             let publishableData = await context.components[name].pub();
             if (publishableData) {
@@ -25,16 +26,18 @@ export function create(config, logger, context) {
          } catch (err) {
             logger.warn('getReport store', name, err);
          }
-      }
-      for (let name in context.stores) {
+      });
+      config.publishStores.forEach(async (name) => {
          logger.debug('getReport', name);
          try {
             report[name] = await context.stores[name].pub();
          } catch (err) {
             logger.warn('getReport store', name, err);
          }
+      });
+      if (config.publishingLogging) {
+         report.logging = Loggers.pub();
       }
-      report.logging = Loggers.pub();
       return report;
    }
 
