@@ -21,9 +21,6 @@ defaults:
       description: Send alerts via Slackbot
 
     alerter:
-      scheduledTimeout: 8000
-      defaults:
-        optionalRequiredComponents: [ emailMessenger, slackMessenger ]
 
     systemReporter:
       description: Produce short report on the localhost system e.g. load, disk
@@ -32,15 +29,10 @@ defaults:
       description: Produce short report on status of monitored services
 
     reporter:
-      requiredComponents: [ alerter, systemReporter, serviceReporter ]
 
     tracker:
-      requiredComponents: [ reporter ]
 
     urlMonitor:
-      requiredComponents: [ reporter ]
-      defaults:
-        scheduledInterval: 8000
 
     expressServer:
       defaults:

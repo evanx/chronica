@@ -1,0 +1,2 @@
+requiredComponents: [ alerter, systemReporter, serviceReporter ]
+defaults:
