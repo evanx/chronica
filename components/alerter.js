@@ -25,14 +25,16 @@ export function create(config, logger, context) {
       try {
          let peers = await getPeers();
          let peerTimes = peers.map(peer => peer.alertedTime).filter(time => time).sort();
-         let peerTime = peerTimes[peerTimes.length - 1];
-         let elapsedDuration = new Date().getTime() - new Date(peerTime).getTime();
-         logger.debug('peer elapsed', elapsedDuration);
-         return elapsedDuration < config.elapsedThreshold;
+         if (peerTimes.length) {
+            let peerTime = peerTimes[peerTimes.length - 1];
+            let elapsedDuration = new Date().getTime() - new Date(peerTime).getTime();
+            logger.warn('peer elapsed', elapsedDuration);
+            return elapsedDuration < config.elapsedThreshold;
+         }
       } catch (err) {
          logger.warn('peer', err.stack);
-         return false;
       }
+      return false;
    }
 
    const those = {
