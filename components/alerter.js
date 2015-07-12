@@ -43,8 +43,10 @@ export function create(config, logger, context) {
          return that;
       },
       async init() {
-         Object.keys(config.peers).map(name => {
-            
+         config.peers.map(peer => {
+            let service = Object.assing({}, peer);
+            service.type = 'peer';
+            context.stores.service.services.add(service);
          });
       },
       async start() {

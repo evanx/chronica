@@ -1,5 +1,5 @@
 
-default:
+defaults:
 
   componentStartTimeout: 5000
   componentEndTimeout: 5000
@@ -21,8 +21,8 @@ default:
       description: Send alerts via Slackbot
 
     alerter:
-      scheduledTimeout: 2000
-      default:
+      scheduledTimeout: 8000
+      defaults:
         optionalRequiredComponents: [ emailMessenger, slackMessenger ]
 
     systemReporter:
@@ -39,7 +39,7 @@ default:
 
     urlMonitor:
       requiredComponents: [ reporter ]
-      default:
+      defaults:
         scheduledInterval: 8000
 
     expressServer:

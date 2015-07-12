@@ -17,7 +17,7 @@ export default class JsonMonitor {
          if (!service.label) {
             service.label = service.name;
          }
-         context.stores.service.services.set(service.name, service);
+         context.stores.service.add(service);
          logger.debug('service', service);
       });
    }

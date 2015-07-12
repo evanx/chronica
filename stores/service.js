@@ -16,7 +16,7 @@ export function create() {
       get services() {
          return state.services;
       },
-      setService(key, service) {
+      add(service) {
          if (!service.name) {
             if (service.url) {
                service.name = service.url.replace(/^https?:\/\//, '');
@@ -27,7 +27,7 @@ export function create() {
          if (!service.label) {
             service.label = service.name;
          }
-         state.services.set(key, service);
+         state.services.set(service.name, service);
       }
    };
 
