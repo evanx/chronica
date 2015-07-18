@@ -68,7 +68,7 @@ export function create(config, logger, context) {
             try {
                await context.components.reporter.sendAlert(service.status + ' ' + service.name, message);
             } catch (err) {
-               logger.error('sendAlert', service.name, service.status);
+               logger.error(err, 'sendAlert', service.name, service.status);
             }
          }
       }
