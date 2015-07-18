@@ -24,6 +24,9 @@ export function create(config, logger, context) {
       return await* Object.keys(config.peers).map(async (name) => {
          try {
             let peer = config.peers[name];
+            if (typeof peer === 'string') {
+               peer = {url: peer};
+            }
             let data = await Requests.request({url: peer.url, json: true});
             return data.alerter;
          } catch (err) {
