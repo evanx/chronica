@@ -55,7 +55,7 @@ export function create(config, logger, context) {
       async end() {
       },
       async processStatus(service, status, message) {
-         logger.verbose('processStatus', service.name, status);
+         logger.debug('processStatus', service.name, status, message);
          let eventType = getEventType(service, status);
          setServiceStatus(service, status, eventType);
          if (!isAlertableEvent(eventType)) {
