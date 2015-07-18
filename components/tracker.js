@@ -58,15 +58,14 @@ export function create(config, logger, context) {
          logger.verbose('processStatus', service.name, status);
          let eventType = getEventType(service, status);
          setServiceStatus(service, status, eventType);
-         if (isAlertableEvent(eventType)) {
-            if (service.alertedStatus !== service.status) {
-               service.alertedStatus = service.status;
-               context.components.reporter.sendAlert(status + ' ' + service.name, message);
-            } else {
-               logger.debug('equals alertedStatus:', service.name, service.alertedStatus, eventType);
-            }
+         if (!isAlertableEvent(eventType)) {
+            logger.debug('not alertable event:', service.name, eventType, service.status);
+         } else if (service.alertedStatus === service.status) {
+            logger.debug('equal alertedStatus:', service.name, eventType, service.status);
          } else {
-            logger.debug('not alertable eventType:', service.name, eventType, service.alertedStatus, service.status);
+            logger.info('send alert:', service.name, eventType, service.status, service.alertedStatus);
+            service.alertedStatus = service.status;
+            context.components.reporter.sendAlert(status + ' ' + service.name, message);
          }
       }
    };
