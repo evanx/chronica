@@ -75,11 +75,19 @@ export function create(config, logger, context) {
          } else {
             that.alertedTime = new Date();
             logger.warn('sendAlert', that.alertedTime, {subject, message});
-            if (context.components.emailMessenger) {
-               await context.components.emailMessenger.sendAlert(subject, message);
-            }
             if (context.components.slackMessenger) {
-               await context.components.slackMessenger.sendAlert(subject, message);
+               try {
+                  await context.components.slackMessenger.sendAlert(subject, message);
+               } catch (err) {
+                  logger.error(err, 'sendAlert slack');
+               }
+            }
+            if (context.components.emailMessenger) {
+               try {
+                  await context.components.emailMessenger.sendAlert(subject, message);
+               } catch (err) {
+                  logger.error(err, 'sendAlert email');
+               }
             }
          }
       }

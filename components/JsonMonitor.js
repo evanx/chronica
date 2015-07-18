@@ -34,7 +34,7 @@ export default class JsonMonitor {
       try {
          let content = await Requests.request({url: service.url, method: 'get', timeout: this.config.timeout});
          assert(!lodash.isEmpty(content), 'content length');
-         this.context.components.tracker.processStatus(service, 'OK');
+         await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
          this.context.components.tracker.processStatus(service, 'WARN', err.message);
       }
