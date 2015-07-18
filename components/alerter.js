@@ -64,7 +64,7 @@ export function create(config, logger, context) {
       async sendAlert(subject, message) {
          that.alertTime = new Date();
          if (that.alertedTime &&
-               new Date().getTime() - that.alertedTime().getTime() < config.elapsedThreshold) {
+               new Date().getTime() - that.alertedTime.getTime() < config.elapsedThreshold) {
             logger.warn('not elapsed:', {subject, message});
          } else if (await isPeerAlert()) {
             logger.warn('peer alert not elapsed:', {subject, message});
