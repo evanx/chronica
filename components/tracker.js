@@ -65,7 +65,11 @@ export function create(config, logger, context) {
          } else {
             logger.info('send alert:', service.name, eventType, service.status, service.alertedStatus);
             service.alertedStatus = service.status;
-            context.components.reporter.sendAlert(status + ' ' + service.name, message);
+            try {
+               context.components.reporter.sendAlert(service.status + ' ' + service.name, message);
+            } catch (err) {
+               logger.error('sendAlert', service.name, service.status);
+            }
          }
       }
    };

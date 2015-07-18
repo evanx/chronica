@@ -116,7 +116,7 @@ export function create(config, logger, context) {
          } else {
             message += '\n\n' + report;
          }
-         context.components.alerter.sendAlert(subject, message);
+         await context.components.alerter.sendAlert(subject, message);
       }
    }
    return those;
