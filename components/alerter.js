@@ -14,7 +14,7 @@ export function create(config, logger, context) {
       }
       logger.debug('peer', peer);
       let service = Object.assign({}, peer);
-      service.name = name + ':peer';
+      service.name = 'peer:' + name;
       service.type = 'url';
       service.subtype = 'peer';
       context.stores.service.add(service);
@@ -62,6 +62,12 @@ export function create(config, logger, context) {
       async end() {
       },
       async sendAlert(subject, message) {
+         if (that.alertTime &&
+               new Date().getTime() - that.alertTime.getTime() < 8000) {
+            that.alertTime = new Date();
+            logger.warn('sendAlert ignore', subject);
+            return false;
+         }
          that.alertTime = new Date();
          if (that.alertedTime &&
                new Date().getTime() - that.alertedTime.getTime() < config.elapsedThreshold) {
@@ -89,7 +95,9 @@ export function create(config, logger, context) {
                   logger.error(err, 'sendAlert email');
                }
             }
+            return true;
          }
+         return false;
       }
    };
 

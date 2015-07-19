@@ -15,7 +15,7 @@ export default class JsonMonitor {
    init() {
       for (let name in this.config.services) {
          let service = this.config.services[name];
-         service.name = name + ':json';
+         service.name = 'json:' + name;
          service.type = 'json';
          assert(service.url, 'service.url');
          assert(service.name, 'service.name');
@@ -63,8 +63,9 @@ export default class JsonMonitor {
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
          service.debug.error = {
-            message: err.message
-            time: new Date();
+            message: err.message,
+            statusCode: err.statusCode,
+            time: new Date()
          };
          this.logger.debug('checkService', service.name, err);
          this.context.components.tracker.processStatus(service, 'WARN', err.message);

@@ -16,7 +16,7 @@ export default class HtmlMonitor {
       for (let name in this.config.services) {
          this.logger.info('service', name);
          let service = this.config.services[name];
-         service.name = name + ':html';
+         service.name = 'html:' + name;
          service.type = 'html';
          assert(service.url, 'service.url');
          assert(service.name, 'service.name');
@@ -53,9 +53,9 @@ export default class HtmlMonitor {
             if (service.content.title) {
                let titleMatcher = content.match(/<title>(.+)<\/title>/);
                assert(titleMatcher && titleMatcher.length > 1, 'title');
-               info.title = lodash.trim(titleMatcher[1]);
-               assert.equal(info.title, service.content.title, 'title');
-               service.debug.title = info.title;
+               let title = lodash.trim(titleMatcher[1]);
+               assert.equal(title, service.content.title, 'title');
+               service.debug.title = title;
             } else {
                this.logger.debug('checkService', service.name, content.length);
             }
