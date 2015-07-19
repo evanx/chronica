@@ -13,11 +13,11 @@ export function create() {
       async pub() {
          let reply = {};
          for (let [key, value] of state.services) {
-            if (!_.isEmpty(value.message)) {
-               reply[key] = value.status + ' ' + value.message;
-            } else {
-               reply[key] = value.status;
-            }
+            reply[key] = {
+               status: value.status,
+               alertedStatus: value.alertedStatus,
+               debug: value.debug
+            };
          }
          return reply;
       },
