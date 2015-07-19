@@ -20,18 +20,18 @@ export function create(config, logger, context) {
       context.stores.service.add(service);
    }
 
-   async function getPeers() {
+   async function getPeers() { // TODO filter ok peers from service store
       return await* Object.keys(config.peers).map(async (name) => {
          try {
             let peer = config.peers[name];
             if (typeof peer === 'string') {
                peer = {url: peer};
             }
-            let data = await Requests.request({url: peer.url, json: true});
+            let data = await Requests.request({url: peer.url, json: true, timeout: 4000});
             return data.alerter;
          } catch (err) {
             logger.warn('peer', name, err);
-            return [];
+            return {};
          }
       });;
    }
@@ -63,19 +63,16 @@ export function create(config, logger, context) {
       },
       async sendAlert(subject, message) {
          if (that.alertTime &&
-               new Date().getTime() - that.alertTime.getTime() < 8000) {
+               new Date().getTime() - that.alertTime.getTime() < config.elapsedThreshold) {
             that.alertTime = new Date();
-            logger.warn('sendAlert ignore', subject);
+            logger.warn('not elapsed:', {subject, message});
             return false;
          }
          that.alertTime = new Date();
-         if (that.alertedTime &&
-               new Date().getTime() - that.alertedTime.getTime() < config.elapsedThreshold) {
-            logger.warn('not elapsed:', {subject, message});
-         } else if (await isPeerAlert()) {
+         if (await isPeerAlert()) {
             logger.warn('peer alert not elapsed:', {subject, message});
          } else if (lodash.includes(config.disableHostnames, context.stores.environment.hostname)) {
-            logger.info('sendAlert excluded', subject, context.stores.environment.hostname);
+            logger.info('disabled', subject, context.stores.environment.hostname);
          } else if (!context.components.emailMessenger && !context.components.slackMessenger) {
             logger.error('no messengers');
          } else {
