@@ -30,6 +30,7 @@ export function create() {
          if (!service.label) {
             service.label = service.name;
          }
+         service.debug = service.debug || {};
          state.services.set(service.name, service);
       }
    };

@@ -46,7 +46,7 @@ export default class JsonMonitor {
          assert(!lodash.isEmpty(content), 'content length');
          if (service.minLength || service.each) {
             assert(lodash.isArray(content), 'array: ' + typeof content);
-            service.debug = { length: content.length };
+            service.debug.length = content.length;
          }
          if (service.minLength) {
             assert(lodash.size(content) >= service.minLength, 'minLength: ' + service.minLength);
@@ -62,6 +62,10 @@ export default class JsonMonitor {
          this.logger.verbose('checkService', service.name, typeof content);
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
+         service.debug.error = {
+            message: err.message
+            time: new Date();
+         };
          this.logger.debug('checkService', service.name, err);
          this.context.components.tracker.processStatus(service, 'WARN', err.message);
       }
