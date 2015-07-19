@@ -39,7 +39,7 @@ export default class JsonMonitor {
             json: true
          });
          assert(!lodash.isEmpty(content), 'content length');
-         logger.debug('checkService', service.name, Object.keys(content));
+         this.logger.debug('checkService', service.name, Object.keys(content));
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
          this.context.components.tracker.processStatus(service, 'WARN', err.message);
