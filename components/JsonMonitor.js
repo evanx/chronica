@@ -44,8 +44,11 @@ export default class JsonMonitor {
             json: true
          });
          assert(!lodash.isEmpty(content), 'content length');
-         if (service.minLength) {
+         if (service.minLength || service.each) {
             assert(lodash.isArray(content), 'array: ' + typeof content);
+            service.debug = { length: content.length };
+         }
+         if (service.minLength) {
             assert(lodash.size(content) >= service.minLength, 'minLength: ' + service.minLength);
          }
          if (service.each) {

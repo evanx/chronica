@@ -56,6 +56,7 @@ export default class HtmlMonitor {
                assert(titleMatcher && titleMatcher.length > 1, 'title');
                info.title = lodash.trim(titleMatcher[1]);
                assert.equal(info.title, service.content.title, 'title');
+               service.debug = { title: info.title };
             } else {
                this.logger.debug('checkService', service.name, content.length);
             }

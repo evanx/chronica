@@ -19,7 +19,8 @@ export function create(config, logger, context) {
       }
    }
 
-   function setServiceStatus(service, status, eventType) {
+   function setServiceStatus(service, status, eventType, message) {
+      service.message = message;
       if (eventType === 'initial') {
          assert(!service.status, 'initial');
          service.status = status;
@@ -57,7 +58,7 @@ export function create(config, logger, context) {
       async processStatus(service, status, message) {
          logger.debug('processStatus', service.name, status, message);
          let eventType = getEventType(service, status);
-         setServiceStatus(service, status, eventType);
+         setServiceStatus(service, status, eventType, message);
          if (!isAlertableEvent(eventType)) {
             logger.debug('not alertable event:', service.name, eventType, service.status);
          } else if (service.alertedStatus === service.status) {

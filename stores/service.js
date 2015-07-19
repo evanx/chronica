@@ -13,7 +13,11 @@ export function create() {
       async pub() {
          let reply = {};
          for (let [key, value] of state.services) {
-            reply[key] = value.status;
+            if (!_.isEmpty(value.message)) {
+               reply[key] = value.status + ' ' + value.message;
+            } else {
+               reply[key] = value.status;
+            }
          }
          return reply;
       },
