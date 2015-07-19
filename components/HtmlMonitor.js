@@ -14,16 +14,19 @@ export default class HtmlMonitor {
 
    init() {
       for (let name in this.config.services) {
+         this.logger.info('service', name);
          let service = this.config.services[name];
          service.name = name;
          service.type = 'html';
          assert(service.url, 'service.url');
          assert(service.name, 'service.name');
+         if (!service.content) {
+            this.logger.warn('no content requirements', service.name);
+         }
          if (!service.label) {
             service.label = service.name;
          }
          this.context.stores.service.add(service);
-         this.logger.info('service', service.name);
       }
    }
 
@@ -36,27 +39,43 @@ export default class HtmlMonitor {
    }
 
    async checkService(service) {
+      let info = { service: service.name };
       try {
-         let content = await Requests.request({
+         this.logger.verbose('checkService', service.name);
+         let [response, content] = await Requests.response({
             url: service.url,
             method: 'get',
             timeout: this.config.timeout
          });
-         assert(!lodash.isEmpty(content), 'content length');
-         this.logger.info('checkService', service.name, content.length);
+         assert(!lodash.isEmpty(content), 'content');
+         assert.equal(parseInt(response.headers['content-length']), content.length, 'content length');
+         assert(lodash.startsWith(response.headers['content-type'], 'text/html'), 'content type');
+         if (service.content) {
+            if (service.content.title) {
+               let titleMatcher = content.match(/<title>(.+)<\/title>/);
+               assert(titleMatcher && titleMatcher.length > 1, 'title');
+               info.title = lodash.trim(titleMatcher[1]);
+               assert.equal(info.title, service.content.title, 'title');
+            } else {
+               this.logger.debug('checkService', service.name, content.length);
+            }
+         }
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
-         this.logger.debug('checkService', service.name, err);
+         this.error = info;
+         this.error.message = err.message;
+         this.error.time = new Date();
+         this.logger.verbose('checkService', service.name, err);
          this.context.components.tracker.processStatus(service, 'WARN', err.message);
       }
    }
 
    async pub() {
-      return null;
+      return { error: this.error };
    }
 
    async start() {
-      this.logger.info('started');
+      this.logger.debug('started');
    }
 
    async end() {

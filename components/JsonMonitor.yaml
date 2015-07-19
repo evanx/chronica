@@ -1,6 +1,6 @@
 requiredComponents: [ tracker ]
 asserts:
-   services: array
+   services: object
 defaults:
   timeout: 4000
   scheduledInterval: 45000
