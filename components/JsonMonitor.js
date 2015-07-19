@@ -32,8 +32,14 @@ export default class JsonMonitor {
 
    async checkService(service) {
       try {
-         let content = await Requests.request({url: service.url, method: 'get', timeout: this.config.timeout});
+         let content = await Requests.request({
+            url: service.url,
+            method: 'get',
+            timeout: this.config.timeout,
+            json: true
+         });
          assert(!lodash.isEmpty(content), 'content length');
+         logger.debug('checkService', service.name, Object.keys(content));
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
          this.context.components.tracker.processStatus(service, 'WARN', err.message);
@@ -52,7 +58,6 @@ export default class JsonMonitor {
    }
 
    async scheduledTimeout() {
-      throw 'test';
       this.logger.info('scheduledTimeout');
       await this.checkServices();
    }
