@@ -26,6 +26,7 @@ export function create(config, logger, context) {
          service.status = status;
          service.alertedStatus = service.status;
          service.statusCount = config.debounceCount;
+         service.debounceCount = service.debounceCount || config.debounceCount;
       } else if (eventType === 'changed') {
          assert(service.status != status, 'status changed');
          service.statusCount = 0;
@@ -36,10 +37,10 @@ export function create(config, logger, context) {
       }
    }
 
-   function isAlertableEvent(eventType) {
+   function isAlertableEvent(service, eventType) {
       if (eventType === 'debounced') {
          return true;
-      } else if (eventType === 'changed' && config.debounceCount === 0) {
+      } else if (eventType === 'changed' && service.debounceCount === 0) {
          return true;
       } else {
          return false;
@@ -59,7 +60,7 @@ export function create(config, logger, context) {
          logger.debug('processStatus', service.name, status, message);
          let eventType = getEventType(service, status);
          setServiceStatus(service, status, eventType, message);
-         if (!isAlertableEvent(eventType)) {
+         if (!isAlertableEvent(service, eventType)) {
             logger.debug('not alertable event:', service.name, eventType, service.status);
          } else if (service.alertedStatus === service.status) {
             logger.debug('equal alertedStatus:', service.name, eventType, service.status);

@@ -22,6 +22,7 @@ export default class JsonMonitor {
          if (!service.label) {
             service.label = service.name;
          }
+         service.timeout = service.timeout || this.config.timeout;
          this.context.stores.service.add(service);
          this.logger.info('service', service.name);
       }
@@ -40,9 +41,12 @@ export default class JsonMonitor {
          let content = await Requests.request({
             url: service.url,
             method: 'get',
-            timeout: this.config.timeout,
+            timeout: service.timeout,
             json: true
          });
+         if (lodash.isEmpty(content)) {
+            this.logger.warn('checkService empty', content, typeof content);
+         }
          assert(!lodash.isEmpty(content), 'content');
          if (service.minLength || service.each) {
             assert(lodash.isArray(content), 'array: ' + typeof content);

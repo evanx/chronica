@@ -31,7 +31,7 @@ export function create(config, logger, context) {
             return data.alerter;
          } catch (err) {
             logger.warn('peer', name, err);
-            return {};
+            return null;
          }
       });;
    }
