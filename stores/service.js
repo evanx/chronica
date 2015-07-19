@@ -11,7 +11,11 @@ export function create() {
 
    const those = {
       async pub() {
-         return state.services;
+         let reply = {};
+         for (let [key, value] of state.services) {
+            reply[key] = value.status;
+         }
+         return reply;
       },
       get services() {
          return state.services;

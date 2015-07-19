@@ -16,7 +16,7 @@ export default class HtmlMonitor {
       for (let name in this.config.services) {
          this.logger.info('service', name);
          let service = this.config.services[name];
-         service.name = name;
+         service.name = name + ':html';
          service.type = 'html';
          assert(service.url, 'service.url');
          assert(service.name, 'service.name');

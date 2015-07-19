@@ -15,7 +15,7 @@ export default class JsonMonitor {
    init() {
       for (let name in this.config.services) {
          let service = this.config.services[name];
-         service.name = name;
+         service.name = name + ':json';
          service.type = 'json';
          assert(service.url, 'service.url');
          assert(service.name, 'service.name');
