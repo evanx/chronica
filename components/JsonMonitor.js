@@ -17,8 +17,8 @@ export default class JsonMonitor {
          assert(service.url, 'service.url');
          assert(service.name, 'service.name');
          if (!service.label) {
+            service.label = service.name;
          }
-         service.label = service.name;
          this.context.stores.service.add(service);
          this.logger.debug('service', service);
       }
@@ -52,10 +52,13 @@ export default class JsonMonitor {
    }
 
    async scheduledTimeout() {
-      await checkServices();
+      throw 'test';
+      this.logger.info('scheduledTimeout');
+      await this.checkServices();
    }
 
    async scheduledInterval() {
-      await checkServices();
+      this.logger.info('scheduledInterval');
+      await this.checkServices();
    }
 }
