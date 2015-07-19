@@ -39,7 +39,6 @@ export default class HtmlMonitor {
    }
 
    async checkService(service) {
-      let info = { service: service.name };
       try {
          this.logger.verbose('checkService', service.name);
          let [response, content] = await Requests.response({
@@ -63,16 +62,17 @@ export default class HtmlMonitor {
          }
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
-         this.error = info;
-         this.error.message = err.message;
-         this.error.time = new Date();
+         service.debug.error = {
+            message: err.message,
+            time: new Date()
+         };
          this.logger.verbose('checkService', service.name, err);
          this.context.components.tracker.processStatus(service, 'WARN', err.message);
       }
    }
 
    async pub() {
-      return { error: this.error };
+      return { };
    }
 
    async start() {

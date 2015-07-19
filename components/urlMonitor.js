@@ -33,6 +33,10 @@ export function create(config, logger, context) {
          assert(lodash.isEmpty(content), 'empty content'); // HEAD request has empty content
          context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
+         service.debug.error = {
+            message: err.message,
+            time: new Date()
+         };
          if (!err.code && !err.statusCode) {
             logger.warn('checkService', service.name, err);
          }
