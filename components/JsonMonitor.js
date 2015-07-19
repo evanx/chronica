@@ -58,12 +58,12 @@ export default class JsonMonitor {
    }
 
    async scheduledTimeout() {
-      this.logger.info('scheduledTimeout');
+      this.logger.debug('scheduledTimeout');
       await this.checkServices();
    }
 
    async scheduledInterval() {
-      this.logger.info('scheduledInterval');
+      this.logger.debug('scheduledInterval');
       await this.checkServices();
    }
 }
