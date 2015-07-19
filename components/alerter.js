@@ -14,7 +14,7 @@ export function create(config, logger, context) {
       }
       logger.debug('peer', peer);
       let service = Object.assign({}, peer);
-      service.name = name;
+      service.name = name + ':peer';
       service.type = 'url';
       service.subtype = 'peer';
       context.stores.service.add(service);
