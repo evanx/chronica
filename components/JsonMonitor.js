@@ -43,7 +43,7 @@ export default class JsonMonitor {
             timeout: this.config.timeout,
             json: true
          });
-         assert(!lodash.isEmpty(content), 'content length');
+         assert(!lodash.isEmpty(content), 'content');
          if (service.minLength || service.each) {
             assert(lodash.isArray(content), 'array: ' + typeof content);
             service.debug.length = content.length;
