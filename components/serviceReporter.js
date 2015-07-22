@@ -16,19 +16,22 @@ export function create(config, logger, context) {
    }
 
    async function getReport() {
-      let none = [], ok = [], critical = [], other = [];
+      let none = [], ok = [], warn = [], other = [];
       for (let [name, service] of context.stores.service.services) {
          if (!service.status) {
             none.push(service.name);
          } else if (service.status === 'OK') {
-            ok.push(service.name);
+            //ok.push(service.name);
          } else if (service.status === 'WARN') {
-            critical.push(service.name);
+            let name = service.name.replace(/^[a-z]+:/, '');
+            if (!lodash.includes(warn, name)) {
+               warn.push(name);
+            }
          } else {
             other.push(serverLine(service));
          }
       }
-      return { none, ok, critical, other };
+      return { none, ok, warn, other };
    }
 
    const those = {
@@ -43,8 +46,8 @@ export function create(config, logger, context) {
       async serviceReport() {
          let lines = [];
          let report = await getReport();
-         if (report.critical.length) {
-            lines.push('WARN: ' + report.critical.join(' '));
+         if (report.warn.length) {
+            lines.push('WARN: ' + report.warn.join(' '));
          }
          if (report.ok.length) {
             lines.push('OK: ' + report.ok.join(' '));
