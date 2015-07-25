@@ -4,7 +4,8 @@ urlMonitor:
   timeout: 4000 # HTTP connection timeout after 8 seconds
   interval: 45000 # perform check status of each URL every 45 seconds
   services:
-    endpoint1:
+    hn: https://news.ycombinator.com # compact notation for URL only 
+    endpoint1: # extended notation
       url: http://myserver1.com/endpoint1
       label: endpoint1 on myserver1
     endpoint2:

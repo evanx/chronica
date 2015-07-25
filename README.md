@@ -136,8 +136,13 @@ urlMonitor:
   interval: 45000 # check status every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
+    hn: https://news.ycombinator.com
     myserver1: http://myserver1.com
     myserver2: http://myserver2.com
+```
+where the HTML title check is equivalent to the following `curl` command:
+```shell
+curl -sIL https://news.ycombinator.com | grep '^HTTP'
 ```
 
 ```yaml
@@ -151,7 +156,10 @@ htmlMonitor:
          url: http://www.google.com
          content:
             title: "Google"
-            # test: curl -sL google.com | grep '<title>' | head -1 | sed 's/.*<title>\([^<]*\).*/\1/'
+```
+where the HTML title check is equivalent to the following `curl` command:
+```shell
+curl -sL google.com | grep '<title>' | head -1 | sed 's/.*<title>\([^<]*\).*/\1/'
 ```
 
 ```yaml
@@ -170,7 +178,6 @@ jsonMonitor:
 ```
 
 See https://github.com/evanx/chronica/blob/master/sample-config.yaml
-
 
 ### Running
 
