@@ -1,21 +1,24 @@
 
 ## Chronica - a Node daemon to monitor urls
 
-This is a minimal solution for monitoring HTTP URL status (200 or not), JSON and HTML content.
+This is a minimal solution for monitoring HTTP URL status, and also some JSON and HTML content assertions.
 
-For URL status monitoring, at a specified interval e.g. 45 seconds, we send an HTTP HEAD request to each URL.
+For example, at a specified interval e.g. 45 seconds, we send an HTTP HEAD request and test that the HTTP status code is 200.
 
 A single YAML configuration file is used. There is no database, and no history.
 
 Alerts are sent to specified email addresses and/or a Slack channel via your Slackbot.
 
+We have a component model that in theory makes Chronica extensible via additional components, which are configurable by name via the main YAML configuration file.
+
 Pros:
 - YAML configuration
+- extensible via a component model
 - Slack integration
 - built with Node
 
 Cons:
-- URL status monitoring only
+- too immature for a stable release
 - no history
 - no fancy graphs
 
