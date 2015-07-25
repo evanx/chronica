@@ -41,11 +41,12 @@ export default class HtmlMonitor {
    async checkService(service) {
       try {
          this.logger.verbose('checkService', service.name);
-         let [response, content] = await Requests.response({
+         let options = {
             url: service.url,
             method: 'get',
             timeout: this.config.timeout
-         });
+         };
+         let [response, content] = await Requests.response(options);
          assert(!lodash.isEmpty(content), 'content');
          assert(lodash.startsWith(response.headers['content-type'], 'text/html'), 'content type');
          let contentLength = response.headers['content-length'];
