@@ -68,6 +68,11 @@ export default class JsonMonitor {
                }
             }
          }
+         if (service.content) {
+            for (let key in content) {
+               this.logger.debug('content', key);
+            }
+         }
          this.logger.verbose('checkService', service.name, typeof content);
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
