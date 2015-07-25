@@ -60,7 +60,6 @@ export function create(config, logger, context) {
          logger.debug('processStatus', service.name, status, message);
          let eventType = getEventType(service, status);
          service.debug[eventType] = { status: status, time: new Date() };
-         service.debug[eventType] = { previous: service.status, current: status, time: new Date() };
          setServiceStatus(service, status, eventType, message);
          if (!isAlertableEvent(service, eventType)) {
             logger.debug('not alertable event:', service.name, eventType, service.status);
