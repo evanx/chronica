@@ -67,27 +67,70 @@ If you are a JavaScript developer, fork the main repo, so can make modifications
 ```yaml
 loggerLevel: info
 alerter:
-slackMessenger:
-   bots: # see: https://api.slack.com/slackbot
-   - url: https://MY.slack.com/services/hooks/slackbot?token=...
+   elapsedThreshold: 600000 # suppress alerts for 10 minutes (self or peer)
+   peers: # suppress alert if any peer alerted in past 10 minutes
+      mypeer1:
+         url: http://chronica.mypeer1.com/chronica
 emailMessenger:
    fromEmail: chronica-alerts@my.com
    admins: # email recipients for alerts
    - email: me@my.com
    - email: other@my.com
+slackMessenger:
+   bots: # see: https://api.slack.com/slackbot
+   - url: https://MY.slack.com/services/hooks/slackbot?token=...
+reporter:
+   helloDelay: 16000 # send an email 16 seconds after starting
+   daily: # send a daily digest of current status of all services
+      hour: 16 # 16:10 (pm)
+      minute: 10
 tracker: # tracks the status and decides if and when the send an email alert
   debounceCount: 2 # status must stay changed during multiple iterations before alert
-reporter:
-  helloDelay: 16000 # send an email 16 seconds after starting
-  daily: # send a daily digest of current status of all services
-    hour: 16 # 16:10 (pm)
-    minute: 10
+```
+
+The debounce count is important for debouncing flaky services where we expect suprious errors, and only want to be alerted when the service appears to go down and stay down (or stay up).
+
+We have implemented three monitoring components, namely for
+- URL monitoring
+- HTML content monitoring e.g. the `<title>` element
+- JSON content monitoring e.g. expected properties and their types
+
+```yaml
 urlMonitor:
   interval: 45000 # check status every 45 seconds
   timeout: 8000 # HTTP connection timeout after 8 seconds
   services:
     myserver1: http://myserver1.com
     myserver2: http://myserver2.com
+```
+
+```yaml
+htmlMonitor:
+   class: HtmlMonitor
+   loggerLevel: debug
+   scheduledTimeout: 2000 # initial check after 2 seconds
+   scheduledInterval: 45000 # check every 45 seconds
+   services:
+      google:
+         url: http://www.google.com
+         content:
+            title: "Google"
+            # test: curl -sL google.com | grep '<title>' | head -1 | sed 's/.*<title>\([^<]*\).*/\1/'
+```
+
+```yaml
+jsonMonitor:
+   class: JsonMonitor
+   loggerLevel: debug
+   scheduledTimeout: 2000 # initial check after 2 seconds
+   scheduledInterval: 45000 # check every 45 seconds
+   services:
+      hn-api:
+         url: https://hacker-news.firebaseio.com/v0/item/160705.json?print=pretty
+         required:
+            id: string
+            time: integer
+            type: string
 ```
 
 See https://github.com/evanx/chronica/blob/master/sample-config.yaml

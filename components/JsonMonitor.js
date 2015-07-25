@@ -44,16 +44,19 @@ export default class JsonMonitor {
             timeout: service.timeout,
             json: true
          });
-         if (lodash.isEmpty(content)) {
-            this.logger.warn('checkService empty', content, typeof content);
-         }
          assert(!lodash.isEmpty(content), 'content');
          if (service.minLength || service.each) {
-            assert(lodash.isArray(content), 'array: ' + typeof content);
+            assert(lodash.isArray(content), 'array: ' + (typeof content));
             service.debug.length = content.length;
          }
          if (service.minLength) {
             assert(lodash.size(content) >= service.minLength, 'minLength: ' + service.minLength);
+         }
+         if (service.required) {
+            let errors = YamlAsserts.getErrors(service.required, content);
+            if (errors.length) {
+               throw 'asserts: ' + errors.join(', ');
+            }
          }
          if (service.each) {
             for (let item of content) {

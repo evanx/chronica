@@ -1,14 +1,40 @@
 loggerLevel: info
 
 urlMonitor:
-  interval: 45000 # check status of URLs every 45 seconds
-  timeout: 8000 # HTTP connection timeout after 8 seconds
+  timeout: 4000 # HTTP connection timeout after 8 seconds
+  interval: 45000 # perform check status of each URL every 45 seconds
   services:
-    endpoint1: # label taken from URL
+    endpoint1:
       url: http://myserver1.com/endpoint1
-    endpoint2:
       label: endpoint1 on myserver1
+    endpoint2:
       url: http://myserver2.com/endpoint2
+      # note that a label determined from URL by default
+
+htmlMonitor:
+   class: HtmlMonitor
+   loggerLevel: debug
+   scheduledTimeout: 2000 # initial check after 2 seconds
+   scheduledInterval: 45000 # check every 45 seconds
+   services:
+      google:
+         url: http://www.google.com
+         content:
+            title: "Google"
+            # test: curl -sL google.com | grep '<title>' | head -1 | sed 's/.*<title>\([^<]*\).*/\1/'
+
+jsonMonitor:
+   class: JsonMonitor
+   loggerLevel: debug
+   scheduledTimeout: 2000 # initial check after 2 seconds
+   scheduledInterval: 45000 # check every 45 seconds
+   services:
+      hn-api:
+         url: https://hacker-news.firebaseio.com/v0/item/160705.json?print=pretty
+         required:
+            id: string
+            time: integer
+            type: string
 
 expressServer: # for debugging and monitoring by peers
   location: /chronica

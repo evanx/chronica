@@ -47,8 +47,13 @@ export default class HtmlMonitor {
             timeout: this.config.timeout
          });
          assert(!lodash.isEmpty(content), 'content');
-         assert.equal(parseInt(response.headers['content-length']), content.length, 'content length');
          assert(lodash.startsWith(response.headers['content-type'], 'text/html'), 'content type');
+         let contentLength = response.headers['content-length'];
+         if (!contentLength) {
+            this.logger.verbose('response.headers', service.name, Object.keys(response.headers).join(', '));
+         } else {
+            assert.equal(parseInt(contentLength), content.length, 'content length');
+         }
          if (service.content) {
             if (service.content.title) {
                let titleMatcher = content.match(/<title>(.+)<\/title>/);
