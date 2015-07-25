@@ -76,8 +76,9 @@ export default class HtmlMonitor {
             this.logger.verbose('request', options);
          }
          let [response, content] = await Requests.response(options);
-         this.logger.debug('response', service.name, response.statusCode, service.headers);
+         this.logger.verbose('response', service.name, response.statusCode, service.headers);
          if (service.statusCode) {
+            service.debug.statusCode = response.statusCode;
             assert.equal(response.statusCode, service.statusCode, 'statusCode: ' + service.statusCode);
          } else {
             assert.equal(response.statusCode, 200, 'statusCode');
