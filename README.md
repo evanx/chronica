@@ -55,12 +55,49 @@ In order to use these scripts, you should install `bunyan` and `pm2` globally:
  sudo npm install bunyan pm2 -g
 ```
 
-The `scripts/` directory is a git submodule: https://github.com/evanx/chronica-scripts
+#### git submodules
 
-Consider forking the `chronica-scripts` repo via github and then deploy your own copy. Then you can modifiy the scripts for your own purposes.
+The `util/` and 'scripts/` directories are git submodules.
 
-If you are a JavaScript developer, fork the main repo, so can make modifications and easily do a pull request via github.
+See `.gitmodules` and `.git/config`
 
+```shell
+evans@boromir:~/chronica$ cat .gitmodules
+[submodule "util"]
+	path = util
+	url = https://github.com/evanx/redexutil
+[submodule "scripts"]
+	path = scripts
+	url = https://github.com/evanx/chronica-script
+```
+
+These might be, but should not be, `git@github.com` URLs e.g. `git@github.com:evanx/redexutil.git`
+
+That can be fixed as follows.
+
+```shell
+cd ~/chronica/util
+git remote set-url origin https://github.com/evanx/redexutil
+git remote -v
+
+cd ~/chronica/scripts
+git remote set-url origin https://github.com/evanx/chronica-scripts
+git remote -v
+
+cd ~/chronica
+git submodule sync
+cat .gitmodules
+cat .git/config | grep redexutil
+cat .git/config | grep chronica-scripts
+```
+
+Alternatively, create them from scratch as follows:
+```
+git submodule deinit scripts
+git submodule deinit util
+git submodule add https://github.com/evanx/redexutil util
+git submodule add https://github.com/evanx/chronica-scripts scripts
+```
 
 ### Sample config file
 
@@ -140,9 +177,13 @@ See https://github.com/evanx/chronica/blob/master/sample-config.yaml
 
 You must create your own configuration file e.g. `~/.chronica.yaml.`
 
-The `scripts/` are just a guide and won't work as in unless:
-- Current working directory is `chronica/` i.e. from `git clone`
-- `~/.chronica.yaml` exists, e.g. copy and edit the `sample/sample-config.yaml`
+The `scripts/` directory is a submodule, namely https://github.com/evanx/chronica-scripts
+
+These scripts assist with the author's workflow. Consider forking this, and modifying as suits.
+
+The scripts require:
+- current working directory is `chronica/` i.e. from `git clone`
+- `~/.chronica.yaml` exists, e.g. see `sample/sample-config.yaml`
 
 See `scripts/run.sh`
 ```shell
