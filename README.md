@@ -20,22 +20,18 @@ Cons:
 - no fancy graphs
 
 Work in progress:
-- JSON content monitoring
-- HTML content monitoring (currently only page title)
+- JSON content monitoring e.g. expected properties and their types
+- HTML content monitoring - currently only page title, but more to come
+
+For HTML monitoring we plan to add tests for:
+- meta tags
+- content regex
+- element content, by CSS selectors
 
 ---
 <img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
 
 ---
-
-### Work in progress: JSON and HTML content monitoring
-
-The JSON and HTML monitoring is work in progress.
-
-In the case of HTML, we only test the HTML `<title>` in the current initial implementation.
-
-For JSON, we test the content of arrays of data, for our own requirements.
-
 
 ### Installing
 
