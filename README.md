@@ -9,7 +9,7 @@ A single YAML configuration file is used. There is no database, no history and n
 
 Alerts are sent to specified email addresses and/or a Slack channel via your Slackbot.
 
-We have a component model that in theory makes Chronica extensible via additional components, which are configurable by name via the main YAML configuration file.
+We have a component model that in theory makes Chronica extensible via additional components. These are configurable by name via the main YAML configuration file, i.e. in the same way as the "built-in" components, such as the URL monitor, tracker, alerter, Slack messenger etc.
 
 Pros:
 - YAML configuration
