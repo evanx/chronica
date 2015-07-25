@@ -69,8 +69,10 @@ export default class JsonMonitor {
             }
          }
          if (service.content) {
-            for (let key in content) {
-               this.logger.debug('content', key);
+            service.debug.assertContent = service.content;
+            service.debug.content = content;
+            for (let key in service.content) {
+               assert.equal(content[key], service.content[key], key + ': ' + service.content[key]);
             }
          }
          this.logger.verbose('checkService', service.name, typeof content);
