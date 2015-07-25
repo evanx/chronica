@@ -11,18 +11,18 @@ Alerts are sent to specified email addresses and/or a Slack channel via your Sla
 
 We have a component model that in theory makes Chronica extensible via additional components. These are configurable by name via the main YAML configuration file, i.e. in the same way as the "built-in" components, such as the URL monitor, tracker, alerter, Slack messenger etc.
 
-Pros:
+#### Pros
 - YAML configuration
 - extensible via a component model
 - Slack integration
 - built with Node
 
-Cons:
+#### Cons
 - too immature for a stable release
 - no history
 - no fancy graphs
 
-Work in progress:
+#### Work in progress
 - JSON content monitoring e.g. expected properties and their types
 - HTML content monitoring - currently only page title, but more to come
 
