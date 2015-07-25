@@ -5,6 +5,15 @@ This is a minimal solution for monitoring HTTP URL status, and also some JSON an
 
 For example, at a specified interval e.g. 45 seconds, we send an HTTP HEAD request and test that the HTTP status code is 200.
 
+Example configuration for URL monitoring:
+```yaml
+urlMonitor:
+  interval: 45000 # check status every 45 seconds
+  timeout: 8000 # HTTP connection timeout after 8 seconds
+  services:
+    hn: https://news.ycombinator.com
+```
+
 A single YAML configuration file is used. There is no database, no history and no fancy graphs (yet).
 
 Alerts are sent to specified email addresses and/or a Slack channel via your Slackbot.
@@ -13,29 +22,55 @@ We have a component model that in theory makes Chronica extensible via additiona
 
 #### Pros
 - YAML configuration
-- extensible via a component model
 - Slack integration
-- built with Node
+- used for production monitoring by the author
+- built for Node using ES6/7 via Babel
+- extensible via its component model
 
 #### Cons
 - too immature for a stable release
-- no support for authentication headers (yet)
-- no history
+- no history of status, alerts etc
 - no fancy graphs
-
-#### Work in progress
-- JSON content monitoring e.g. expected properties and their types
-- HTML content monitoring - currently only page title, but more to come
-
-For HTML monitoring we plan to add tests for:
-- meta tags
-- content regex
-- element content, by CSS selectors
 
 ---
 <img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
 
 ---
+
+#### Work in progress
+- JSON content monitoring e.g. expected properties and their types
+- HTML content monitoring e.g. currently only page title
+
+For HTML monitoring we plan to add tests for:
+- meta tags
+- content regex
+- elements by CSS selectors, e.g. using cheerio
+
+Example configuration for JSON content monitoring:
+```yaml
+jsonMonitor: # name of the component instance
+   class: JsonMonitor # class name of the component
+   scheduledInterval: 45000 # check every 45 seconds
+   services:
+      hn-api: # name of this service to monitor
+         url: https://hacker-news.firebaseio.com/v0/item/160705.json?print=pretty
+         required: # ensure that the JSON response has the following props/types
+            id: string
+            time: integer
+            type: string
+```
+
+Example configuration for HTML content monitoring:
+```yaml
+htmlMonitor:
+   class: HtmlMonitor
+   scheduledInterval: 45000 # check every 45 seconds
+   services:
+      google:
+         url: http://www.google.com
+         content:
+            title: "Google"
+```
 
 ### Installing
 

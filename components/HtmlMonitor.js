@@ -46,6 +46,10 @@ export default class HtmlMonitor {
             method: 'get',
             timeout: this.config.timeout
          };
+         if (service.headers) {
+            options.headers = service.headers;
+            logger.debug('request', options);
+         }
          let [response, content] = await Requests.response(options);
          assert(!lodash.isEmpty(content), 'content');
          assert(lodash.startsWith(response.headers['content-type'], 'text/html'), 'content type');
