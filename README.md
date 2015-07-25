@@ -19,6 +19,7 @@ We have a component model that in theory makes Chronica extensible via additiona
 
 #### Cons
 - too immature for a stable release
+- no support for authentication headers (yet)
 - no history
 - no fancy graphs
 
