@@ -1,9 +1,9 @@
 
 ## Chronica - a Node daemon to monitor urls
 
-This is a minimal solution for monitoring URL status (200 or not).
+This is a minimal solution for monitoring HTTP URL status (200 or not), JSON and HTML content.
 
-At a specified interval e.g. 45 seconds, we send an HTTP HEAD request to each URL.
+For URL status monitoring, at a specified interval e.g. 45 seconds, we send an HTTP HEAD request to each URL.
 
 A single YAML configuration file is used. There is no database, and no history.
 
@@ -19,10 +19,22 @@ Cons:
 - no history
 - no fancy graphs
 
+Work in progress:
+- JSON content monitoring
+- HTML content monitoring (currently only page title)
+
 ---
 <img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
 
 ---
+
+### Work in progress: JSON and HTML content monitoring
+
+The JSON and HTML monitoring is work in progress.
+
+In the case of HTML, we only test the HTML `<title>` in the current initial implementation.
+
+For JSON, we test the content of arrays of data, for our own requirements.
 
 
 ### Installing
@@ -136,8 +148,7 @@ It is possible to deploy multiple instances monitoring the same endpoints, and s
 alerter:
   elapsedThreshold: 300000
   peers:
-  - name: other-chronica
-    url: http://chronica.other.domain.com/chronica
+    server1: http://chronica.server1.com/chronica
 ```
 
 In this case, Chronica will check its peers before sending an alert. If any of its peers have sent any alerts in the past 5 minutes, then it will suppress the alert.
