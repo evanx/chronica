@@ -71,8 +71,10 @@ export default class HtmlMonitor {
             method: 'get',
             timeout: this.config.timeout
          };
+         service.debug.url = service.url;
          if (service.headers) {
             options.headers = service.headers;
+            service.debug['User-Agent'] = service.headers['User-Agent'];
             this.logger.verbose('request', options);
          }
          let [response, content] = await Requests.response(options);
