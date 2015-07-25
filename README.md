@@ -1,5 +1,5 @@
 
-## Chronica - a Node daemon to monitor urls
+## Chronica - a Node daemon to monitor your JSON services and web sites
 
 This is a minimal solution for monitoring HTTP URL status, and also some JSON and HTML content assertions.
 

@@ -48,7 +48,7 @@ export default class HtmlMonitor {
          };
          if (service.headers) {
             options.headers = service.headers;
-            logger.debug('request', options);
+            this.logger.debug('request', options);
          }
          let [response, content] = await Requests.response(options);
          assert(!lodash.isEmpty(content), 'content');
