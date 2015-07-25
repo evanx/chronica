@@ -98,8 +98,8 @@ See https://github.com/evanx/chronica/blob/master/sample-config.yaml
 You must create your own configuration file e.g. `~/.chronica.yaml.`
 
 The `scripts/` are just a guide and won't work as in unless:
-- `~/chronica` exists
-- `~/.chronica.yaml` exists
+- Current working directory is `chronica/` i.e. from `git clone`
+- `~/.chronica.yaml` exists, e.g. copy and edit the `sample/sample-config.yaml`
 
 See `scripts/run.sh`
 ```shell
