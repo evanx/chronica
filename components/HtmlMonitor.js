@@ -38,6 +38,31 @@ export default class HtmlMonitor {
       }
    }
 
+   checkContent(service, response, content) {
+      assert(!lodash.isEmpty(content), 'content');
+      assert(lodash.startsWith(response.headers['content-type'], 'text/html'), 'content type');
+      let contentLength = response.headers['content-length'];
+      if (!contentLength) {
+         this.logger.verbose('response.headers', service.name, Object.keys(response.headers).join(', '));
+      } else {
+         this.logger.verbose('content', service.name, contentLength, content.length);
+         if (false) {
+            assert.equal(parseInt(contentLength), content.toString().length, 'content length');
+         }
+      }
+      if (service.content) {
+         if (service.content.title) {
+            let titleMatcher = content.match(/<title>(.+)<\/title>/);
+            assert(titleMatcher && titleMatcher.length > 1, 'title');
+            let title = lodash.trim(titleMatcher[1]);
+            service.debug.title = title;
+            assert.equal(title, service.content.title, 'title');
+         } else {
+            this.logger.debug('checkService', service.name, content.length);
+         }
+      }
+   }
+
    async checkService(service) {
       try {
          this.logger.verbose('checkService', service.name);
@@ -48,27 +73,17 @@ export default class HtmlMonitor {
          };
          if (service.headers) {
             options.headers = service.headers;
-            this.logger.debug('request', options);
+            this.logger.verbose('request', options);
          }
          let [response, content] = await Requests.response(options);
-         assert(!lodash.isEmpty(content), 'content');
-         assert(lodash.startsWith(response.headers['content-type'], 'text/html'), 'content type');
-         let contentLength = response.headers['content-length'];
-         if (!contentLength) {
-            this.logger.verbose('response.headers', service.name, Object.keys(response.headers).join(', '));
+         this.logger.debug('response', service.name, response.statusCode, service.headers);
+         if (service.statusCode) {
+            assert.equal(response.statusCode, service.statusCode, 'statusCode: ' + service.statusCode);
          } else {
-            assert.equal(parseInt(contentLength), content.length, 'content length');
+            assert.equal(response.statusCode, 200, 'statusCode');
          }
-         if (service.content) {
-            if (service.content.title) {
-               let titleMatcher = content.match(/<title>(.+)<\/title>/);
-               assert(titleMatcher && titleMatcher.length > 1, 'title');
-               let title = lodash.trim(titleMatcher[1]);
-               service.debug.title = title;
-               assert.equal(title, service.content.title, 'title');
-            } else {
-               this.logger.debug('checkService', service.name, content.length);
-            }
+         if (response.statusCode === 200) {
+            this.checkContent(service, response, content);
          }
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
@@ -86,7 +101,7 @@ export default class HtmlMonitor {
    }
 
    async start() {
-      this.logger.debug('started');
+      this.logger.info('started');
    }
 
    async end() {

@@ -1,7 +1,7 @@
 
 ## Chronica - a Node daemon to monitor your JSON services and web sites
 
-This is a minimal solution for monitoring HTTP URL status, and also some JSON and HTML content assertions.
+This is a minimal solution for monitoring HTTP URL status, JSON and HTML content.
 
 For example, at a specified interval e.g. 45 seconds, we send an HTTP HEAD request and test that the HTTP status code is 200.
 
@@ -68,6 +68,8 @@ htmlMonitor:
    services:
       google:
          url: http://www.google.com
+         headers:
+            User-Agent: facebookexternalhit # test facebook share
          content:
             title: "Google"
 ```

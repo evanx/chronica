@@ -22,7 +22,17 @@ htmlMonitor:
          url: http://www.google.com
          content:
             title: "Google"
-            # test: curl -sL google.com | grep '<title>' | head -1 | sed 's/.*<title>\([^<]*\).*/\1/'
+      guardian-share:  # test facebook share
+         url: http://www.theguardian.com/world/2014/apr/11/journalists-nsa-guardian-polk-award-snowden
+         headers:
+            User-Agent: facebookexternalhit
+         content:
+            title: "Journalists who broke NSA story in Guardian dedicate award to Snowden"
+      devsite: # ensure 403 (Access Prohibited) to Googlebot
+         url: http://dev.mysite.com
+         headers:
+            User-Agent: Googlebot
+         statusCode: 403
 
 jsonMonitor:
    class: JsonMonitor
