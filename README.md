@@ -5,7 +5,7 @@ This is a minimal solution for monitoring HTTP URL status, and also some JSON an
 
 For example, at a specified interval e.g. 45 seconds, we send an HTTP HEAD request and test that the HTTP status code is 200.
 
-A single YAML configuration file is used. There is no database, and no history.
+A single YAML configuration file is used. There is no database, no history and no fancy graphs (yet).
 
 Alerts are sent to specified email addresses and/or a Slack channel via your Slackbot.
 
