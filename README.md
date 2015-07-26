@@ -1,36 +1,30 @@
 
-## Chronica - a Node daemon to monitor your JSON services and web sites
+## Chronica
 
-This is a minimal solution for monitoring HTTP URL status, JSON and HTML content.
+A Node daemon to monitor your JSON services and web sites.
 
-For example, at a specified interval e.g. 45 seconds, we send an HTTP HEAD request and test that the HTTP status code is 200.
-
-Example configuration for URL monitoring:
-```yaml
-urlMonitor:
-  interval: 45000 # check status every 45 seconds
-  timeout: 8000 # HTTP connection timeout after 8 seconds
-  services:
-    hn: https://news.ycombinator.com
-```
-
-A single YAML configuration file is used. There is no database, no history and no fancy graphs (yet).
+For example, at a specified interval we send an HTTP HEAD request, and check that the status code is 200.
 
 Alerts are sent to specified email addresses and/or a Slack channel via your Slackbot.
 
-We have a component model that in theory makes Chronica extensible via additional components. These are configurable by name via the main YAML configuration file, i.e. in the same way as the "built-in" components, such as the URL monitor, tracker, alerter, Slack messenger etc.
+A single YAML configuration file is used for all the components of the app.
+
+```yaml
+urlMonitor:
+  interval: 45000 # check status every 45 seconds
+  services:
+    service1: https://myserver.com/service1
+```
 
 #### Pros
 - YAML configuration
 - Slack integration
-- used for production monitoring by the author
 - built for Node using ES6/7 via Babel
-- extensible via its component model
+- modular design
 
 #### Cons
 - too immature for a stable release
-- no history of status, alerts etc
-- no fancy graphs
+- no database, history or fancy graphs
 
 ---
 <img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
@@ -46,30 +40,28 @@ For HTML monitoring we plan to add tests for:
 - content regex
 - elements by CSS selectors, e.g. using cheerio
 
-Example configuration for JSON content monitoring:
+Example configuration for the JSON monitoring component:
 ```yaml
 jsonMonitor: # name of the component instance
-   class: JsonMonitor # class name of the component
    scheduledInterval: 45000 # check every 45 seconds
    services:
-      hn-api: # name of this service to monitor
-         url: https://hacker-news.firebaseio.com/v0/item/160705.json?print=pretty
+      hn-api:
+         url: https://hacker-news.firebaseio.com/v0/item/160705.json
          required: # ensure that the JSON response has the following props/types
             id: string
             time: integer
             type: string
 ```
 
-Example configuration for HTML content monitoring:
+Example configuration for the HTML monitoring component:
 ```yaml
 htmlMonitor:
-   class: HtmlMonitor
    scheduledInterval: 45000 # check every 45 seconds
    services:
       google:
          url: http://www.google.com
          headers:
-            User-Agent: facebookexternalhit # test facebook share
+            User-Agent: facebookexternalhit # test facebook sharing
          content:
             title: "Google"
 ```
