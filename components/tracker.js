@@ -27,6 +27,8 @@ export function create(config, logger, context) {
          service.alertedStatus = service.status;
          service.statusCount = config.debounceCount;
          service.debounceCount = service.debounceCount || config.debounceCount;
+         service.debug.events = {};
+         service.debug.status = {};
       } else if (eventType === 'changed') {
          assert(service.status != status, 'status changed');
          service.statusCount = 0;
@@ -59,11 +61,9 @@ export function create(config, logger, context) {
       async processStatus(service, status, message) {
          logger.debug('processStatus', service.name, status, message);
          let eventType = getEventType(service, status);
-         service.debug.events = service.debug.events || {};
-         service.debug.events[eventType] = { status: status, time: new Date() };
-         service.debug.status = service.debug.status || {};
-         service.debug.status[status] = { time: new Date() };
          setServiceStatus(service, status, eventType, message);
+         service.debug.events[eventType] = { time: new Date(), status: status, message: message };
+         service.debug.status[status] = { time: new Date(), message: message };
          if (!isAlertableEvent(service, eventType)) {
             logger.debug('not alertable event:', service.name, eventType, service.status);
          } else if (service.alertedStatus === service.status) {
