@@ -48,8 +48,10 @@ export default class JsonMonitor {
          assert(!lodash.isEmpty(content), 'content');
          if (service.minLength || service.each) {
             assert(lodash.isArray(content), 'array: ' + (typeof content));
-            service.debug.length = content.length;
-            service.debug.first = Object.keys(content[0]);
+            service.debug.content = {
+               length: content.length,
+               firstKeys: Object.keys(content[0]).join(', ')
+            };
          }
          if (service.minLength) {
             service.debug.minLength = service.minLength;
@@ -57,7 +59,7 @@ export default class JsonMonitor {
          }
          if (service.required) {
             service.debug.required = service.required;
-            service.debug.content = content;
+            service.debug.contentKeys = Object.keys(content).join(', ');
             let errors = YamlAsserts.getErrors(service.required, content);
             if (errors.length) {
                throw 'asserts: ' + errors.join(', ');
@@ -74,7 +76,7 @@ export default class JsonMonitor {
          }
          if (service.content) {
             service.debug.assertContent = service.content;
-            service.debug.keys = Object.keys(content);
+            service.debug.contentKeys = Object.keys(content).join(', ');
             for (let key in service.content) {
                assert.equal(content[key], service.content[key], key + ': ' + service.content[key]);
             }
