@@ -3,6 +3,20 @@
 
 import * as YamlAsserts from '../lib/YamlAsserts';
 
+function contentSummary(content) {
+   let summary = {};
+   for (let [key, value] in content) {
+      if (lodash.isArray(value)) {
+         summary[key] = '[' + value.length + ']';
+      } else if (lodash.isObject(value)) {
+         summary[key] = contentSummary(value);
+      } else {
+         summary[key] = value;
+      }
+   }
+   return summary;
+}
+
 export default class JsonMonitor {
 
    constructor(config, logger, context) {
@@ -50,7 +64,7 @@ export default class JsonMonitor {
             assert(lodash.isArray(content), 'array: ' + (typeof content));
             service.debug.content = {
                length: content.length,
-               firstKeys: Object.keys(content[0]).join(', ')
+               first: contentSummary(content[0]);
             };
          }
          if (service.minLength) {
@@ -59,7 +73,7 @@ export default class JsonMonitor {
          }
          if (service.required) {
             service.debug.required = service.required;
-            service.debug.contentKeys = Object.keys(content).join(', ');
+            service.debug.content = contentSummary(content);
             let errors = YamlAsserts.getErrors(service.required, content);
             if (errors.length) {
                throw 'asserts: ' + errors.join(', ');
@@ -76,7 +90,7 @@ export default class JsonMonitor {
          }
          if (service.content) {
             service.debug.assertContent = service.content;
-            service.debug.contentKeys = Object.keys(content).join(', ');
+            service.debug.content = contentSummary(content);
             for (let key in service.content) {
                assert.equal(content[key], service.content[key], key + ': ' + service.content[key]);
             }
