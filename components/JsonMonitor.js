@@ -49,7 +49,7 @@ export default class JsonMonitor {
          if (service.minLength || service.each) {
             assert(lodash.isArray(content), 'array: ' + (typeof content));
             service.debug.length = content.length;
-            service.debug.first = content[0];
+            service.debug.first = Object.keys(content[0]);
          }
          if (service.minLength) {
             service.debug.minLength = service.minLength;
@@ -74,13 +74,8 @@ export default class JsonMonitor {
          }
          if (service.content) {
             service.debug.assertContent = service.content;
-            service.debug.content = {};
+            service.debug.keys = Object.keys(content);
             for (let key in service.content) {
-               if (lodash.isArray(content[key])) {
-                  service.debug.content[key] = '[' + content[key].length + ']';
-               } else {
-                  service.debug.content[key] = content[key];
-               }
                assert.equal(content[key], service.content[key], key + ': ' + service.content[key]);
             }
          }
