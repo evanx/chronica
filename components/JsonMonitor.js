@@ -74,8 +74,13 @@ export default class JsonMonitor {
          }
          if (service.content) {
             service.debug.assertContent = service.content;
-            service.debug.content = content;
+            service.debug.content = {};
             for (let key in service.content) {
+               if (lodash.isArray(content[key])) {
+                  service.debug.content[key] = '[' + content[key].length + ']';
+               } else {
+                  service.debug.content[key] = content[key];
+               }
                assert.equal(content[key], service.content[key], key + ': ' + service.content[key]);
             }
          }
