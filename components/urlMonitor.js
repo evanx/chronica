@@ -34,7 +34,7 @@ export function create(config, logger, context) {
          context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
          service.debug.error = {
-            message: err.message,
+            message: err.message || err,
             time: new Date()
          };
          if (!err.code && !err.statusCode) {

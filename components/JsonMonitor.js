@@ -88,7 +88,7 @@ export default class JsonMonitor {
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
          service.debug.error = {
-            message: err.message,
+            message: err.message || err,
             statusCode: err.statusCode,
             time: new Date()
          };

@@ -91,7 +91,7 @@ export default class HtmlMonitor {
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
          service.debug.error = {
-            message: err.message,
+            message: err.message || err,
             time: new Date()
          };
          this.logger.verbose('checkService', service.name, err);
