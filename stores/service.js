@@ -37,6 +37,10 @@ export function create() {
          return state.services;
       },
       add(service) {
+         if (state.services.has(service.name)) {
+            logger.warn('duplicate', service.name, service.type);
+            service.name = service.type + ':' + service.name;
+         }
          assert(!state.services.has(service.name), 'unique: ' + service.name);
          assert(service.name, 'name: ' + Object.keys(service).join(', '));
          if (!service.label) {

@@ -13,7 +13,7 @@ export function create(config, logger, context) {
          service = {url: service};
       }
       assert(service.url, 'url: ' + name);
-      service.name = 'url:' + name;
+      service.name = name;
       service.type = 'url';
       context.stores.service.add(service);
       logger.debug('service', service);
