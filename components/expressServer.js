@@ -16,6 +16,10 @@ export function create(config, logger, context) {
    logger.info('publishStores', config.publishStores);
    logger.info('publishLogging', config.publishLogging);
 
+   if (config.alertLink) {
+      context.stores.environment.alertLink = config.alertLink;
+   }
+
    async function getReport() {
       let report = {};
       config.publishComponents.forEach(async (name) => {
@@ -48,24 +52,26 @@ export function create(config, logger, context) {
    }
 
    function getPaths() {
-      let paths = [];
-      app._router.stack.forEach(middleware => {
-         if (middleware.route) {
-            paths.push(middleware.route.path);
-         }
-      });
-      return paths;
+      return app._router.stack.filter(middleware => middleware.route)
+         .map(middleware => middleware.route.path);
    }
 
    const those = {
       async pub() {
-         return null;
+         return { alertLink: config.alertLink };
       },
       async start() {
          app = express();
          app.get(config.location, async (req, res) => {
             try {
                res.json(await getReport());
+            } catch (err) {
+               res.status(500).send(err);
+            }
+         });
+         app.get(config.location + '/:serviceName', async (req, res) => {
+            try {
+               res.json(context.stores.service.pubName(req.params.serviceName));
             } catch (err) {
                res.status(500).send(err);
             }

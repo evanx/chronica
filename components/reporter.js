@@ -12,7 +12,7 @@ export function create(config, logger, context) {
       report = [await context.components.serviceReporter.serviceReport(), report];
       report = lodash.flattenDeep(report);
       report = lodash(report).filter(line => typeof line === 'string')
-      .map(line => line.replace(/\s\s+/g, ' ')).value();
+         .map(line => line.replace(/\s\s+/g, ' ')).value();
       logger.info('report', report);
       return report.join('\n');
    }
@@ -44,7 +44,7 @@ export function create(config, logger, context) {
       await context.components.systemReporter.minutely();
    }
 
-   async function alertReport() {
+   async function alertReport(service) {
       let report = await context.components.systemReporter.alertReport();
       return formatReport(report);
    }
@@ -108,15 +108,20 @@ export function create(config, logger, context) {
             delete that.intervalIds[id];
          });
       },
-      async sendAlert(subject, message) {
+      async sendServiceAlert(service, message) {
+         let subject = service.status + ' ' + service.name;
          logger.info('sendAlert', subject);
-         let report = await alertReport();
+         let report = await alertReport(service);
          if (lodash.isEmpty(message)) {
             message = report;
          } else {
             message += '\n\n' + report;
          }
-         await context.components.alerter.sendAlert(subject, message);
+         let link = null;
+         if (context.stores.environment.alertLink) {
+            link = context.stores.environment.alertLink + '/' + service.name;
+         }
+         await context.components.alerter.sendAlert(subject, message, link);
       }
    }
    return those;

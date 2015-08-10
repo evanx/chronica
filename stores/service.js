@@ -10,14 +10,26 @@ export function create() {
    };
 
    const those = {
+      pubService(service) {
+         return {
+            status: service.status,
+            alertedStatus: service.alertedStatus,
+            debug: service.debug
+         }
+      },
+      pubName(name) {
+         let service = state.services.get(name);
+         if (!service) {
+            throw 'Invalid service: ' + name;
+         } else {
+            logger.dev('pubName', name, service.name);
+            return those.pubService(service);
+         }
+      },
       async pub() {
          let reply = {};
-         for (let [key, value] of state.services) {
-            reply[key] = {
-               status: value.status,
-               alertedStatus: value.alertedStatus,
-               debug: value.debug
-            };
+         for (let [key, service] of state.services) {
+            reply[key] = those.pubService(service);
          }
          return reply;
       },
