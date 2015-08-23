@@ -61,15 +61,15 @@ see our `HtmlMonitor.yaml` class decorator:
 ```yaml
 class: HtmlMonitor
 source: HtmlMonitor.js
+assign: [regex] # merge config with default object properties
 defaults:
   timeout: 4000 # for HTTP request
   scheduledInterval: 45000 # check every 45 seconds
-  concat: [regex] # concat config with default array
   regex:
      title: <title>(.+)</title>
      canonicalLink: <link rel="canonical" href="([^"]+)"/>
 ```
-where we define the default regex for our page title and canonical link.
+where we define the default regex for our page title and canonical link, and will `Object.assign` any additional `regex` properties from `.chronica.yaml.`
 
 https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
 
