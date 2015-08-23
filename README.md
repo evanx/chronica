@@ -49,7 +49,7 @@ defaults:
      title: <title>(.+)</title>
      canonicalLink: <link rel="canonical" href="([^"]+)"/>
 ```
-(See: https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml)
+See: https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
 
 Example configuration for the JSON monitoring component:
 ```yaml
