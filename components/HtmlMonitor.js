@@ -51,9 +51,9 @@ export default class HtmlMonitor {
             value = lodash.trim(matcher[1]);
             service.debug[key] = value;
             assert.equal(value, service.content[key], key);
-            this.logger.debug('content', key, regex, value, expected);
+            this.logger.digest('content', key, regex, value, expected);
          } catch (err) {
-            this.logger.debug('content', key, regex, value, expected, err.message);
+            this.logger.digest('content', key, regex, value, expected, err.message);
             return err;
          }
       }).compact().value();
@@ -70,7 +70,7 @@ export default class HtmlMonitor {
          try {
             assert(content.indexOf(string) >= 0, key);
          } catch (err) {
-            this.logger.warn('checkContentContains', key, err.message);
+            this.logger.digest('checkContentContains', key, err.message);
             return err;
          }
       }).compact().value();
@@ -86,10 +86,10 @@ export default class HtmlMonitor {
          this.logger.debug('checkContentMatches', regex);
          try {
             let match = content.match(new RegExp(regex));
-            this.logger.info('checkContentMatches', match? Object.keys(match): null);
+            this.logger.digest('checkContentMatches', match? Object.keys(match): null);
             assert(match, key);
          } catch (err) {
-            this.logger.warn('checkContentMatches', key, err.message);
+            this.logger.digest('checkContentMatches', key, err.message);
             return err;
          }
       }).compact().value();
@@ -104,9 +104,9 @@ export default class HtmlMonitor {
       assert(lodash.startsWith(response.headers['content-type'], 'text/html'), 'content type');
       let contentLength = response.headers['content-length'];
       if (!contentLength) {
-         this.logger.verbose('response.headers', service.name, Object.keys(response.headers).join(', '));
+         this.logger.digest('response.headers', service.name, Object.keys(response.headers).join(', '));
       } else {
-         this.logger.verbose('content', service.name, contentLength, content.length);
+         this.logger.digest('content', service.name, contentLength, content.length);
          if (false) {
             assert.equal(parseInt(contentLength), content.toString().length, 'content length');
          }
