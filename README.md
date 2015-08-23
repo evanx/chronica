@@ -39,7 +39,17 @@ For HTML monitoring, we plan to add tests for:
 - meta tags
 - elements by CSS selectors, e.g. using cheerio
 
-See https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
+Currently we have defined default regex for page title and canonical link only:
+
+```yaml
+defaults:
+  timeout: 4000
+  scheduledInterval: 45000
+  regex:
+     title: <title>(.+)</title>
+     canonicalLink: <link rel="canonical" href="([^"]+)"/>
+```
+See: https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
 
 Example configuration for the JSON monitoring component:
 ```yaml
