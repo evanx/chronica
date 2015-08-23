@@ -92,6 +92,7 @@ export default class HtmlMonitor {
    }
 
    checkServiceContent(service, response, content) {
+      this.logger.debug('checkServiceContent', service.name);
       assert(!lodash.isEmpty(content), 'content');
       assert(lodash.startsWith(response.headers['content-type'], 'text/html'), 'content type');
       let contentLength = response.headers['content-length'];
