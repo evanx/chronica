@@ -33,11 +33,13 @@ urlMonitor:
 
 #### Work in progress
 - JSON content monitoring e.g. expected properties and their types
-- HTML content monitoring e.g. page title, canonical link (see `HtmlMonitor.yaml`)
+- HTML content monitoring e.g. page title, canonical link
 
 For HTML monitoring, we plan to add tests for:
 - meta tags
 - elements by CSS selectors, e.g. using cheerio
+
+See https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
 
 Example configuration for the JSON monitoring component:
 ```yaml
