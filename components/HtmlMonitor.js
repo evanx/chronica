@@ -39,20 +39,21 @@ export default class HtmlMonitor {
    }
 
    checkContentRegex(service, response, content) {
+      this.logger.debug('checkServiceRegex', service.name);
       let errors = lodash(service.content).keys().map(key => {
          let expected = service.content[key];
          let value;
+         let regex = this.config.regex[key];
          try {
-            let regex = this.config.regex[key];
             assert(regex, 'regex: ' + key);
             let matcher = content.match(new RegExp(regex));
             assert(matcher && matcher.length > 1, key);
             value = lodash.trim(matcher[1]);
             service.debug[key] = value;
             assert.equal(value, service.content[key], key);
-            this.logger.warn('content', key, value, expected);
+            this.logger.debug('content', key, regex, value, expected);
          } catch (err) {
-            this.logger.warn('content', key, value, expected, err.message);
+            this.logger.debug('content', key, regex, value, expected, err.message);
             return err;
          }
       }).compact().value();
@@ -62,6 +63,7 @@ export default class HtmlMonitor {
    }
 
    checkContentContains(service, response, content) {
+      this.logger.debug('checkServiceContains', service.name);
       let errors = lodash(service.contains).keys().map(key => {
          let string = service.contains[key];
          logger.dev('checkContentContains', string);
@@ -77,6 +79,7 @@ export default class HtmlMonitor {
    }
 
    checkContentMatches(service, response, content) {
+      this.logger.debug('checkServiceMatches', service.name);
       let errors = lodash(service.matches).keys().map(key => {
          let regex = service.matches[key];
          logger.dev('checkContentMatches', regex);
@@ -105,13 +108,13 @@ export default class HtmlMonitor {
          }
       }
       if (service.content) {
-         this.checkContentRegex(service.response, content);
+         this.checkContentRegex(service, response, content);
       }
       if (service.contains) {
-         this.checkContentContains(service.response, content);
+         this.checkContentContains(service, response, content);
       }
       if (service.matches) {
-         this.checkContentMatches(service.response, content);
+         this.checkContentMatches(service, response, content);
       }
    }
 
@@ -146,7 +149,10 @@ export default class HtmlMonitor {
             message: err.message || err,
             time: new Date()
          };
-         this.logger.verbose('checkService', service.name, err);
+         if (err.stack) {
+            this.logger.debug('checkService', service.name, err);
+            this.logger.vdebug(err.stack);
+         }
          this.context.components.tracker.processStatus(service, 'WARN', err.message);
       }
    }

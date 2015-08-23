@@ -64,6 +64,7 @@ source: HtmlMonitor.js
 defaults:
   timeout: 4000 # for HTTP request
   scheduledInterval: 45000 # check every 45 seconds
+  concat: [regex] # concat config with default array
   regex:
      title: <title>(.+)</title>
      canonicalLink: <link rel="canonical" href="([^"]+)"/>

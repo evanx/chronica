@@ -4,6 +4,7 @@ asserts:
 defaults:
   timeout: 4000
   scheduledInterval: 45000
+  concat: [regex]
   regex:
      title: <title>(.+)</title>
      canonicalLink: <link rel="canonical" href="([^"]+)"/>
