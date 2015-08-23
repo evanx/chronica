@@ -41,18 +41,21 @@ htmlMonitor:
    scheduledInterval: 45000 # check every 45 seconds
    services:
       google:
-         url: http://www.google.com
+         url: http://mynews.com/my-test-article
          headers:
             User-Agent: facebookexternalhit # test facebook sharing
          content:
-            title: "Google"
+            title: "My test article about nothing"
 ```
+where we wish to test Facebook sharing in the above example, so we specify `facebookexternalhit` as the user-agent, via the ExpressJS `headers` to use for the HTTP request.
 
 For HTML monitoring, we plan to add tests for:
 - elements by CSS selectors, e.g. using cheerio
 
-The `HtmlMonitor` component has defined defaults for regex for the `content` extracts e.g. for page title and canonical link:
+The `HtmlMonitor` component has defined defaults for regex for the `content` extracts e.g. for page title and canonical link in our `HtmlMonitor.yaml` class decorator:
 ```yaml
+class: HtmlMonitor
+source: HtmlMonitor.js
 defaults:
   timeout: 4000 # for HTTP request
   scheduledInterval: 45000 # check every 45 seconds
