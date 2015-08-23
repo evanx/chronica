@@ -40,7 +40,6 @@ For HTML monitoring, we plan to add tests for:
 - elements by CSS selectors, e.g. using cheerio
 
 The `HtmlMonitor` component has defined defaults for regex for page title and canonical link only:
-
 ```yaml
 defaults:
   timeout: 4000
