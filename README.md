@@ -5,6 +5,8 @@
 
 For example, at a specified interval we send an HTTP HEAD request, and check that the status code is 200.
 
+Furthermore, we can check the content for correctness - JSON or HTML.
+
 Alerts are sent to specified email addresses and/or a Slack channel via your Slackbot.
 
 A single YAML configuration file is used for all the components of the app.
