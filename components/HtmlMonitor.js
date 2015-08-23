@@ -50,9 +50,9 @@ export default class HtmlMonitor {
             value = lodash.trim(matcher[1]);
             service.debug[key] = value;
             assert.equal(value, service.content[key], key);
-            this.logger.debug('content', key, value, expected);
+            this.logger.warn('content', key, value, expected);
          } catch (err) {
-            this.logger.debug('content', key, value, expected, err.message);
+            this.logger.warn('content', key, value, expected, err.message);
             return err;
          }
       }).compact().value();

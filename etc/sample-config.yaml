@@ -17,11 +17,14 @@ htmlMonitor:
    loggerLevel: debug
    scheduledTimeout: 2000 # initial check after 2 seconds
    scheduledInterval: 45000 # check every 45 seconds
+   regex:
+     description: <meta name="description" content="(.*)">
    services:
       google:
          url: http://www.google.com
          content:
             title: "Google"
+            description: "Google"
       guardian-share:  # test facebook share
          url: http://www.theguardian.com/world/2014/apr/11/journalists-nsa-guardian-polk-award-snowden
          headers:

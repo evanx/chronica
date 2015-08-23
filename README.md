@@ -30,6 +30,7 @@ urlMonitor:
 - too immature for a stable release
 - no database, history or fancy graphs
 - requires restart for config changes to take effect
+- incomplete, e.g. HTTP POST checks not yet implemented
 
 ---
 <img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
@@ -71,7 +72,8 @@ where we define the default regex for our page title and canonical link.
 
 https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
 
-##### Custom regex
+
+#### Custom regex
 
 You can add custom regex in your `.chronica.yaml` as follows:
 ```yaml
@@ -83,9 +85,6 @@ htmlMonitor:
 ```
 Then `description` can then be used for a `content` check e.g.:
 ```yaml
-htmlMonitor:
-   regex:
-     description: <meta name="description" content="(.*)">
    services:
       beta:
          url: http://beta.iol.co.za
