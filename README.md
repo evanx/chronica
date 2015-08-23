@@ -22,7 +22,7 @@ urlMonitor:
 - YAML configuration
 - Slack integration
 - built for Node using ES6/7 via Babel
-- modular design
+- modular design, so readily extensible
 - JSON content monitoring e.g. expected properties and their types
 - HTML content monitoring e.g. page title, canonical link etc.
 
