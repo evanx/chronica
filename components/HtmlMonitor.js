@@ -52,17 +52,20 @@ export default class HtmlMonitor {
       }
       if (service.content) {
          let errors = lodash(service.content).keys().map(key => {
+            let expected = service.content[key];
+            let value;
             try {
                let regex = this.config.regex[key];
                let assertLabel = 'regex: ' + key;
                assert(regex, assertLabel);
                let matcher = content.match(new RegExp(regex));
                assert(matcher && matcher.length > 1, assertLabel);
-               let value = lodash.trim(matcher[1]);
+               value = lodash.trim(matcher[1]);
                service.debug[key] = value;
                assert.equal(value, service.content[key], assertLabel);
+               this.logger.debug('content', key, value, expected);
             } catch (err) {
-               this.logger.warn('content', err.message);
+               this.logger.warn('content', key, value, expected, err.message);
                return err;
             }
          }).compact().value();
