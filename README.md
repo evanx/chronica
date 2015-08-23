@@ -29,6 +29,7 @@ urlMonitor:
 #### Cons
 - too immature for a stable release
 - no database, history or fancy graphs
+- requires restart for config changes to take effect
 
 ---
 <img src="http://evanx.github.io/images/chronica/chronica-slack.png" width="800" border="1"/>
