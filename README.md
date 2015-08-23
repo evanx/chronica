@@ -61,7 +61,7 @@ see our `HtmlMonitor.yaml` class decorator:
 ```yaml
 class: HtmlMonitor
 source: HtmlMonitor.js
-assign: [regex] # merge config with default object properties
+assign: [regex] # merge properties from defaults.regex into config.regex
 defaults:
   timeout: 4000 # for HTTP request
   scheduledInterval: 45000 # check every 45 seconds
