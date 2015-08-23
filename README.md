@@ -50,12 +50,13 @@ htmlMonitor:
          content:
             title: "My test article about nothing"
 ```
-where we wish to test Facebook sharing in the above example, so we specify `facebookexternalhit` as the user-agent, via the ExpressJS `headers` to use for the HTTP request.
+where we wish to test Facebook sharing and so specify `facebookexternalhit` as the user-agent, via the ExpressJS `headers` for the HTTP request.
 
 For HTML monitoring, we plan to add tests for:
 - elements by CSS selectors, e.g. using cheerio
 
-The `HtmlMonitor` component has defined defaults for regex for the `content` extracts e.g. for page title and canonical link in our `HtmlMonitor.yaml` class decorator:
+The `HtmlMonitor` component has defined defaults for regex for the `content` values. In particular,
+see our `HtmlMonitor.yaml` class decorator:
 ```yaml
 class: HtmlMonitor
 source: HtmlMonitor.js
@@ -66,7 +67,9 @@ defaults:
      title: <title>(.+)</title>
      canonicalLink: <link rel="canonical" href="([^"]+)"/>
 ```
-See: https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
+where we define the default regex for our page title and canonical link.
+
+https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
 
 You can add custom regex in your `.chronica.yaml` as follows:
 ```yaml
