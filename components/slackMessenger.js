@@ -45,14 +45,14 @@ export function create(config, logger, context) {
             if (!bot.label) {
                bot.label = bot.name;
             }
-            logger.debug('bot', bot);
+            logger.info('bot', bot);
             return bot;
          });
       },
       async end() {
       },
       async sendAlert(subject, message) {
-         logger.info('sendAlert', {subject, message});
+         logger.info('sendAlert', {subject, message}, config.bots.map(bot => bot.name).join(', '));
          if (lodash.isEmpty(message)) {
             logger.debug('sendAlert empty message', subject);
          }
