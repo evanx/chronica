@@ -3,7 +3,7 @@
 
 <b>A Node daemon to monitor your JSON services and web sites - their status and content.</b>
 
-For example, at a specified interval we send an HTTP HEAD request, and check that the status code is 200.
+For example, at a specified interval we send an HTTP HEAD request, and check that the status code is 200 (or 403, if so specified).
 
 Furthermore, we can check the content for correctness - JSON or HTML.
 
@@ -24,7 +24,7 @@ urlMonitor:
 - built for Node using ES6/7 via Babel
 - modular design
 - JSON content monitoring e.g. expected properties and their types
-- HTML content monitoring e.g. page title, canonical link
+- HTML content monitoring e.g. page title, canonical link etc.
 
 #### Cons
 - too immature for a stable release
@@ -194,7 +194,7 @@ The debounce count is important for debouncing flaky services where we expect su
 
 We have implemented three monitoring components, namely for
 - URL monitoring
-- HTML content monitoring e.g. the `<title>` element
+- HTML content monitoring e.g. the `<title>` element or some other regex
 - JSON content monitoring e.g. expected properties and their types
 
 ```yaml
@@ -244,6 +244,7 @@ jsonMonitor:
 ```
 
 See https://github.com/evanx/chronica/blob/master/sample-config.yaml
+
 
 ### Running
 
