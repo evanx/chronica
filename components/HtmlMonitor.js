@@ -51,25 +51,23 @@ export default class HtmlMonitor {
          }
       }
       if (service.content) {
-         let checked = false;
-         if (service.content.title) {
-            checked = true;
-            let titleMatcher = content.match(/<title>(.+)<\/title>/);
-            assert(titleMatcher && titleMatcher.length > 1, 'title');
-            let title = lodash.trim(titleMatcher[1]);
-            service.debug.title = title;
-            assert.equal(title, service.content.title, 'title');
-         }
-         if (service.content.canonicalLink) {
-            checked = true;
-            let matcher = content.match(/<link rel="canonical" href="([^"]+)"\/>/);
-            assert(matcher && matcher.length > 1, 'canonicalLink');
-            let canonicalLink = lodash.trim(matcher[1]);
-            service.debug.canonicalLink = canonicalLink;
-            assert.equal(canonicalLink, service.content.canonicalLink, 'canonicalLink');
-         }
-         if (!checked) {
-            this.logger.debug('checkService', service.name, content.length);
+         let errors = lodash(service.content).keys().map(key => {
+            try {
+               let regex = this.config.regex[key];
+               let assertLabel = 'regex: ' + key;
+               assert(regex, assertLabel);
+               let matcher = content.match(new RegExp(regex));
+               assert(matcher && matcher.length > 1, assertLabel);
+               let value = lodash.trim(matcher[1]);
+               service.debug[key] = value;
+               assert.equal(value, service.content[key], assertLabel);
+            } catch (err) {
+               this.logger.warn('content', err);
+               return {key: key, error: err.message};
+            }
+         }).compact().value();
+         if (errors.length) {
+            service.debug.errors = errors;
          }
       }
    }
