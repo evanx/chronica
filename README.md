@@ -71,7 +71,7 @@ where we define the default regex for our page title and canonical link.
 
 https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
 
-#### Custom regex
+##### Custom regex
 
 You can add custom regex in your `.chronica.yaml` as follows:
 ```yaml
