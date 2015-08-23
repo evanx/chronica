@@ -39,7 +39,7 @@ For HTML monitoring, we plan to add tests for:
 - meta tags
 - elements by CSS selectors, e.g. using cheerio
 
-Currently we have defined default regex for page title and canonical link only:
+The `HtmlMonitor` component has defined defaults for regex for page title and canonical link only:
 
 ```yaml
 defaults:
@@ -49,7 +49,7 @@ defaults:
      title: <title>(.+)</title>
      canonicalLink: <link rel="canonical" href="([^"]+)"/>
 ```
-See: https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
+(See: https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml)
 
 Example configuration for the JSON monitoring component:
 ```yaml
