@@ -65,7 +65,7 @@ export default class HtmlMonitor {
                assert.equal(value, service.content[key], assertLabel);
                this.logger.debug('content', key, value, expected);
             } catch (err) {
-               this.logger.warn('content', key, value, expected, err.message);
+               this.logger.debug('content', key, value, expected, err.message);
                return err;
             }
          }).compact().value();
