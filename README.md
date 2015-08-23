@@ -1,7 +1,7 @@
 
 ## Chronica
 
-A Node daemon to monitor your JSON services and web sites.
+A Node daemon to monitor your JSON services and web sites - status and content.
 
 For example, at a specified interval we send an HTTP HEAD request, and check that the status code is 200.
 
