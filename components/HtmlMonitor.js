@@ -66,10 +66,11 @@ export default class HtmlMonitor {
       this.logger.debug('checkServiceContains', service.name);
       let errors = lodash(service.contains).keys().map(key => {
          let string = service.contains[key];
-         logger.dev('checkContentContains', string);
+         this.logger.debug('checkContentContains', string);
          try {
+            assert(content.indexOf(string) >= 0, key);
          } catch (err) {
-            this.logger.debug('content', key, err.message);
+            this.logger.warn('checkContentContains', key, err.message);
             return err;
          }
       }).compact().value();
@@ -82,10 +83,13 @@ export default class HtmlMonitor {
       this.logger.debug('checkServiceMatches', service.name);
       let errors = lodash(service.matches).keys().map(key => {
          let regex = service.matches[key];
-         logger.dev('checkContentMatches', regex);
+         this.logger.debug('checkContentMatches', regex);
          try {
+            let match = content.match(new RegExp(regex));
+            this.logger.info('checkContentMatches', match? Object.keys(match): null);
+            assert(match, key);
          } catch (err) {
-            this.logger.debug('content', key, err.message);
+            this.logger.warn('checkContentMatches', key, err.message);
             return err;
          }
       }).compact().value();
@@ -150,7 +154,6 @@ export default class HtmlMonitor {
             time: new Date()
          };
          if (err.stack) {
-            this.logger.debug('checkService', service.name, err);
             this.logger.vdebug(err.stack);
          }
          this.context.components.tracker.processStatus(service, 'WARN', err.message);
