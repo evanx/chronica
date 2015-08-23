@@ -21,6 +21,8 @@ urlMonitor:
 - Slack integration
 - built for Node using ES6/7 via Babel
 - modular design
+- JSON content monitoring e.g. expected properties and their types
+- HTML content monitoring e.g. page title, canonical link
 
 #### Cons
 - too immature for a stable release
@@ -31,37 +33,7 @@ urlMonitor:
 
 ---
 
-#### Work in progress
-- JSON content monitoring e.g. expected properties and their types
-- HTML content monitoring e.g. page title, canonical link
-
-For HTML monitoring, we plan to add tests for:
-- meta tags
-- elements by CSS selectors, e.g. using cheerio
-
-The `HtmlMonitor` component has defined defaults for regex for page title and canonical link only:
-```yaml
-defaults:
-  timeout: 4000
-  scheduledInterval: 45000
-  regex:
-     title: <title>(.+)</title>
-     canonicalLink: <link rel="canonical" href="([^"]+)"/>
-```
-See: https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
-
-Example configuration for the JSON monitoring component:
-```yaml
-jsonMonitor: # name of the component instance
-   scheduledInterval: 45000 # check every 45 seconds
-   services:
-      hn-api:
-         url: https://hacker-news.firebaseio.com/v0/item/160705.json
-         required: # ensure that the JSON response has the following props/types
-            id: string
-            time: integer
-            type: string
-```
+### HTML monitoring
 
 Example configuration for the HTML monitoring component:
 ```yaml
@@ -74,6 +46,55 @@ htmlMonitor:
             User-Agent: facebookexternalhit # test facebook sharing
          content:
             title: "Google"
+```
+
+For HTML monitoring, we plan to add tests for:
+- elements by CSS selectors, e.g. using cheerio
+
+The `HtmlMonitor` component has defined defaults for regex for the `content` extracts e.g. for page title and canonical link:
+```yaml
+defaults:
+  timeout: 4000 # for HTTP request
+  scheduledInterval: 45000 # check every 45 seconds
+  regex:
+     title: <title>(.+)</title>
+     canonicalLink: <link rel="canonical" href="([^"]+)"/>
+```
+See: https://github.com/evanx/chronica/blob/master/components/HtmlMonitor.yaml
+
+You can add custom regex in your `.chronica.yaml` as follows:
+```yaml
+htmlMonitor:
+   class: HtmlMonitor
+   loggerLevel: debug
+   regex:
+     description: <meta name="description" content="(.*)">
+```
+Then `description` can then be used for a `content` check e.g.:
+```yaml
+htmlMonitor:
+   regex:
+     description: <meta name="description" content="(.*)">
+   services:
+      beta:
+         url: http://beta.iol.co.za
+         content:
+            description: Independent Online
+```
+
+### JSON monitoring
+
+Example configuration for the JSON monitoring component:
+```yaml
+jsonMonitor: # name of the component instance
+   scheduledInterval: 45000 # check every 45 seconds
+   services:
+      hn-api:
+         url: https://hacker-news.firebaseio.com/v0/item/160705.json
+         required: # ensure that the JSON response has the following props/types
+            id: string
+            time: integer
+            type: string
 ```
 
 ### Installing

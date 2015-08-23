@@ -38,7 +38,60 @@ export default class HtmlMonitor {
       }
    }
 
-   checkContent(service, response, content) {
+   checkContentRegex(service, response, content) {
+      let errors = lodash(service.content).keys().map(key => {
+         let expected = service.content[key];
+         let value;
+         try {
+            let regex = this.config.regex[key];
+            assert(regex, 'regex: ' + key);
+            let matcher = content.match(new RegExp(regex));
+            assert(matcher && matcher.length > 1, key);
+            value = lodash.trim(matcher[1]);
+            service.debug[key] = value;
+            assert.equal(value, service.content[key], key);
+            this.logger.debug('content', key, value, expected);
+         } catch (err) {
+            this.logger.debug('content', key, value, expected, err.message);
+            return err;
+         }
+      }).compact().value();
+      if (errors.length) {
+         throw errors[0];
+      }
+   }
+
+   checkContentContains(service, response, content) {
+      let errors = lodash(service.contains).keys().map(key => {
+         let string = service.contains[key];
+         logger.dev('checkContentContains', string);
+         try {
+         } catch (err) {
+            this.logger.debug('content', key, err.message);
+            return err;
+         }
+      }).compact().value();
+      if (errors.length) {
+         throw errors[0];
+      }
+   }
+
+   checkContentMatches(service, response, content) {
+      let errors = lodash(service.matches).keys().map(key => {
+         let regex = service.matches[key];
+         logger.dev('checkContentMatches', regex);
+         try {
+         } catch (err) {
+            this.logger.debug('content', key, err.message);
+            return err;
+         }
+      }).compact().value();
+      if (errors.length) {
+         throw errors[0];
+      }
+   }
+
+   checkServiceContent(service, response, content) {
       assert(!lodash.isEmpty(content), 'content');
       assert(lodash.startsWith(response.headers['content-type'], 'text/html'), 'content type');
       let contentLength = response.headers['content-length'];
@@ -51,27 +104,13 @@ export default class HtmlMonitor {
          }
       }
       if (service.content) {
-         let errors = lodash(service.content).keys().map(key => {
-            let expected = service.content[key];
-            let value;
-            try {
-               let regex = this.config.regex[key];
-               let assertLabel = key;
-               assert(regex, assertLabel);
-               let matcher = content.match(new RegExp(regex));
-               assert(matcher && matcher.length > 1, assertLabel);
-               value = lodash.trim(matcher[1]);
-               service.debug[key] = value;
-               assert.equal(value, service.content[key], assertLabel);
-               this.logger.debug('content', key, value, expected);
-            } catch (err) {
-               this.logger.debug('content', key, value, expected, err.message);
-               return err;
-            }
-         }).compact().value();
-         if (errors.length) {
-            throw errors[0];
-         }
+         this.checkContentRegex(service.response, content);
+      }
+      if (service.contains) {
+         this.checkContentContains(service.response, content);
+      }
+      if (service.matches) {
+         this.checkContentMatches(service.response, content);
       }
    }
 
@@ -98,7 +137,7 @@ export default class HtmlMonitor {
             assert.equal(response.statusCode, 200, 'statusCode');
          }
          if (response.statusCode === 200) {
-            this.checkContent(service, response, content);
+            this.checkServiceContent(service, response, content);
          }
          await this.context.components.tracker.processStatus(service, 'OK');
       } catch (err) {
