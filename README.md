@@ -33,11 +33,10 @@ urlMonitor:
 
 #### Work in progress
 - JSON content monitoring e.g. expected properties and their types
-- HTML content monitoring e.g. currently only page title
+- HTML content monitoring e.g. page title, canonical link (see `HtmlMonitor.yaml`)
 
-For HTML monitoring we plan to add tests for:
+For HTML monitoring, we plan to add tests for:
 - meta tags
-- content regex
 - elements by CSS selectors, e.g. using cheerio
 
 Example configuration for the JSON monitoring component:
