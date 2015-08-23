@@ -22,7 +22,7 @@ export function create() {
          if (!service) {
             throw 'Invalid service: ' + name;
          } else {
-            logger.dev('pubName', name, service.name);
+            logger.debug('pubName', name, service.name);
             return those.pubService(service);
          }
       },
