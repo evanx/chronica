@@ -62,12 +62,13 @@ export default class HtmlMonitor {
                service.debug[key] = value;
                assert.equal(value, service.content[key], assertLabel);
             } catch (err) {
-               this.logger.warn('content', err);
-               return {key: key, error: err.message};
+               service.
+               this.logger.warn('content', err.message);
+               return err;
             }
          }).compact().value();
          if (errors.length) {
-            service.debug.errors = errors;
+            throw errors[0];
          }
       }
    }
