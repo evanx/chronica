@@ -3,4 +3,6 @@
 
 require('babel/register')({stage: 0});
 Object.assign(global, require('./util/Utils'));
+global.Redis = require('./util/Redis');
+global.YamlFiles = require('./util/YamlFiles');
 require('./lib/ApplicationConfigurator');
