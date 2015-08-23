@@ -1,6 +1,8 @@
 requiredComponents: [ tracker ]
 asserts:
-   services: object
+   services:
+      eachProp:
+         url: string
 defaults:
   timeout: 4000
   scheduledInterval: 45000

@@ -51,13 +51,24 @@ export default class HtmlMonitor {
          }
       }
       if (service.content) {
+         let checked = false;
          if (service.content.title) {
+            checked = true;
             let titleMatcher = content.match(/<title>(.+)<\/title>/);
             assert(titleMatcher && titleMatcher.length > 1, 'title');
             let title = lodash.trim(titleMatcher[1]);
             service.debug.title = title;
             assert.equal(title, service.content.title, 'title');
-         } else {
+         }
+         if (service.content.canonicalLink) {
+            checked = true;
+            let matcher = content.match(/<link rel="canonical" href="([^"]+)"\/>/);
+            assert(matcher && matcher.length > 1, 'canonicalLink');
+            let canonicalLink = lodash.trim(matcher[1]);
+            service.debug.canonicalLink = canonicalLink;
+            assert.equal(canonicalLink, service.content.canonicalLink, 'canonicalLink');
+         }
+         if (!checked) {
             this.logger.debug('checkService', service.name, content.length);
          }
       }
