@@ -56,7 +56,7 @@ export default class HtmlMonitor {
             let value;
             try {
                let regex = this.config.regex[key];
-               let assertLabel = 'regex: ' + key;
+               let assertLabel = key;
                assert(regex, assertLabel);
                let matcher = content.match(new RegExp(regex));
                assert(matcher && matcher.length > 1, assertLabel);
