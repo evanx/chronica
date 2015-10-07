@@ -203,6 +203,9 @@ We have implemented three monitoring components, namely:
 - HTML content monitoring e.g. the `<title>` element or some other regex
 - JSON content monitoring e.g. expected properties and their types
 
+
+#### URL HTTP status monitor
+
 ```yaml
 urlMonitor:
   interval: 45000 # check status every 45 seconds
@@ -216,6 +219,8 @@ where the HTML title check is equivalent to the following `curl` command:
 ```shell
 curl -sIL https://news.ycombinator.com | grep '^HTTP'
 ```
+
+#### HTML content monitor
 
 ```yaml
 htmlMonitor:
@@ -233,6 +238,8 @@ where the HTML title check is equivalent to the following `curl` command:
 ```shell
 curl -sL google.com | grep '<title>' | head -1 | sed 's/.*<title>\([^<]*\).*/\1/'
 ```
+
+#### JSON endpoint monitor
 
 ```yaml
 jsonMonitor:
