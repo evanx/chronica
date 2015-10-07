@@ -139,7 +139,7 @@ evans@boromir:~/chronica$ cat .gitmodules
 	url = https://github.com/evanx/redexutil
 [submodule "scripts"]
 	path = scripts
-	url = https://github.com/evanx/chronica-script
+	url = https://github.com/evanx/chronica-scripts
 ```
 
 These might be, but should not be, `git@github.com` URLs e.g. `git@github.com:evanx/redexutil.git`
