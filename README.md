@@ -44,7 +44,7 @@ Example configuration for the HTML monitoring component:
 htmlMonitor:
    scheduledInterval: 45000 # check every 45 seconds
    services:
-      google:
+      mynews-facebook-sharing:
          url: http://mynews.com/my-test-article
          headers:
             User-Agent: facebookexternalhit # test facebook sharing
