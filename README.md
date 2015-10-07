@@ -198,7 +198,7 @@ tracker: # tracks the status and decides if and when the send an email alert
 
 The debounce count is important for debouncing flaky services where we expect suprious errors, and only want to be alerted when the service appears to go down and stay down (or stay up).
 
-We have implemented three monitoring components, namely for
+We have implemented three monitoring components, namely:
 - URL monitoring
 - HTML content monitoring e.g. the `<title>` element or some other regex
 - JSON content monitoring e.g. expected properties and their types
