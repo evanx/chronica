@@ -128,7 +128,7 @@ In order to use these scripts, you should install `bunyan` and `pm2` globally:
 
 #### git submodules
 
-The `util/` and 'scripts/` directories are git submodules.
+The `util/` and `scripts/` directories are git submodules.
 
 See `.gitmodules` and `.git/config`
 
