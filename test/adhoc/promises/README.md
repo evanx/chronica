@@ -12,7 +12,9 @@ const tests = {
       throw key;
    },
 ```
-where we pass each test its own key. According to its prefix being either `return` or `throws,` we expect it to either return or throw this key. Any test that throws or returns any other object is considered a failure. We aim to predict correctly how the test will behave i.e. either `return` its `key` argument, or `throw` it, according to its prefix.
+where we pass each test its own key. According to its prefix being either `return` or `throws,` we expect it to either return or throw this key. Any test that throws or returns any other object is considered a failure. 
+
+We aim to predict how the test will behave i.e. either return or thow its key, according to its prefix, so that all tests pass.
 
 ```javascript
    returnsSwallows(key) { // programmer beware: promises can swallow errors
@@ -22,6 +24,8 @@ where we pass each test its own key. According to its prefix being either `retur
 },
 ```
 where we throw an error in that promise's resolve function to simulate an error therein.
+
+We use the string literal value 'any' to indicate that this value has no bearing on the test.
 
 We test returning promises as follows:
 ```javascript
@@ -38,7 +42,9 @@ We test returning promises as follows:
 ```
 where the `Async` suffix indicates an ES7 async function implementation for the test.
 
-Note that the returned promises are await'ed, and so are converted into their resolved values as per ES7 proposal.
+If any string literal is thrown, the test definitely fails, since this is not the key.
+
+Note that the returned promises that are await'ed, are converted into their resolved values as per the ES7 proposal.
 
 ```javascript
    async throwsAwaitAsync(key) { // best practice: await promise and catch errors locally
