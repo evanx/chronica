@@ -12,10 +12,8 @@ const tests = {
       throw key;
    },
 ```
-where we pass each test its own key. According to its prefix, we expect it to either return or throw this key.
-Any test that throws or returns any other object is considered a failure.
+where we pass each test its own key. According to its prefix being either `return` or `throws,` we expect it to either return or throw this key. Any test that throws or returns any other object is considered a failure. We aim to predict correctly how the test will behave i.e. either `return` its `key` argument, or `throw` it, according to its prefix.
 
-The suffix is `Async` if it is an ES7 async function (proposed, stage 0).
 ```javascript
    returnsSwallows(key) { // programmer beware: promises can swallow errors
       // so you should have promise.catch() if not returning the promise
@@ -23,7 +21,7 @@ The suffix is `Async` if it is an ES7 async function (proposed, stage 0).
       return key;
 },
 ```
-where we throw an error in our promise resolved function to simulate an error therein.
+where we throw an error in that promise's resolve function to simulate an error therein.
 
 We test returning promises as follows:
 ```javascript
@@ -38,6 +36,8 @@ We test returning promises as follows:
      }
    },
 ```
+where the `Async` suffix indicates an ES7 async function implementation for the test.
+
 Note that the returned promises are await'ed, and so are converted into their resolved values as per ES7 proposal.
 
 ```javascript
