@@ -7,6 +7,7 @@ if (process.argv.length > 3 && process.argv[3] === 'debug') {
 }
 require('babel/register')({stage: 0});
 Object.assign(global, require('./util/Utils'));
+global.Files = require('./util/Files');
 global.Redis = require('./util/Redis');
 global.YamlFiles = require('./util/YamlFiles');
 require('./lib/ApplicationConfigurator');
