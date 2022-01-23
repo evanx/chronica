@@ -20,14 +20,14 @@
   "dependencies": {
     "babel": "^6.23.0",
     "bunyan": "^1.4.0",
-    "eslint": "^6.2.2",
+    "eslint": "^8.7.0",
     "express": "^4.13.1",
     "immutable": "~3.7.4",
     "js-yaml": "^3.3.1",
     "lodash": "^4.17.15",
     "mkdirp": "^0.5.1",
     "nodemailer": "^6.6.1",
-    "pm2": "^3.5.1",
+    "pm2": "^5.1.2",
     "redis": "^0.12.1",
     "request": "^2.54.0"
   }
